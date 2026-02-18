@@ -7,49 +7,32 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="marcas">
-  <div class="container">
-
-    <div class="top">
-      <div>
-        <!-- Botão de voltar com seta apenas para ficar compacto -->
-        <button class="btnSmall" onclick="voltarHome()">←</button>
-        <h1 id="marcaTitulo">Marca</h1>
-        <p>Selecione o KBD</p>
-      </div>
-
-      <div class="setorBox">
-        <div class="small">SETOR</div>
-        <div id="setorBadge" class="badge">---</div>
-      </div>
+  <!-- Cabeçalho simples com botão voltar e título da marca -->
+  <header class="appBar">
+    <button class="iconBtn" onclick="voltarHome()" aria-label="Voltar">←</button>
+    <div class="appBarTitle" id="marcaTitulo">Marca</div>
+    <div class="appBarRight">
+      <div class="chip" id="topbarSetor">---</div>
     </div>
+  </header>
 
-    <div id="listaKbds" class="lista"></div>
-
+  <div class="container appContent">
+    <div class="lista" id="listaKbds"></div>
   </div>
+
+  <!-- Barra de navegação inferior -->
+  <nav class="bottomNav" aria-label="Navegação">
+    <button class="navItem" data-nav="home"><span class="navIcon">🏠</span><span>Home</span></button>
+    <button class="navItem" data-nav="marcas"><span class="navIcon">📚</span><span>Marcas</span></button>
+    <button class="navItem" data-nav="quiz"><span class="navIcon">📝</span><span>Quiz</span></button>
+  </nav>
 
   <script src="app.js"></script>
   <script>
     renderMarca();
-  </script>
-
-  <!-- Barra de navegação inferior -->
-  <nav class="bottomNav">
-    <a href="home.html" data-target="home">
-      <span class="icon">🏠</span>
-      Home
-    </a>
-    <a href="home.html" data-target="marcas">
-      <span class="icon">🏷️</span>
-      Marcas
-    </a>
-    <a href="quiz.html" data-target="quiz">
-      <span class="icon">🧠</span>
-      Quiz
-    </a>
-  </nav>
-  <script>
+    document.getElementById('topbarSetor').textContent = getSetor();
     if (typeof initBottomNav === 'function') {
-      initBottomNav();
+      initBottomNav('marcas');
     }
   </script>
 </body>

@@ -6,7 +6,7 @@
   <title>Home - Missão KBD</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body data-page="home">
+<body>
 
   <!-- Barra Superior -->
   <div class="topbar">
@@ -27,34 +27,22 @@
     </div>
   </div>
 
+  <!-- Barra de navegação inferior -->
+  <nav class="bottomNav" aria-label="Navegação">
+    <button class="navItem" data-nav="home"><span class="navIcon">🏠</span><span>Home</span></button>
+    <button class="navItem" data-nav="marcas"><span class="navIcon">📚</span><span>Marcas</span></button>
+    <button class="navItem" data-nav="quiz"><span class="navIcon">📝</span><span>Quiz</span></button>
+  </nav>
+
   <script src="app.js"></script>
   <script>
     if (typeof renderHome === 'function') {
       renderHome();
       document.getElementById('topbarSetor').textContent = getSetor();
     }
-  </script>
-
-  <!-- Barra de navegação inferior -->
-  <nav class="bottomNav">
-    <a href="home.html" data-target="home">
-      <span class="icon">🏠</span>
-      Home
-    </a>
-    <a href="home.html" data-target="marcas">
-      <span class="icon">🏷️</span>
-      Marcas
-    </a>
-    <a href="quiz.html" data-target="quiz">
-      <span class="icon">🧠</span>
-      Quiz
-    </a>
-  </nav>
-
-  <script>
-    // Inicializa a barra de navegação inferior
+    // inicializa a barra de navegação destacando a página Home
     if (typeof initBottomNav === 'function') {
-      initBottomNav();
+      initBottomNav('home');
     }
   </script>
 </body>

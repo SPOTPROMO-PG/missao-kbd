@@ -3,86 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>KBD - Aula</title>
+  <title>Aula - Missão KBD</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="kbd">
-  <div class="container">
+  <!-- Barra superior com voltar, título do KBD e setor -->
+  <header class="appBar">
+    <button class="iconBtn" onclick="voltarMarca()" aria-label="Voltar">←</button>
+    <div class="appBarTitle" id="kbdHeaderTitle">KBD</div>
+    <div class="appBarRight">
+      <div class="chip" id="kbdSetorBadge">---</div>
+    </div>
+  </header>
 
-    <div class="top">
+  <main class="container appContent">
+    <!-- Nome do KBD e marca -->
+    <div class="pageHeader">
       <div>
-        <button class="btnSmall" onclick="voltarMarca()">← Voltar</button>
-        <h1 id="kbdTitulo">KBD</h1>
-        <!-- Subtítulo removido para uma experiência mais limpa -->
-        <p class="small" id="marcaNome"></p>
-      </div>
-
-      <div class="setorBox">
-        <div class="small">SETOR</div>
-        <div id="setorBadge" class="badge">---</div>
+        <div class="formTitle" id="kbdTitle">KBD</div>
+        <div class="formSubtitle" id="marcaNome">Marca</div>
       </div>
     </div>
 
-    <!-- VIDEO -->
-    <div class="videoBox">
-      <div id="videoPlaceholder" class="videoPlaceholder">
-        🎬 Vídeo em breve
-        <div class="small">Enquanto isso, veja as imagens abaixo</div>
+    <!-- Vídeo -->
+    <div class="mediaSection">
+      <div class="videoBox">
+        <div id="videoPlaceholder" class="videoPlaceholder">
+          🎬 Vídeo em breve
+          <div class="small">Enquanto isso, veja as imagens abaixo</div>
+        </div>
+        <iframe id="videoFrame" allowfullscreen></iframe>
       </div>
-
-      <iframe
-        id="videoFrame"
-        allowfullscreen>
-      </iframe>
     </div>
 
-    <!-- IMAGENS -->
-    <div id="imagensKbd" class="imageRow"></div>
+    <!-- Imagens -->
+    <div class="mediaSection">
+      <div id="imagensKbd" class="imageRow"></div>
+    </div>
 
-    <!-- BOTÃO QUIZ -->
-    <button class="btnPrimary" onclick="irParaQuiz()">
-      QUERO RESPONDER O QUIZ
-    </button>
+    <!-- Botão para responder o quiz -->
+    <button class="btnPrimaryForm" onclick="irParaQuiz()">Responder o Quiz</button>
+  </main>
 
-  </div>
+  <!-- Barra de navegação inferior -->
+  <nav class="bottomNav" aria-label="Navegação">
+    <button class="navItem" data-nav="home"><span class="navIcon">🏠</span><span>Home</span></button>
+    <button class="navItem" data-nav="marcas"><span class="navIcon">📚</span><span>Marcas</span></button>
+    <button class="navItem" data-nav="quiz"><span class="navIcon">📝</span><span>Quiz</span></button>
+  </nav>
 
   <script src="app.js"></script>
   <script>
+    // Renderiza os dados do KBD atual
     renderKbd();
-    // Preenche o subtítulo com o nome da marca
-    const urlParams = new URLSearchParams(window.location.search);
-    const marcaId = urlParams.get('marca');
-    const marca = CONTENT.marcas.find(m => m.id === marcaId);
-    const kbdSubtitulo = document.getElementById('marcaNome');
-    if (marca && kbdSubtitulo) {
-      kbdSubtitulo.textContent = marca.nome || '';
-    }
-    // Mostra o setor atual no badge
-    const setorBadge = document.getElementById('setorBadge');
-    if (setorBadge) {
-      setorBadge.textContent = getSetor();
-    }
-  </script>
-
-  <!-- Barra de navegação inferior -->
-  <nav class="bottomNav">
-    <a href="home.html" data-target="home">
-      <span class="icon">🏠</span>
-      Home
-    </a>
-    <a href="home.html" data-target="marcas">
-      <span class="icon">🏷️</span>
-      Marcas
-    </a>
-    <a href="quiz.html" data-target="quiz">
-      <span class="icon">🧠</span>
-      Quiz
-    </a>
-  </nav>
-  <script>
-    if (typeof initBottomNav === 'function') {
-      initBottomNav();
-    }
+    // Atualiza cabeçalho e setor
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const marcaId = params.get("marca");
+      const kbdId = params.get("kbd");
+      const marca = CONTENT.marcas.find(m => m.id === marcaId);
+      const kbd = marca ? (marca.kbds || []).find(k => k.id === kbdId) : null;
+      if (marca && kbd) {
+        document.getElementById("kbdHeaderTitle").textContent = kbd.nome;
+        document.getElementById("kbdTitle").textContent = kbd.nome;
+        document.getElementById("marcaNome").textContent = marca.nome;
+      }
+      document.getElementById('kbdSetorBadge').textContent = getSetor();
+      if (typeof initBottomNav === 'function') {
+        initBottomNav('marcas');
+      }
+    })();
   </script>
 </body>
 </html>

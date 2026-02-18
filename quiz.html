@@ -1,71 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quiz - Missão KBD</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body data-page="quiz">
-  <div class="container">
-    <!-- Cabeçalho com botão voltar e títulos -->
-    <div class="top" style="margin-bottom: 20px; align-items: center; justify-content: space-between;">
-      <button class="btnSmall" onclick="voltarMarca()">←</button>
-      <div style="flex:1; text-align:center;">
-        <h1 id="quizTitulo">Quiz</h1>
-        <p class="small" id="quizSubtitulo"></p>
-      </div>
-      <!-- Espaço reservado para setor -->
-      <div class="setorBox">
-        <div class="small">SETOR</div>
-        <div id="setorBadgeQuiz" class="badge">---</div>
+<body class="quiz-form" data-page="quiz">
+  <!-- Barra superior -->
+  <header class="appBar">
+    <button class="iconBtn" onclick="voltarMarca()" aria-label="Voltar">←</button>
+    <div class="appBarTitle" id="quizHeaderTitle">Quiz</div>
+    <div class="appBarRight">
+      <div class="chip" id="quizSetorBadge">---</div>
+    </div>
+  </header>
+
+  <main class="container appContent">
+    <div class="pageHeader" style="gap:10px; align-items:stretch;">
+      <div style="flex:1;">
+        <div class="formTitle" id="quizTitulo">Quiz</div>
+        <div class="formSubtitle" id="quizSubtitulo">Teste seus conhecimentos</div>
       </div>
     </div>
 
-    <!-- Área principal do quiz será preenchida via JS -->
+    <!-- Barra de progresso -->
+    <div class="progressWrap" aria-label="Progresso do quiz">
+      <div class="progressBar" id="quizProgressBar"></div>
+    </div>
+
+    <!-- Área do quiz: perguntas, opções e resultados serão renderizados aqui -->
     <div id="quizArea"></div>
-  </div>
+  </main>
 
   <!-- Barra de navegação inferior -->
-  <nav class="bottomNav">
-    <a href="home.html" data-target="home">
-      <span class="icon">🏠</span>
-      Home
-    </a>
-    <a href="home.html" data-target="marcas">
-      <span class="icon">🏷️</span>
-      Marcas
-    </a>
-    <a href="quiz.html" data-target="quiz">
-      <span class="icon">🧠</span>
-      Quiz
-    </a>
+  <nav class="bottomNav" aria-label="Navegação">
+    <button class="navItem" data-nav="home"><span class="navIcon">🏠</span><span>Home</span></button>
+    <button class="navItem" data-nav="marcas"><span class="navIcon">📚</span><span>Marcas</span></button>
+    <button class="navItem" data-nav="quiz"><span class="navIcon">📝</span><span>Quiz</span></button>
   </nav>
 
   <script src="quizzes.js"></script>
   <script src="app.js"></script>
   <script>
-    // Inicializa o quiz e a navegação inferior
-    renderQuiz();
-    // Atualiza o subtítulo do quiz com o nome do KBD atual
-    const qp = new URLSearchParams(window.location.search);
-    const marcaId = qp.get('marca');
-    const kbdId = qp.get('kbd');
-    const marca = CONTENT.marcas.find(m => m.id === marcaId);
-    if (marca) {
-      const kbd = marca.kbds.find(k => k.id === kbdId);
-      if (kbd) {
-        document.getElementById('quizSubtitulo').textContent = kbd.nome;
+    // Atualiza cabeçalho e setor
+    (function() {
+      document.getElementById('quizSetorBadge').textContent = getSetor();
+      renderQuiz();
+      if (typeof initBottomNav === 'function') {
+        initBottomNav('quiz');
       }
-    }
-    // Preenche setor
-    const setorBadgeQuiz = document.getElementById('setorBadgeQuiz');
-    if (setorBadgeQuiz) {
-      setorBadgeQuiz.textContent = getSetor();
-    }
-    if (typeof initBottomNav === 'function') {
-      initBottomNav();
-    }
+    })();
   </script>
 </body>
 </html>
