@@ -6,62 +6,72 @@
   <title>Quiz - Missão KBD</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body data-page="quiz">
-  <header class="appbar">
-    <div class="appbarLeft">
-      <button class="iconBtn" aria-label="Voltar" onclick="goBack()">←</button>
-      <img class="appbarLogo" src="logo-missao-kbd.png" alt="Missão KBD" />
-      <div class="appbarTitle" id="appTitle">Quiz</div>
-    </div>
-    <div class="appbarRight">
-      <div class="chip" id="topbarSetor">---</div>
-      <button class="iconBtn" aria-label="Menu" onclick="toggleDrawer(true)">☰</button>
+<body class="quiz-form" data-page="quiz">
+
+  <header class="appBar">
+    <button class="iconBtn" id="navBack" aria-label="Voltar">←</button>
+    <div class="appBarTitle" id="quizTitulo">Quiz</div>
+    <div class="appBarRight">
+      <div class="chip" id="navSetor">---</div>
+      <button class="iconBtn" onclick="openMenu()" aria-label="Menu">☰</button>
     </div>
   </header>
 
-  <div class="drawerOverlay" id="drawer" onclick="toggleDrawer(false)">
-    <div class="drawerPanel" onclick="event.stopPropagation()">
-      <div class="drawerHeader">
-        <div class="drawerTitle">Menu</div>
-        <button class="iconBtn" aria-label="Fechar" onclick="toggleDrawer(false)">✕</button>
+  <main class="container appContent">
+    <div class="pageHeader" style="gap:10px; align-items:stretch;">
+      <div style="flex:1;">
+        <div class="formTitle" id="quizTitulo2">Quiz</div>
+        <div class="formSubtitle" id="quizSubtitulo">Acompanhe seu progresso</div>
       </div>
-      <div class="drawerList" id="drawerList"></div>
+
+      <div class="kbdSwitcher" id="kbdSwitchWrap" style="display:none;">
+        <label class="small" for="quizKbdSelect" style="opacity:.85;">Mudar KBD</label>
+        <select id="quizKbdSelect" class="select"></select>
+      </div>
     </div>
-  </div>
 
-  <main class="container">
-    <section class="quizShell fadeUp">
-      <div class="quizShellTop">
-        <div>
-          <div class="quizTitle" id="quizTitulo">Quiz</div>
-          <div class="small" style="color: rgba(255,255,255,.92);" id="quizSubtitulo">Teste seus conhecimentos</div>
-        </div>
-        <div class="quizPill" id="quizPill">0/0</div>
-      </div>
-      <div class="progressWrap" aria-label="Progresso">
-        <div class="progressBar" id="quizProgress"></div>
-      </div>
+    <div class="progressWrap" aria-label="Progresso do quiz">
+      <div class="progressBar" id="quizProgressBar"></div>
+    </div>
 
-      <label class="small" for="quizKbdSelect" style="color: rgba(255,255,255,.9); margin-top: 12px; display:block;">Mudar KBD</label>
-      <select id="quizKbdSelect" class="select"></select>
-    </section>
-
-    <div id="quizArea" class="fadeUp"></div>
+    <div id="quizArea"></div>
   </main>
 
   <nav class="bottomNav" aria-label="Navegação">
-    <div class="bottomNavInner">
-      <button class="navItem" data-nav="home" onclick="navHome()"><span class="navIcon">🏠</span><span>Home</span></button>
-      <button class="navItem" data-nav="marcas" onclick="navMarcas()"><span class="navIcon">🏷️</span><span>Marcas</span></button>
-      <button class="navItem" data-nav="quiz" onclick="navQuizHub()"><span class="navIcon">📝</span><span>Quiz</span></button>
-    </div>
+    <button class="navItem" data-nav="home">
+      <svg class="navIconSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>
+      </svg>
+      <span>Home</span>
+    </button>
+    <button class="navItem" data-nav="marcas">
+      <svg class="navIconSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>
+      </svg>
+      <span>Marcas</span>
+    </button>
+    <button class="navItem" data-nav="quiz">
+      <svg class="navIconSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 11h6M9 15h6M7 3h10a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V5a2 2 0 0 1 2-2z"/>
+      </svg>
+      <span>Quiz</span>
+    </button>
   </nav>
 
   <script src="quizzes.js"></script>
   <script src="app.js"></script>
   <script>
-    initShell();
-    renderQuizV2();
+    // mostra/oculta seletor de KBD dependendo da URL
+    (function(){
+      const p = new URLSearchParams(window.location.search);
+      const has = p.get('marca') && p.get('kbd');
+      document.getElementById('kbdSwitchWrap').style.display = has ? 'block' : 'none';
+      // titulo duplicado (appBar + header)
+      document.getElementById('quizTitulo2').textContent = document.getElementById('quizTitulo').textContent;
+    })();
+
+    renderQuiz();
+    initNav('quiz');
   </script>
 </body>
 </html>
