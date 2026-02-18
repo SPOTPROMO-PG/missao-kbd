@@ -2,57 +2,37 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Marcas - Missão KBD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Home - Missão KBD</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body data-page="marcas">
+<body>
 
-  <header class="appBar">
-    <button class="iconBtn" id="navBack" aria-label="Voltar">←</button>
-    <div class="appBarTitle">Missão KBD</div>
-    <div class="appBarRight">
-      <div class="chip" id="navSetor">---</div>
-      <button class="iconBtn" onclick="openMenu()" aria-label="Menu">☰</button>
+  <!-- Barra Superior -->
+  <div class="topbar">
+    <img src="logo-missao-kbd.png" alt="Missão KBD" class="topbar-logo" onclick="location.reload()">
+    <div class="topbar-right">
+      <div class="topbar-setor" id="topbarSetor">---</div>
+      <button class="btn-sair" onclick="confirmarSaida()">Sair</button>
     </div>
-  </header>
+  </div>
 
-  <main class="container appContent">
-    <div class="pageHeader">
-      <div>
-        <div class="formTitle">Escolha uma marca</div>
-        <div class="formSubtitle">Toque em uma marca para ver os KBDs</div>
-      </div>
+  <div class="container">
+    <h1>Marcas</h1>
+    <p class="small">Selecione uma marca para começar</p>
+
+    <!-- Lista de marcas -->
+    <div class="lista" id="listaMarcas">
+      <!-- Preenchido pelo JS -->
     </div>
-
-    <div class="lista" id="listaMarcas"></div>
-  </main>
-
-  <nav class="bottomNav" aria-label="Navegação">
-    <button class="navItem" data-nav="home">
-      <svg class="navIconSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>
-      </svg>
-      <span>Home</span>
-    </button>
-    <button class="navItem" data-nav="marcas">
-      <svg class="navIconSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>
-      </svg>
-      <span>Marcas</span>
-    </button>
-    <button class="navItem" data-nav="quiz">
-      <svg class="navIconSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M9 11h6M9 15h6M7 3h10a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V5a2 2 0 0 1 2-2z"/>
-      </svg>
-      <span>Quiz</span>
-    </button>
-  </nav>
+  </div>
 
   <script src="app.js"></script>
   <script>
-    renderHome();
-    initNav('marcas');
+    if (typeof renderHome === 'function') {
+      renderHome();
+      document.getElementById('topbarSetor').textContent = getSetor();
+    }
   </script>
 </body>
 </html>
