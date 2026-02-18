@@ -204,7 +204,7 @@ button:active {
 
 .btnSmall {
   margin-top: 8px;
-  padding: 8px 14px;
+  padding: 6px 10px; /* menor no mobile */
   border-radius: 10px;
   border: 1px solid var(--border-glow);
   background: rgba(168, 85, 247, 0.2);
@@ -508,7 +508,7 @@ button:active {
 
 /* ====== QUIZ (UX estilo Google Forms / Mobile-first) ====== */
 body.quiz-form {
-  padding-top: 0;
+  padding-top: 60px;
 }
 
 .quiz-form .container {
@@ -695,7 +695,14 @@ body.quiz-form {
    ========================= */
 
 body {
-  padding-bottom: calc(84px + env(safe-area-inset-bottom)); /* espaço para bottom nav */
+  padding-bottom: 78px; /* espaço para bottom nav */
+}
+
+/* Evita texto quebrando layout no mobile */
+h1, h2, h3, .cardTitle, .formTitle, .formSubtitle {
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .appBar {
@@ -732,10 +739,12 @@ body {
   border: 1px solid rgba(255,255,255,0.16);
   background: rgba(255,255,255,0.06);
   color: #fff;
-  border-radius: 12px;
-  padding: 10px 12px;
+  border-radius: 10px;
+  padding: 6px 8px; /* menor (voltar não fica gigante) */
   font-weight: 800;
   cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
 }
 
 .iconBtn:active { transform: translateY(1px); }
@@ -758,9 +767,9 @@ body {
   bottom: 0;
   z-index: 60;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
-  padding: 10px 10px calc(12px + env(safe-area-inset-bottom));
+  padding: 10px 10px 12px;
   background: rgba(10, 1, 24, 0.90);
   border-top: 1px solid rgba(255,255,255,0.12);
   backdrop-filter: blur(10px);
@@ -788,6 +797,35 @@ body {
   border-color: rgba(0, 217, 255, 0.55);
   background: rgba(0, 217, 255, 0.12);
 }
+
+/* =========================
+   QUIZ - RESULTADO (mais claro)
+   ========================= */
+
+.resultCard{
+  margin-top: 14px;
+  padding: 22px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.14);
+  text-align: center;
+}
+
+.resultMedal{ font-size: 56px; line-height: 1; margin-bottom: 10px; }
+.resultTitle{ font-size: 20px; font-weight: 900; margin-bottom: 10px; }
+
+.resultScore{
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.resultBig{ font-size: 44px; font-weight: 950; letter-spacing: 0.5px; }
+.resultPct{ font-size: 14px; opacity: 0.9; }
+.resultHint{ margin-top: 12px; font-size: 13px; opacity: 0.85; line-height: 1.35; }
 
 .pageHeader {
   display: flex;
@@ -834,36 +872,6 @@ body {
   background: rgba(0, 217, 255, 0.12);
 }
 
-/* ===== Aula (KBD) - Filtro compacto ===== */
-.tabsRow{
-  display:flex;
-  gap:8px;
-  margin:10px 0 14px;
-  padding:6px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius:16px;
-}
-
-.tabBtn{
-  flex:1;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.04);
-  color:#fff;
-  border-radius:14px;
-  padding:10px 8px;
-  font-weight: 900;
-  cursor:pointer;
-  transition: transform 120ms cubic-bezier(.2,.8,.2,1), background 180ms cubic-bezier(.4,0,.2,1), border-color 180ms cubic-bezier(.4,0,.2,1);
-}
-
-.tabBtn:active{ transform: scale(.98); }
-
-.tabBtn.active{
-  border-color: rgba(0, 217, 255, 0.55);
-  background: rgba(0, 217, 255, 0.14);
-}
-
 .mediaSection { margin-bottom: 14px; }
 
 .inlineActions {
@@ -878,95 +886,3 @@ body {
   .bottomNav { gap: 6px; }
   .navItem { padding: 10px 6px; font-size: 10px; }
 }
-
-
-/* ===== Login (profissional) ===== */
-body.login {
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.loginWrap{
-  min-height: 100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding: 24px;
-}
-
-.loginCard{
-  width: 100%;
-  max-width: 420px;
-  background: rgba(10, 1, 24, 0.55);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 22px;
-  padding: 22px;
-  box-shadow: 0 14px 48px rgba(0,0,0,0.45);
-}
-
-.loginHeader{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-
-.loginLogo{
-  width: min(300px, 82vw);
-  height: auto;
-  filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.55));
-}
-
-.loginTitle{
-  font-size: 22px;
-  font-weight: 900;
-  text-align:center;
-  margin-top: 4px;
-}
-
-.loginSubtitle{
-  font-size: 13px;
-  text-align:center;
-  color:#c8b6ff;
-  opacity:.95;
-}
-
-.roundInput{
-  border-radius: 999px;
-  padding: 16px 18px;
-}
-
-.roundBtn{
-  border-radius: 999px;
-  padding: 16px 18px;
-  font-weight: 900;
-}
-
-.helperRow{
-  display:flex;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.pillBtn{
-  flex:1;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: rgba(255,255,255,0.06);
-  color:#fff;
-  border-radius: 999px;
-  padding: 12px 12px;
-  font-weight: 900;
-  cursor:pointer;
-}
-
-.pillBtn:active{ transform: translateY(1px); }
-
-/* ===== Bottom nav icons (SVG) ===== */
-.navIconSvg{
-  width: 20px;
-  height: 20px;
-  display:block;
-}
-
-body[data-page]{padding-top:0;}
