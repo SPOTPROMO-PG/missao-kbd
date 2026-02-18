@@ -6,108 +6,48 @@
   <title>KBD - Aula</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body data-page="kbd">
+<body>
+  <div class="container">
 
-  <header class="appBar">
-    <button class="iconBtn" id="navBack" aria-label="Voltar">←</button>
-    <div class="appBarTitle" id="kbdTitulo">KBD</div>
-    <div class="appBarRight">
-      <div class="chip" id="navSetor">---</div>
-      <button class="iconBtn" onclick="openMenu()" aria-label="Menu">☰</button>
-    </div>
-  </header>
-
-  <main class="container appContent">
-    <div class="pageHeader" style="gap:12px; align-items:stretch;">
-      <div style="flex:1;">
-        <div class="formSubtitle">Aula prática</div>
+    <div class="top">
+      <div>
+        <button class="btnSmall" onclick="voltarMarca()">← Voltar</button>
+        <h1 id="kbdTitulo">KBD</h1>
+        <p>Aula prática</p>
       </div>
 
-      <div class="kbdSwitcher">
-        <label class="small" for="kbdSelect" style="opacity:.85;">Mudar KBD</label>
-        <select id="kbdSelect" class="select"></select>
+      <div class="setorBox">
+        <div class="small">SETOR</div>
+        <div id="setorBadge" class="badge">---</div>
       </div>
     </div>
 
-    <div class="kbdSwitcher" style="margin: 0 0 12px;">
-      <label class="small" for="viewSelect" style="opacity:.85;">Conteúdo</label>
-      <select id="viewSelect" class="select">
-        <option value="tudo">Tudo</option>
-        <option value="videos">Vídeos</option>
-        <option value="fotos">Fotos</option>
-      </select>
-    </div>
-
-    <div class="inlineActions" style="margin-top:0;">
-      <a id="openYoutube" class="btnGhost" href="#" target="_blank" rel="noopener" style="text-decoration:none; display:none;">Abrir no YouTube</a>
-      <button class="btnGhost" onclick="irParaQuiz()">Responder o Quiz →</button>
-    </div>
-
-    <div class="videoBox mediaSection">
+    <!-- VIDEO -->
+    <div class="videoBox">
       <div id="videoPlaceholder" class="videoPlaceholder">
         🎬 Vídeo em breve
         <div class="small">Enquanto isso, veja as imagens abaixo</div>
       </div>
 
-      <iframe id="videoFrame" allowfullscreen></iframe>
+      <iframe
+        id="videoFrame"
+        allowfullscreen>
+      </iframe>
     </div>
 
+    <!-- IMAGENS -->
     <div id="imagensKbd" class="imageRow"></div>
-  </main>
 
-  <nav class="bottomNav" aria-label="Navegação">
-    <button class="navItem" data-nav="home">
-      <svg class="navIconSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>
-      </svg>
-      <span>Home</span>
+    <!-- BOTÃO QUIZ -->
+    <button class="btnPrimary" onclick="irParaQuiz()">
+      QUERO RESPONDER O QUIZ
     </button>
-    <button class="navItem" data-nav="marcas">
-      <svg class="navIconSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/>
-      </svg>
-      <span>Marcas</span>
-    </button>
-    <button class="navItem" data-nav="quiz">
-      <svg class="navIconSvg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M9 11h6M9 15h6M7 3h10a2 2 0 0 1 2 2v14l-4-2-4 2-4-2-4 2V5a2 2 0 0 1 2-2z"/>
-      </svg>
-      <span>Quiz</span>
-    </button>
-  </nav>
+
+  </div>
 
   <script src="app.js"></script>
   <script>
     renderKbd();
-    initNav('marcas');
-
-    // popular dropdown de KBD
-    (function(){
-      const params = new URLSearchParams(window.location.search);
-      const marcaId = params.get('marca');
-      const kbdId = params.get('kbd');
-      const marca = CONTENT.marcas.find(m=>m.id===marcaId);
-      const sel = document.getElementById('kbdSelect');
-      if(marca && sel){
-        sel.innerHTML = '';
-        marca.kbds.forEach(k=>{
-          const opt = document.createElement('option');
-          opt.value = k.id;
-          opt.textContent = k.nome;
-          if(k.id===kbdId) opt.selected=true;
-          sel.appendChild(opt);
-        });
-        sel.onchange = ()=> window.location.href = `kbd.html?marca=${encodeURIComponent(marcaId)}&kbd=${encodeURIComponent(sel.value)}`;
-      }
-
-      // conteúdo dropdown
-      const viewSel = document.getElementById('viewSelect');
-      if(viewSel){
-        const view = (params.get('view')||'tudo').toLowerCase();
-        viewSel.value = view;
-        viewSel.onchange = ()=> setKbdView(viewSel.value);
-      }
-    })();
   </script>
 </body>
 </html>

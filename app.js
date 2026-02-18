@@ -81,30 +81,12 @@ function renderKbd() {
   if (!marca) { alert("Marca não encontrada"); voltarHome(); return; }
   const kbd = (marca.kbds || []).find(k => k.id === kbdId);
   if (!kbd) { alert("KBD não encontrado"); voltarMarca(); return; }
-  // Título focado no KBD (mobile): nome grande + marca em subtítulo
-  const t = document.getElementById("kbdTitulo");
-  if (t) t.textContent = `${kbd.nome}`;
-  const sub = document.getElementById("kbdSub");
-  if (sub) sub.textContent = `${marca.nome}`;
+  document.getElementById("kbdTitulo").textContent = `${marca.nome} • ${kbd.nome}`;
   const topbarSetor = document.getElementById("topbarSetor");
   if (topbarSetor) topbarSetor.textContent = getSetor();
   const iframe = document.getElementById("videoFrame");
   const placeholder = document.getElementById("videoPlaceholder");
-  const abrirLink = document.getElementById("abrirVideoLink");
-  if (kbd.videoId) {
-    // no-cookie + parâmetros leves
-    iframe.src = "https://www.youtube-nocookie.com/embed/" + kbd.videoId + "?rel=0&modestbranding=1";
-    iframe.style.display = "block";
-    placeholder.style.display = "none";
-    if (abrirLink) {
-      abrirLink.href = "https://youtu.be/" + kbd.videoId;
-      abrirLink.style.display = "block";
-    }
-  } else {
-    iframe.style.display = "none";
-    placeholder.style.display = "flex";
-    if (abrirLink) abrirLink.style.display = "none";
-  }
+  if (kbd.videoId) { iframe.src = "https://www.youtube.com/embed/" + kbd.videoId; iframe.style.display = "block"; placeholder.style.display = "none"; } else { iframe.style.display = "none"; placeholder.style.display = "flex"; }
   const imgBox = document.getElementById("imagensKbd");
   imgBox.innerHTML = "";
   if (kbd.imagens && kbd.imagens.length > 0) { kbd.imagens.forEach(src => { const img = document.createElement("img"); img.src = src; imgBox.appendChild(img); }); } else { const msg = document.createElement("div"); msg.className = "small"; msg.style.marginTop = "16px"; msg.style.opacity = ".8"; msg.textContent = "Imagens em breve."; imgBox.appendChild(msg); }
@@ -172,31 +154,11 @@ function proximaPergunta() {
 function mostrarResultadoFinal() {
   const { acertos, total } = quizState;
   const pct = Math.round((acertos / total) * 100);
-  // Medalhas: 100% ouro, 80–99 prata, <80 bronze
-  let medal = "🥉";
-  let headline = "Continue estudando!";
-  if (pct === 100) { medal = "🥇"; headline = "Perfeito!"; }
-  else if (pct >= 80) { medal = "🥈"; headline = "Muito bom!"; }
-
-  const area = document.getElementById("quizArea");
-  if (!area) return;
-
-  area.innerHTML = `
-    <div class="resultCard">
-      <div class="resultMedal" aria-hidden="true">${medal}</div>
-      <div class="resultTitle">${headline}</div>
-
-      <div class="resultScore" aria-label="Pontuação">
-        <div class="resultBig">${acertos}/${total}</div>
-        <div class="resultPct">${pct}% de acertos</div>
-      </div>
-
-      <div class="resultHint">Você concluiu este quiz. Vamos seguir para o próximo conteúdo.</div>
-
-      <button class="btnPrimary" onclick="proximoKBD()" style="margin-top: 18px;">Próximo conteúdo →</button>
-      <button class="btnGhost" onclick="renderQuiz()" style="width:100%; margin-top: 10px;">Tentar novamente</button>
-    </div>
-  `;
+  let emoji, msg, grad;
+  if (pct >= 81) { emoji = "🥇"; msg = "Ouro!"; grad = "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)"; }
+  else if (pct >= 61) { emoji = "🥈"; msg = "Prata!"; grad = "linear-gradient(135deg, #C0C0C0 0%, #808080 100%)"; }
+  else { emoji = "🥉"; msg = "Bronze!"; grad = "linear-gradient(135deg, #CD7F32 0%, #8B4513 100%)"; }
+  document.getElementById("quizArea").innerHTML = `<div class="card" style="padding: 40px; text-align: center; background: ${grad}; border: none;"><div style="font-size: 80px;">${emoji}</div><div style="font-size: 28px; font-weight: 900;">${msg}</div><div style="font-size: 48px; font-weight: 900; margin: 20px 0;">${pct}%</div><div style="font-size: 18px;">${acertos} de ${total}</div><button class="btnPrimary" onclick="proximoKBD()" style="margin-top: 30px; background: rgba(0,0,0,0.3); border: 2px solid white;">Próximo →</button></div>`;
 }
 
 function proximoKBD() {
