@@ -1,33 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Missão KBD - Marca</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Marca - Missão KBD</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="container">
+<body data-page="marca">
 
-    <div class="top">
+  <header class="appHeader" id="brandHeader">
+    <button class="iconBtn" id="navBack" aria-label="Voltar">←</button>
+    <div class="appHeaderTitle">
+      <div class="appTitle" id="marcaTitulo">Marca</div>
+      <div class="appSubtitle">Conteúdos disponíveis</div>
+    </div>
+    <div class="appHeaderRight">
+      <div class="chip" id="navSetor">---</div>
+      <button class="iconBtn" id="navMenu" aria-label="Menu">☰</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="kbdList" id="listaKbds"></div>
+    <div class="hintCard" style="margin-top:14px;">
+      <div class="hintIcon">💡</div>
       <div>
-        <button class="btnSmall" onclick="voltarHome()">← Voltar</button>
-        <h1 id="marcaTitulo">Marca</h1>
-        <p>Selecione o KBD</p>
-      </div>
-
-      <div class="setorBox">
-        <div class="small">SETOR</div>
-        <div id="setorBadge" class="badge">---</div>
+        <div class="hintTitle">Dica de Estudo</div>
+        <div class="hintText">Assista ao vídeo completo e observe os detalhes antes de fazer o quiz. Isso ajuda a fixar o conteúdo.</div>
       </div>
     </div>
+  </main>
 
-    <div id="listaKbds" class="lista"></div>
+  <nav class="bottomNav" aria-label="Navegação">
+    <a class="navItem" href="home.html"><span class="navIcon">🏠</span><span>Home</span></a>
+    <a class="navItem active" href="marcas.html"><span class="navIcon">🏷️</span><span>Marcas</span></a>
+    <a class="navItem" href="quiz.html"><span class="navIcon">📝</span><span>Quiz</span></a>
+  </nav>
 
-  </div>
+  <div id="sheetOverlay" class="sheetOverlay" style="display:none"></div>
 
   <script src="app.js"></script>
   <script>
+    initAppShell();
     renderMarca();
   </script>
 </body>

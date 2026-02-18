@@ -1,19 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Home - Missão KBD</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Missão KBD</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="container">
-    <h1>Marcas</h1>
-    <p class="small">Selecione uma marca para começar</p>
-    <div class="lista" id="listaMarcas"></div>
-  </div>
+<body data-page="home">
+
+  <header class="heroHeader">
+    <div class="heroInner">
+      <div class="heroTop">
+        <img src="logo-missao-kbd.png" class="heroLogo" alt="Missão KBD" />
+        <div class="heroRight">
+          <div class="chip" id="heroSetor">---</div>
+          <button class="iconBtn" id="heroMenu" aria-label="Menu">☰</button>
+        </div>
+      </div>
+
+      <h1 class="heroTitle">Missão KBD</h1>
+      <p class="heroSubtitle">Aprenda tudo sobre nossas marcas e torne-se um especialista</p>
+      <div class="heroBadge" id="heroBadge">✨ 8 marcas • Vídeos • Quizzes</div>
+
+      <div class="heroActions">
+        <a class="btnPrimary" href="marcas.html">Começar</a>
+        <a class="btnGhost" href="quiz.html">Ver meu progresso</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="sectionTitle">Atalhos</div>
+    <div class="quickGrid">
+      <a class="quickCard" href="marcas.html">
+        <div class="quickIcon">🏷️</div>
+        <div>
+          <div class="quickTitle">Marcas</div>
+          <div class="quickSub">Escolha uma marca e um KBD</div>
+        </div>
+      </a>
+      <a class="quickCard" href="quiz.html">
+        <div class="quickIcon">📝</div>
+        <div>
+          <div class="quickTitle">Quiz</div>
+          <div class="quickSub">Continue de onde parou</div>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <nav class="bottomNav" aria-label="Navegação">
+    <a class="navItem active" href="home.html"><span class="navIcon">🏠</span><span>Home</span></a>
+    <a class="navItem" href="marcas.html"><span class="navIcon">🏷️</span><span>Marcas</span></a>
+    <a class="navItem" href="quiz.html"><span class="navIcon">📝</span><span>Quiz</span></a>
+  </nav>
+
+  <div id="sheetOverlay" class="sheetOverlay" style="display:none"></div>
 
   <script src="app.js"></script>
-  <script>renderHome();</script>
+  <script>
+    initAppShell();
+  </script>
 </body>
 </html>

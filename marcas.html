@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Marcas - Missão KBD</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body data-page="marcas">
 
-  <!-- Barra Superior -->
-  <div class="topbar">
-    <img src="logo-missao-kbd.png" alt="Missão KBD" class="topbar-logo" onclick="location.reload()">
-    <div class="topbar-right">
-      <div class="topbar-setor" id="topbarSetor">---</div>
-      <button class="btn-sair" onclick="confirmarSaida()">Sair</button>
+  <header class="appHeader">
+    <button class="iconBtn" id="navBack" aria-label="Voltar">←</button>
+    <div class="appHeaderTitle">
+      <div class="appTitle">Escolha uma marca</div>
+      <div class="appSubtitle">Selecione para ver os KBDs disponíveis</div>
     </div>
-  </div>
-
-  <div class="container">
-    <h1>Marcas</h1>
-    <p class="small">Selecione uma marca para começar</p>
-
-    <!-- Lista de marcas -->
-    <div class="lista" id="listaMarcas">
-      <!-- Preenchido pelo JS -->
+    <div class="appHeaderRight">
+      <div class="chip" id="navSetor">---</div>
+      <button class="iconBtn" id="navMenu" aria-label="Menu">☰</button>
     </div>
-  </div>
+  </header>
+
+  <main class="container">
+    <div class="brandGrid" id="listaMarcas"></div>
+  </main>
+
+  <nav class="bottomNav" aria-label="Navegação">
+    <a class="navItem" href="home.html"><span class="navIcon">🏠</span><span>Home</span></a>
+    <a class="navItem active" href="marcas.html"><span class="navIcon">🏷️</span><span>Marcas</span></a>
+    <a class="navItem" href="quiz.html"><span class="navIcon">📝</span><span>Quiz</span></a>
+  </nav>
+
+  <div id="sheetOverlay" class="sheetOverlay" style="display:none"></div>
 
   <script src="app.js"></script>
   <script>
-    if (typeof renderHome === 'function') {
-      renderHome();
-      document.getElementById('topbarSetor').textContent = getSetor();
-    }
+    initAppShell();
+    renderMarcas();
   </script>
 </body>
 </html>

@@ -1,38 +1,100 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aula - Missão KBD</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KBD - Aula</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
-  <div class="container">
-    <h1 id="kbdTitulo">KBD</h1>
-    <p class="small">Aula prática</p>
+<body data-page="kbd">
 
-    <select id="kbdSelect" class="select" aria-label="Trocar KBD"></select>
+  <header class="appHeader" id="kbdHeader">
+    <button class="iconBtn" id="navBack" aria-label="Voltar">←</button>
+    <div class="appHeaderTitle">
+      <div class="appTitle" id="kbdTitulo">KBD</div>
+      <div class="appSubtitle">Aula prática</div>
+    </div>
+    <div class="appHeaderRight">
+      <div class="chip" id="navSetor">---</div>
+      <button class="iconBtn" id="navMenu" aria-label="Menu">☰</button>
+    </div>
+  </header>
 
-    <div class="tabs" role="tablist" aria-label="Filtrar conteúdo">
-      <button id="tabTudo" class="tab" type="button">Tudo</button>
-      <button id="tabVideos" class="tab" type="button">Vídeos</button>
-      <button id="tabFotos" class="tab" type="button">Fotos</button>
+  <main class="container">
+    <div class="field">
+      <label class="fieldLabel" for="kbdSelect">Aula prática</label>
+      <select id="kbdSelect" class="select"></select>
     </div>
 
-    <div id="videoBox" class="videoBox">
-      <div id="videoPlaceholder" class="videoPlaceholder">
-        🎬 Vídeo em breve
-        <div class="small">Enquanto isso, veja as imagens abaixo</div>
+    <div id="conteudoTabs" class="tabs">
+      <button class="tabBtn" data-view="tudo" onclick="setKbdView('tudo')">Tudo</button>
+      <button class="tabBtn" data-view="videos" onclick="setKbdView('videos')">Vídeos</button>
+      <button class="tabBtn" data-view="fotos" onclick="setKbdView('fotos')">Fotos</button>
+    </div>
+
+    <section class="card" id="videoSection">
+      <div class="cardHeader">
+        <div class="cardHeaderLeft">
+          <div class="circleIcon">▶</div>
+          <div>
+            <div class="cardTitle">Aula prática</div>
+            <div class="cardSub">Vídeo educativo</div>
+          </div>
+        </div>
+        <a class="btnLink" id="openYoutube" target="_blank" rel="noopener">Abrir</a>
       </div>
-      <iframe id="videoFrame" allowfullscreen></iframe>
+
+      <div class="videoFrameWrap">
+        <div id="videoPlaceholder" class="videoPlaceholder">
+          🎬 <strong>Vídeo em breve</strong>
+          <div class="small">Enquanto isso, veja as imagens abaixo</div>
+        </div>
+        <iframe id="videoFrame" allowfullscreen></iframe>
+      </div>
+
+      <div class="noteRow">
+        <span class="okDot">✓</span>
+        <span>Assista ao vídeo completo para entender todos os conceitos importantes.</span>
+      </div>
+    </section>
+
+    <section class="card" id="fotoSection">
+      <div class="cardHeader">
+        <div class="cardHeaderLeft">
+          <div class="circleIcon">🖼</div>
+          <div>
+            <div class="cardTitle">Material visual</div>
+            <div class="cardSub">Imagens de referência</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="imagensKbd" class="imageGrid"></div>
+    </section>
+
+    <button class="btnPrimary" onclick="irParaQuiz()">Responder o quiz →</button>
+
+    <div class="hintCard" style="margin-top:14px;">
+      <div class="hintIcon">💡</div>
+      <div>
+        <div class="hintTitle">Como aproveitar melhor</div>
+        <div class="hintText">Assista ao vídeo com atenção, observe os detalhes das imagens e faça o quiz para testar seus conhecimentos.</div>
+      </div>
     </div>
+  </main>
 
-    <div id="imagensKbd" class="imageRow"></div>
+  <nav class="bottomNav" aria-label="Navegação">
+    <a class="navItem" href="home.html"><span class="navIcon">🏠</span><span>Home</span></a>
+    <a class="navItem" href="marcas.html"><span class="navIcon">🏷️</span><span>Marcas</span></a>
+    <a class="navItem" href="quiz.html"><span class="navIcon">📝</span><span>Quiz</span></a>
+  </nav>
 
-    <button class="btnPrimary" onclick="irParaQuiz()">Responder o quiz</button>
-  </div>
+  <div id="sheetOverlay" class="sheetOverlay" style="display:none"></div>
 
   <script src="app.js"></script>
-  <script>renderKbd();</script>
+  <script>
+    initAppShell();
+    renderKbd();
+  </script>
 </body>
 </html>
