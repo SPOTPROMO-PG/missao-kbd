@@ -2,16 +2,17 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Missão KBD - Marca</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="marcas">
   <div class="container">
 
     <div class="top">
       <div>
-        <button class="btnSmall" onclick="voltarHome()">← Voltar</button>
+        <!-- Botão de voltar com seta apenas para ficar compacto -->
+        <button class="btnSmall" onclick="voltarHome()">←</button>
         <h1 id="marcaTitulo">Marca</h1>
         <p>Selecione o KBD</p>
       </div>
@@ -29,6 +30,27 @@
   <script src="app.js"></script>
   <script>
     renderMarca();
+  </script>
+
+  <!-- Barra de navegação inferior -->
+  <nav class="bottomNav">
+    <a href="home.html" data-target="home">
+      <span class="icon">🏠</span>
+      Home
+    </a>
+    <a href="home.html" data-target="marcas">
+      <span class="icon">🏷️</span>
+      Marcas
+    </a>
+    <a href="quiz.html" data-target="quiz">
+      <span class="icon">🧠</span>
+      Quiz
+    </a>
+  </nav>
+  <script>
+    if (typeof initBottomNav === 'function') {
+      initBottomNav();
+    }
   </script>
 </body>
 </html>

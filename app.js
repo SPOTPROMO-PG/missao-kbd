@@ -5,12 +5,12 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyWERu4e0iNLG
 const CONTENT = {
   marcas: [
     { id: "always", nome: "ALWAYS", logo: "logos/always.jpg", kbds: [{ id: "kbd1", nome: "KBD Absorventes – Always Suave", videoId: null, imagens: [] }] },
-    { id: "downy", nome: "DOWNY", logo: "logos/downy.png", kbds: [{ id: "kbd1", nome: "KBD Ponto Extra – Brisa", videoId: "sY8R7z2jwuI", imagens: [] }, { id: "kbd2", nome: "KBD Bloco Azul (50%)", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Bloco Colorido (40%) ou [Alfazema ou Lírios]", videoId: null, imagens: [] }] },
+    { id: "downy", nome: "DOWNY", logo: "logos/downy.png", kbds: [{ id: "kbd1", nome: "KBD Ponto Extra – Brisa", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD Bloco Azul (50%)", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Bloco Colorido (40%) ou [Alfazema ou Lírios]", videoId: null, imagens: [] }] },
     { id: "pantene", nome: "PANTENE", logo: "logos/pantene.png", kbds: [{ id: "kbd1", nome: "KBD Bond Repair (20%)", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: null, imagens: [] }, { id: "kbd4", nome: "KBD Rio/Cachoeira Dourada", videoId: null, imagens: [] }] },
     { id: "pampers", nome: "PAMPERS", logo: "logos/pampers.png", kbds: [{ id: "kbd1", nome: "KBD Ponto Extra – 50% Tamanhos Grandes", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD Pants", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Pants + Premium (Lojas Sul)", videoId: null, imagens: [] }, { id: "kbd4", nome: "KBD Vale Night – SOS Gôndola", videoId: null, imagens: [] }, { id: "kbd5", nome: "KBD Vale Night – Ponto Extra Farma", videoId: null, imagens: [] }] },
     { id: "secret", nome: "SECRET", logo: "logos/secret.png", kbds: [{ id: "kbd1", nome: "KBD 2 Bandejas", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD Bloco 15 Frentes ou 3 Bandejas", videoId: null, imagens: [] }] },
     { id: "oral-b", nome: "ORAL-B", logo: "logos/oral-b.png", kbds: [{ id: "kbd1", nome: "KBD Branqueamento (60%)", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD 2 Pontos de Contato – Escovas", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Layout BIPE – Escovas", videoId: null, imagens: [] }] },
-    { id: "gillette", nome: "GILLETTE", logo: "logos/gillette.png", kbds: [{ id: "kbd1", nome: "KBD Sistemas – % de Ganchos", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD 2 Pontos de Contato – Mach3/Presto3", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Carga Mach3 c/8 – 2 Ganchos", videoId: "qaQl_otdN9Y", imagens: [] }] },
+    { id: "gillette", nome: "GILLETTE", logo: "logos/gillette.png", kbds: [{ id: "kbd1", nome: "KBD Sistemas – % de Ganchos", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD 2 Pontos de Contato – Mach3/Presto3", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Carga Mach3 c/8 – 2 Ganchos", videoId: null, imagens: [] }] },
     { id: "venus", nome: "VENUS", logo: "logos/venus.png", kbds: [{ id: "kbd1", nome: "KBD Sistemas – 20% de Ganchos", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD 2 Pontos de Contato", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: null, imagens: [] }] }
   ]
 };
@@ -57,8 +57,9 @@ function renderMarca() {
   const marca = CONTENT.marcas.find(m => m.id === marcaId);
   if (!marca) { alert("Marca não encontrada"); voltarHome(); return; }
   document.getElementById("marcaTitulo").textContent = marca.nome;
-  const topbarSetor = document.getElementById("topbarSetor");
-  if (topbarSetor) topbarSetor.textContent = getSetor();
+  // Atualiza o badge de setor na lista de KBDs
+  const badgeEl = document.getElementById("setorBadge");
+  if (badgeEl) badgeEl.textContent = getSetor();
   const lista = document.getElementById("listaKbds");
   lista.innerHTML = "";
   marca.kbds.forEach(kbd => {
@@ -81,21 +82,12 @@ function renderKbd() {
   if (!marca) { alert("Marca não encontrada"); voltarHome(); return; }
   const kbd = (marca.kbds || []).find(k => k.id === kbdId);
   if (!kbd) { alert("KBD não encontrado"); voltarMarca(); return; }
-  const meta = document.getElementById("kbdMeta");
-  if (meta) meta.textContent = `${marca.nome} • KBD`;
-  document.getElementById("kbdTitulo").textContent = `${kbd.nome}`;
+  document.getElementById("kbdTitulo").textContent = `${marca.nome} • ${kbd.nome}`;
   const topbarSetor = document.getElementById("topbarSetor");
   if (topbarSetor) topbarSetor.textContent = getSetor();
   const iframe = document.getElementById("videoFrame");
   const placeholder = document.getElementById("videoPlaceholder");
-  if (kbd.videoId) {
-    iframe.src = "https://www.youtube-nocookie.com/embed/" + kbd.videoId;
-    iframe.style.display = "block";
-    placeholder.style.display = "none";
-  } else {
-    iframe.style.display = "none";
-    placeholder.style.display = "flex";
-  }
+  if (kbd.videoId) { iframe.src = "https://www.youtube.com/embed/" + kbd.videoId; iframe.style.display = "block"; placeholder.style.display = "none"; } else { iframe.style.display = "none"; placeholder.style.display = "flex"; }
   const imgBox = document.getElementById("imagensKbd");
   imgBox.innerHTML = "";
   if (kbd.imagens && kbd.imagens.length > 0) { kbd.imagens.forEach(src => { const img = document.createElement("img"); img.src = src; imgBox.appendChild(img); }); } else { const msg = document.createElement("div"); msg.className = "small"; msg.style.marginTop = "16px"; msg.style.opacity = ".8"; msg.textContent = "Imagens em breve."; imgBox.appendChild(msg); }
@@ -118,8 +110,9 @@ function renderQuiz() {
   quizState = { marcaAtual: marca, kbdAtual: kbd, perguntaIndex: 0, tentativa: 1, acertos: 0, total: perguntas.length, historico: [], perguntas: perguntas, respondendo: false };
   document.getElementById("quizTitulo").textContent = `Quiz ${marca.nome}`;
   document.getElementById("quizSubtitulo").textContent = kbd ? kbd.nome : "";
-  const topbarSetor = document.getElementById("topbarSetor");
-  if (topbarSetor) topbarSetor.textContent = getSetor();
+  // Atualiza o badge de setor no quiz
+  const badgeQuiz = document.getElementById("setorBadgeQuiz");
+  if (badgeQuiz) badgeQuiz.textContent = getSetor();
   mostrarPergunta();
 }
 
@@ -164,9 +157,20 @@ function mostrarResultadoFinal() {
   const { acertos, total } = quizState;
   const pct = Math.round((acertos / total) * 100);
   let emoji, msg, grad;
-  if (pct === 100) { emoji = "🥇"; msg = "Ouro!"; grad = "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)"; }
-  else if (pct >= 80) { emoji = "🥈"; msg = "Prata!"; grad = "linear-gradient(135deg, #C0C0C0 0%, #808080 100%)"; }
-  else { emoji = "🥉"; msg = "Bronze!"; grad = "linear-gradient(135deg, #CD7F32 0%, #8B4513 100%)"; }
+  // Medalhas: 100% Ouro, 80-99% Prata, abaixo de 80% Bronze
+  if (pct === 100) {
+    emoji = "🥇";
+    msg = "Ouro!";
+    grad = "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)";
+  } else if (pct >= 80) {
+    emoji = "🥈";
+    msg = "Prata!";
+    grad = "linear-gradient(135deg, #C0C0C0 0%, #808080 100%)";
+  } else {
+    emoji = "🥉";
+    msg = "Bronze!";
+    grad = "linear-gradient(135deg, #CD7F32 0%, #8B4513 100%)";
+  }
   document.getElementById("quizArea").innerHTML = `<div class="card" style="padding: 40px; text-align: center; background: ${grad}; border: none;"><div style="font-size: 80px;">${emoji}</div><div style="font-size: 28px; font-weight: 900;">${msg}</div><div style="font-size: 48px; font-weight: 900; margin: 20px 0;">${pct}%</div><div style="font-size: 18px;">${acertos} de ${total}</div><button class="btnPrimary" onclick="proximoKBD()" style="margin-top: 30px; background: rgba(0,0,0,0.3); border: 2px solid white;">Próximo →</button></div>`;
 }
 
@@ -192,4 +196,40 @@ async function enviarParaSheets(d) {
       body: JSON.stringify({ timestamp: new Date().toISOString(), setor: d.setor, marca: d.marca, kbd: d.kbd, pergunta: d.pergunta, resposta: d.resposta, correta: d.correta, acertou: d.acertou ? "SIM" : "NÃO", score: d.score, tentativa: d.tentativa, userAgent: navigator.userAgent })
     });
   } catch (e) { console.error(e); }
+}
+
+// ====== Navegação inferior ======
+// Inicializa a barra de navegação inferior e destaca a página atual.
+function initBottomNav() {
+  const nav = document.querySelector('.bottomNav');
+  if (!nav) return;
+  const page = document.body.dataset.page;
+  const links = nav.querySelectorAll('a');
+  links.forEach(a => {
+    const target = a.getAttribute('data-target');
+    // Define estado ativo: marca página atual como ativa.
+    if (target === page || (target === 'marcas' && page === 'home')) {
+      a.classList.add('active');
+    } else {
+      a.classList.remove('active');
+    }
+    // Configura navegação sem recarregar o CSS inline.
+    a.onclick = (e) => {
+      e.preventDefault();
+      if (target === 'home' || target === 'marcas') {
+        window.location.href = 'home.html';
+      } else if (target === 'quiz') {
+        // Se estamos num quiz de um KBD específico e o usuário clicar em "Quiz",
+        // vamos apenas recarregar a página atual para exibir o histórico.
+        // Caso contrário, redirecione para a home do quiz.
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('marca') && params.has('kbd')) {
+          // Recarrega a mesma página
+          window.location.href = 'quiz.html?marca=' + encodeURIComponent(params.get('marca')) + '&kbd=' + encodeURIComponent(params.get('kbd'));
+        } else {
+          window.location.href = 'quiz.html';
+        }
+      }
+    };
+  });
 }

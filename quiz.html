@@ -1,65 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quiz - Missão KBD</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="quiz-form" data-page="quiz">
-
-  <header class="appBar">
-    <button class="iconBtn" id="navBack" aria-label="Voltar">←</button>
-    <div class="appBarTitle" id="appTitle">Quiz</div>
-    <div class="appBarRight">
-      <div class="chip" id="navSetor">---</div>
-      <button class="iconBtn" id="navMenu" aria-label="Menu">☰</button>
-    </div>
-  </header>
-
-  <main class="container appContent">
-    <div class="pageHeader" style="gap:10px; align-items:stretch;">
-      <div style="flex:1;">
-        <div class="formTitle" id="quizTitulo">Quiz</div>
-        <div class="formSubtitle" id="quizSubtitulo">Teste seus conhecimentos</div>
+<body data-page="quiz">
+  <div class="container">
+    <!-- Cabeçalho com botão voltar e títulos -->
+    <div class="top" style="margin-bottom: 20px; align-items: center; justify-content: space-between;">
+      <button class="btnSmall" onclick="voltarMarca()">←</button>
+      <div style="flex:1; text-align:center;">
+        <h1 id="quizTitulo">Quiz</h1>
+        <p class="small" id="quizSubtitulo"></p>
       </div>
-
-      <div class="kbdSwitcher">
-        <label class="small" for="quizKbdSelect" style="opacity:.85;">Mudar KBD</label>
-        <select id="quizKbdSelect" class="select"></select>
+      <!-- Espaço reservado para setor -->
+      <div class="setorBox">
+        <div class="small">SETOR</div>
+        <div id="setorBadgeQuiz" class="badge">---</div>
       </div>
     </div>
 
-    <div class="progressWrap" aria-label="Progresso do quiz">
-      <div class="progressBar" id="quizProgressBar"></div>
-    </div>
-
-    <div class="inlineActions">
-      <button class="btnGhost" onclick="navToKbdAtual()">← Ver Aula</button>
-      <button class="btnGhost" onclick="navToKbdAtual('videos')">🎬 Vídeo</button>
-      <button class="btnGhost" onclick="navToKbdAtual('fotos')">🖼️ Fotos</button>
-    </div>
-
+    <!-- Área principal do quiz será preenchida via JS -->
     <div id="quizArea"></div>
+  </div>
 
-    <button class="btnGhost" onclick="voltarMarca()" style="width:100%; margin-top: 14px;">
-      ← Voltar para lista de KBDs
-    </button>
-  </main>
-
-  <nav class="bottomNav" aria-label="Navegação">
-    <button class="navItem" data-nav="home"><span class="navIcon">🏠</span><span>Home</span></button>
-    <button class="navItem" data-nav="kbd"><span class="navIcon">📚</span><span>Aula</span></button>
-    <button class="navItem" data-nav="quiz"><span class="navIcon">📝</span><span>Quiz</span></button>
-    <button class="navItem" data-nav="fotos"><span class="navIcon">🖼️</span><span>Fotos</span></button>
-    <button class="navItem" data-nav="videos"><span class="navIcon">🎬</span><span>Vídeos</span></button>
+  <!-- Barra de navegação inferior -->
+  <nav class="bottomNav">
+    <a href="home.html" data-target="home">
+      <span class="icon">🏠</span>
+      Home
+    </a>
+    <a href="home.html" data-target="marcas">
+      <span class="icon">🏷️</span>
+      Marcas
+    </a>
+    <a href="quiz.html" data-target="quiz">
+      <span class="icon">🧠</span>
+      Quiz
+    </a>
   </nav>
 
   <script src="quizzes.js"></script>
   <script src="app.js"></script>
   <script>
+    // Inicializa o quiz e a navegação inferior
     renderQuiz();
+    // Atualiza o subtítulo do quiz com o nome do KBD atual
+    const qp = new URLSearchParams(window.location.search);
+    const marcaId = qp.get('marca');
+    const kbdId = qp.get('kbd');
+    const marca = CONTENT.marcas.find(m => m.id === marcaId);
+    if (marca) {
+      const kbd = marca.kbds.find(k => k.id === kbdId);
+      if (kbd) {
+        document.getElementById('quizSubtitulo').textContent = kbd.nome;
+      }
+    }
+    // Preenche setor
+    const setorBadgeQuiz = document.getElementById('setorBadgeQuiz');
+    if (setorBadgeQuiz) {
+      setorBadgeQuiz.textContent = getSetor();
+    }
+    if (typeof initBottomNav === 'function') {
+      initBottomNav();
+    }
   </script>
 </body>
 </html>

@@ -2,11 +2,11 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Home - Missão KBD</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="home">
 
   <!-- Barra Superior -->
   <div class="topbar">
@@ -32,6 +32,29 @@
     if (typeof renderHome === 'function') {
       renderHome();
       document.getElementById('topbarSetor').textContent = getSetor();
+    }
+  </script>
+
+  <!-- Barra de navegação inferior -->
+  <nav class="bottomNav">
+    <a href="home.html" data-target="home">
+      <span class="icon">🏠</span>
+      Home
+    </a>
+    <a href="home.html" data-target="marcas">
+      <span class="icon">🏷️</span>
+      Marcas
+    </a>
+    <a href="quiz.html" data-target="quiz">
+      <span class="icon">🧠</span>
+      Quiz
+    </a>
+  </nav>
+
+  <script>
+    // Inicializa a barra de navegação inferior
+    if (typeof initBottomNav === 'function') {
+      initBottomNav();
     }
   </script>
 </body>
