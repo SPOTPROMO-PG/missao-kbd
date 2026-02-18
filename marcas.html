@@ -7,35 +7,9 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body data-page="marcas">
-
-  <header class="appHeader">
-    <button class="iconBtn" id="navBack" aria-label="Voltar">←</button>
-    <div class="appHeaderTitle">
-      <div class="appTitle">Escolha uma marca</div>
-      <div class="appSubtitle">Selecione para ver os KBDs disponíveis</div>
-    </div>
-    <div class="appHeaderRight">
-      <div class="chip" id="navSetor">---</div>
-      <button class="iconBtn" id="navMenu" aria-label="Menu">☰</button>
-    </div>
-  </header>
-
-  <main class="container">
-    <div class="brandGrid" id="listaMarcas"></div>
-  </main>
-
-  <nav class="bottomNav" aria-label="Navegação">
-    <a class="navItem" href="home.html"><span class="navIcon">🏠</span><span>Home</span></a>
-    <a class="navItem active" href="marcas.html"><span class="navIcon">🏷️</span><span>Marcas</span></a>
-    <a class="navItem" href="quiz.html"><span class="navIcon">📝</span><span>Quiz</span></a>
-  </nav>
-
-  <div id="sheetOverlay" class="sheetOverlay" style="display:none"></div>
-
-  <script src="app.js"></script>
+  <!-- mesma tela da Home (Marcas) -->
   <script>
-    initAppShell();
-    renderMarcas();
+    window.location.replace('home.html');
   </script>
 </body>
 </html>

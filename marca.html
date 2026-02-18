@@ -7,42 +7,61 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body data-page="marca">
-
-  <header class="appHeader" id="brandHeader">
-    <button class="iconBtn" id="navBack" aria-label="Voltar">←</button>
-    <div class="appHeaderTitle">
-      <div class="appTitle" id="marcaTitulo">Marca</div>
-      <div class="appSubtitle">Conteúdos disponíveis</div>
+  <header class="appbar">
+    <div class="appbarLeft">
+      <button class="iconBtn" aria-label="Voltar" onclick="goBack()">←</button>
+      <img class="appbarLogo" src="logo-missao-kbd.png" alt="Missão KBD" />
+      <div class="appbarTitle" id="appTitle">Marca</div>
     </div>
-    <div class="appHeaderRight">
-      <div class="chip" id="navSetor">---</div>
-      <button class="iconBtn" id="navMenu" aria-label="Menu">☰</button>
+    <div class="appbarRight">
+      <div class="chip" id="topbarSetor">---</div>
+      <button class="iconBtn" aria-label="Menu" onclick="toggleDrawer(true)">☰</button>
     </div>
   </header>
 
-  <main class="container">
-    <div class="kbdList" id="listaKbds"></div>
-    <div class="hintCard" style="margin-top:14px;">
-      <div class="hintIcon">💡</div>
-      <div>
-        <div class="hintTitle">Dica de Estudo</div>
-        <div class="hintText">Assista ao vídeo completo e observe os detalhes antes de fazer o quiz. Isso ajuda a fixar o conteúdo.</div>
+  <div class="drawerOverlay" id="drawer" onclick="toggleDrawer(false)">
+    <div class="drawerPanel" onclick="event.stopPropagation()">
+      <div class="drawerHeader">
+        <div class="drawerTitle">Menu</div>
+        <button class="iconBtn" aria-label="Fechar" onclick="toggleDrawer(false)">✕</button>
       </div>
+      <div class="drawerList" id="drawerList"></div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="kbdHeader fadeUp" id="marcaHeader">
+      <div class="kbdHeaderTop">
+        <div class="kbdBrandIcon" id="marcaIcon">M</div>
+        <div style="min-width:0;">
+          <div class="kbdHeaderTitle" id="marcaTitulo">Marca</div>
+          <div class="kbdHeaderSub" id="marcaSub">Selecione o KBD para começar</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="sectionTitle"><span class="sectionBar"></span>Conteúdos Disponíveis</div>
+    <section class="list fadeUp" id="listaKbds"></section>
+
+    <div class="tipCard fadeUp">
+      <div class="tipTitle">💡 Dica de Estudo</div>
+      <div class="tipText">Assista ao vídeo completo e observe os detalhes antes de fazer o quiz. Isso ajuda a fixar melhor o conteúdo.</div>
     </div>
   </main>
 
   <nav class="bottomNav" aria-label="Navegação">
-    <a class="navItem" href="home.html"><span class="navIcon">🏠</span><span>Home</span></a>
-    <a class="navItem active" href="marcas.html"><span class="navIcon">🏷️</span><span>Marcas</span></a>
-    <a class="navItem" href="quiz.html"><span class="navIcon">📝</span><span>Quiz</span></a>
+    <div class="bottomNavInner">
+      <button class="navItem" data-nav="home" onclick="navHome()"><span class="navIcon">🏠</span><span>Home</span></button>
+      <button class="navItem" data-nav="marcas" onclick="navMarcas()"><span class="navIcon">🏷️</span><span>Marcas</span></button>
+      <button class="navItem" data-nav="quiz" onclick="navQuizHub()"><span class="navIcon">📝</span><span>Quiz</span></button>
+    </div>
   </nav>
 
-  <div id="sheetOverlay" class="sheetOverlay" style="display:none"></div>
-
+  <script src="quizzes.js"></script>
   <script src="app.js"></script>
   <script>
-    initAppShell();
-    renderMarca();
+    initShell();
+    renderMarcaV2();
   </script>
 </body>
 </html>

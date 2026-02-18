@@ -7,45 +7,61 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body data-page="quiz">
-
-  <header class="appHeader" id="quizHeader">
-    <button class="iconBtn" id="navBack" aria-label="Voltar">←</button>
-    <div class="appHeaderTitle">
-      <div class="appTitle" id="quizTitulo">Quiz</div>
-      <div class="appSubtitle" id="quizSubtitulo">Teste seus conhecimentos</div>
+  <header class="appbar">
+    <div class="appbarLeft">
+      <button class="iconBtn" aria-label="Voltar" onclick="goBack()">←</button>
+      <img class="appbarLogo" src="logo-missao-kbd.png" alt="Missão KBD" />
+      <div class="appbarTitle" id="appTitle">Quiz</div>
     </div>
-    <div class="appHeaderRight">
-      <div class="chip" id="navSetor">---</div>
-      <button class="iconBtn" id="navMenu" aria-label="Menu">☰</button>
+    <div class="appbarRight">
+      <div class="chip" id="topbarSetor">---</div>
+      <button class="iconBtn" aria-label="Menu" onclick="toggleDrawer(true)">☰</button>
     </div>
   </header>
 
+  <div class="drawerOverlay" id="drawer" onclick="toggleDrawer(false)">
+    <div class="drawerPanel" onclick="event.stopPropagation()">
+      <div class="drawerHeader">
+        <div class="drawerTitle">Menu</div>
+        <button class="iconBtn" aria-label="Fechar" onclick="toggleDrawer(false)">✕</button>
+      </div>
+      <div class="drawerList" id="drawerList"></div>
+    </div>
+  </div>
+
   <main class="container">
-    <div class="field">
-      <label class="fieldLabel" for="quizKbdSelect">Mudar KBD</label>
+    <section class="quizShell fadeUp">
+      <div class="quizShellTop">
+        <div>
+          <div class="quizTitle" id="quizTitulo">Quiz</div>
+          <div class="small" style="color: rgba(255,255,255,.92);" id="quizSubtitulo">Teste seus conhecimentos</div>
+        </div>
+        <div class="quizPill" id="quizPill">0/0</div>
+      </div>
+      <div class="progressWrap" aria-label="Progresso">
+        <div class="progressBar" id="quizProgress"></div>
+      </div>
+
+      <label class="small" for="quizKbdSelect" style="color: rgba(255,255,255,.9); margin-top: 12px; display:block;">Mudar KBD</label>
       <select id="quizKbdSelect" class="select"></select>
-    </div>
+    </section>
 
-    <div class="progressWrap" aria-label="Progresso do quiz">
-      <div class="progressBar" id="quizProgressBar"></div>
-    </div>
-
-    <div id="quizArea"></div>
+    <div id="quizArea" class="fadeUp"></div>
   </main>
 
   <nav class="bottomNav" aria-label="Navegação">
-    <a class="navItem" href="home.html"><span class="navIcon">🏠</span><span>Home</span></a>
-    <a class="navItem" href="marcas.html"><span class="navIcon">🏷️</span><span>Marcas</span></a>
-    <a class="navItem active" href="quiz.html"><span class="navIcon">📝</span><span>Quiz</span></a>
+    <div class="bottomNavInner">
+      <button class="navItem" data-nav="home" onclick="navHome()"><span class="navIcon">🏠</span><span>Home</span></button>
+      <button class="navItem" data-nav="marcas" onclick="navMarcas()"><span class="navIcon">🏷️</span><span>Marcas</span></button>
+      <button class="navItem" data-nav="quiz" onclick="navQuizHub()"><span class="navIcon">📝</span><span>Quiz</span></button>
+    </div>
   </nav>
-
-  <div id="sheetOverlay" class="sheetOverlay" style="display:none"></div>
 
   <script src="quizzes.js"></script>
   <script src="app.js"></script>
   <script>
-    initAppShell();
-    renderQuiz();
+    initShell();
+    renderQuizV2();
   </script>
 </body>
 </html>
