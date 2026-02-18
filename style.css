@@ -13,27 +13,15 @@
   box-sizing: border-box;
 }
 
-html, body {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-img, iframe, video {
-  max-width: 100%;
-  height: auto;
-}
-
-h1, h2, h3, p, span, a {
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background: linear-gradient(135deg, #0a0118 0%, #1a0b2e 50%, #16003e 100%);
   min-height: 100vh;
   color: #ffffff;
+  /* MOBILE-FIRST: nada de layout "desktop" por padrão */
   padding-top: 70px; /* Espaço para barra fixa */
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* ====== BARRA SUPERIOR FIXA ====== */
@@ -100,10 +88,11 @@ body {
   transform: translateY(-2px);
 }
 
-/* ====== CONTAINER (MOBILE-FIRST) ====== */
+/* ====== CONTAINER ====== */
 .container {
-  width: 100%;
+  /* MOBILE-FIRST: ocupar a tela inteira */
   max-width: 100%;
+  width: 100%;
   margin: 0;
   padding: 16px;
 }
@@ -219,11 +208,6 @@ button:active {
 }
 
 .btnSmall {
-  width: auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   margin-top: 8px;
   padding: 8px 14px;
   border-radius: 10px;
@@ -234,6 +218,11 @@ button:active {
   cursor: pointer;
   transition: all 0.2s;
   font-size: 12px;
+  /* não herdar width:100% do botão global */
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .btnSmall:hover {
@@ -533,7 +522,8 @@ body.quiz-form {
 }
 
 .quiz-form .container {
-  max-width: 680px;
+  /* MOBILE-FIRST */
+  max-width: 100%;
   padding: 16px;
 }
 
@@ -779,7 +769,8 @@ body {
   bottom: 0;
   z-index: 60;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  /* Mobile: somente 3 itens (Home/Marcas/Quiz) */
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   padding: 10px 10px 12px;
   background: rgba(10, 1, 24, 0.90);
