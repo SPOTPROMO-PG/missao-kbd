@@ -57,8 +57,9 @@ function renderMarca() {
   const marca = CONTENT.marcas.find(m => m.id === marcaId);
   if (!marca) { alert("Marca não encontrada"); voltarHome(); return; }
   document.getElementById("marcaTitulo").textContent = marca.nome;
-  const topbarSetor = document.getElementById("topbarSetor");
-  if (topbarSetor) topbarSetor.textContent = getSetor();
+  // Atualiza o badge de setor na lista de KBDs
+  const badgeEl = document.getElementById("setorBadge");
+  if (badgeEl) badgeEl.textContent = getSetor();
   const lista = document.getElementById("listaKbds");
   lista.innerHTML = "";
   marca.kbds.forEach(kbd => {
@@ -81,38 +82,15 @@ function renderKbd() {
   if (!marca) { alert("Marca não encontrada"); voltarHome(); return; }
   const kbd = (marca.kbds || []).find(k => k.id === kbdId);
   if (!kbd) { alert("KBD não encontrado"); voltarMarca(); return; }
-  // Atualiza apenas as seções de vídeo e imagens.  Os títulos são atualizados
-  // diretamente no HTML da página (kbd.html) após renderKbd() ser chamado.
+  document.getElementById("kbdTitulo").textContent = `${marca.nome} • ${kbd.nome}`;
+  const topbarSetor = document.getElementById("topbarSetor");
+  if (topbarSetor) topbarSetor.textContent = getSetor();
   const iframe = document.getElementById("videoFrame");
   const placeholder = document.getElementById("videoPlaceholder");
-  if (iframe && placeholder) {
-    if (kbd.videoId) {
-      iframe.src = "https://www.youtube.com/embed/" + kbd.videoId;
-      iframe.style.display = "block";
-      placeholder.style.display = "none";
-    } else {
-      iframe.style.display = "none";
-      placeholder.style.display = "flex";
-    }
-  }
+  if (kbd.videoId) { iframe.src = "https://www.youtube.com/embed/" + kbd.videoId; iframe.style.display = "block"; placeholder.style.display = "none"; } else { iframe.style.display = "none"; placeholder.style.display = "flex"; }
   const imgBox = document.getElementById("imagensKbd");
-  if (imgBox) {
-    imgBox.innerHTML = "";
-    if (kbd.imagens && kbd.imagens.length > 0) {
-      kbd.imagens.forEach(src => {
-        const img = document.createElement("img");
-        img.src = src;
-        imgBox.appendChild(img);
-      });
-    } else {
-      const msg = document.createElement("div");
-      msg.className = "small";
-      msg.style.marginTop = "16px";
-      msg.style.opacity = ".8";
-      msg.textContent = "Imagens em breve.";
-      imgBox.appendChild(msg);
-    }
-  }
+  imgBox.innerHTML = "";
+  if (kbd.imagens && kbd.imagens.length > 0) { kbd.imagens.forEach(src => { const img = document.createElement("img"); img.src = src; imgBox.appendChild(img); }); } else { const msg = document.createElement("div"); msg.className = "small"; msg.style.marginTop = "16px"; msg.style.opacity = ".8"; msg.textContent = "Imagens em breve."; imgBox.appendChild(msg); }
 }
 
 function irParaQuiz() { const p = new URLSearchParams(window.location.search); window.location.href = "quiz.html?marca=" + encodeURIComponent(p.get("marca")) + "&kbd=" + encodeURIComponent(p.get("kbd")); }
@@ -130,20 +108,11 @@ function renderQuiz() {
   const perguntas = QUIZZES[marcaId] || [];
   if (perguntas.length === 0) { document.getElementById("quizArea").innerHTML = `<div class="card" style="text-align: center; padding: 40px;"><div style="font-size: 48px; margin-bottom: 16px;">📝</div><div class="cardTitle">Quiz em breve</div><button class="btnPrimary" onclick="proximoKBD()">Próximo KBD →</button></div>`; return; }
   quizState = { marcaAtual: marca, kbdAtual: kbd, perguntaIndex: 0, tentativa: 1, acertos: 0, total: perguntas.length, historico: [], perguntas: perguntas, respondendo: false };
-  // Define os títulos e cabeçalhos do quiz.  O título principal indica a
-  // marca e o subtítulo o nome do KBD.  O cabeçalho da AppBar utiliza o
-  // nome da marca para contextualizar o usuário.
-  const headerEl = document.getElementById("quizHeaderTitle");
-  if (headerEl) headerEl.textContent = marca.nome;
-  const tEl = document.getElementById("quizTitulo");
-  if (tEl) tEl.textContent = `Quiz ${marca.nome}`;
-  const subEl = document.getElementById("quizSubtitulo");
-  if (subEl) subEl.textContent = kbd ? kbd.nome : "";
-  const setBadge = document.getElementById("quizSetorBadge");
-  if (setBadge) setBadge.textContent = getSetor();
-  // zera a barra de progresso
-  const progressBar = document.getElementById('quizProgressBar');
-  if (progressBar) progressBar.style.width = '0%';
+  document.getElementById("quizTitulo").textContent = `Quiz ${marca.nome}`;
+  document.getElementById("quizSubtitulo").textContent = kbd ? kbd.nome : "";
+  // Atualiza o badge de setor no quiz
+  const badgeQuiz = document.getElementById("setorBadgeQuiz");
+  if (badgeQuiz) badgeQuiz.textContent = getSetor();
   mostrarPergunta();
 }
 
@@ -151,55 +120,7 @@ function mostrarPergunta() {
   const { perguntas, perguntaIndex } = quizState;
   const p = perguntas[perguntaIndex];
   quizState.respondendo = false;
-  // Atualiza a barra de progresso antes de exibir a nova pergunta
-  const progressBar = document.getElementById('quizProgressBar');
-  if (progressBar) {
-    const pct = (perguntaIndex / perguntas.length) * 100;
-    progressBar.style.width = pct + '%';
-  }
-  const quizArea = document.getElementById("quizArea");
-  if (!quizArea) return;
-  // Constrói o HTML da pergunta usando inputs radio e um botão de confirmação.
-  const optionsHtml = p.alternativas.map((alt, i) => {
-    const l = String.fromCharCode(65 + i);
-    // remove o prefixo "A) " da alternativa caso esteja presente
-    const textoLimpo = alt.replace(/^[A-D]\)\s*/, '');
-    return `
-      <label class="option">
-        <input type="radio" name="resp" value="${l}">
-        <div class="optionText"><strong>${l})</strong> ${textoLimpo}</div>
-      </label>`;
-  }).join('');
-  quizArea.innerHTML = `
-    <div class="formCard">
-      <div class="questionMeta">
-        <div class="pill">Pergunta ${perguntaIndex + 1} de ${perguntas.length}</div>
-      </div>
-      <div class="questionTitle">${p.pergunta}</div>
-      <div class="options">
-        ${optionsHtml}
-      </div>
-      <div class="formActions">
-        <button class="btnPrimaryForm" id="confirmBtn" disabled>Confirmar</button>
-      </div>
-    </div>`;
-  // Habilita o botão de confirmação quando uma alternativa for selecionada
-  const formOptions = quizArea.querySelectorAll('input[name="resp"]');
-  const confirmBtn = document.getElementById('confirmBtn');
-  formOptions.forEach(inp => {
-    inp.addEventListener('change', () => {
-      if (confirmBtn) confirmBtn.disabled = false;
-    });
-  });
-  if (confirmBtn) {
-    confirmBtn.onclick = () => {
-      // obtém o valor selecionado
-      const sel = Array.from(formOptions).find(i => i.checked);
-      if (sel) {
-        responderQuiz(sel.value);
-      }
-    };
-  }
+  document.getElementById("quizArea").innerHTML = `<div class="card" style="padding: 24px;"><div style="text-align: center; margin-bottom: 20px;"><div class="small" style="font-weight: 700;">Pergunta ${perguntaIndex + 1} de ${perguntas.length}</div></div><div class="cardTitle" style="margin-bottom: 24px; font-size: 18px;">${p.pergunta}</div><div style="display: grid; gap: 12px;">${p.alternativas.map((alt, i) => { const l = String.fromCharCode(65 + i); return `<button onclick="responderQuiz('${l}')" style="width: 100%; padding: 16px; text-align: left; border-radius: 12px; background: rgba(168, 85, 247, 0.1); border: 2px solid rgba(0, 217, 255, 0.3); color: white; cursor: pointer; font-size: 15px;"><strong>${l})</strong> ${alt.replace(/^[A-D]\)\s*/, '')}</button>`; }).join('')}</div></div>`;
 }
 
 async function responderQuiz(r) {
@@ -233,40 +154,82 @@ function proximaPergunta() {
 }
 
 function mostrarResultadoFinal() {
-  const { acertos, total } = quizState;
+  const { acertos, total, marcaAtual, kbdAtual } = quizState;
+  // Calcula percentuais e define medalhas
   const pct = Math.round((acertos / total) * 100);
-  let emoji, msg, grad;
-  // Medalhas: ouro para 100%, prata para ≥80% e bronze para abaixo de 80%.
+  let emoji, msg;
   if (pct === 100) {
     emoji = "🥇";
-    msg = "Ouro!";
-    grad = "linear-gradient(135deg, #FFD700 0%, #FFA500 100%)";
+    msg = "Ouro";
   } else if (pct >= 80) {
     emoji = "🥈";
-    msg = "Prata!";
-    grad = "linear-gradient(135deg, #C0C0C0 0%, #808080 100%)";
+    msg = "Prata";
   } else {
     emoji = "🥉";
-    msg = "Bronze!";
-    grad = "linear-gradient(135deg, #CD7F32 0%, #8B4513 100%)";
+    msg = "Bronze";
   }
-  document.getElementById("quizArea").innerHTML = `<div class="card" style="padding: 40px; text-align: center; background: ${grad}; border: none;"><div style="font-size: 80px;">${emoji}</div><div style="font-size: 28px; font-weight: 900;">${msg}</div><div style="font-size: 48px; font-weight: 900; margin: 20px 0;">${pct}%</div><div style="font-size: 18px;">${acertos} de ${total}</div><button class="btnPrimary" onclick="proximoKBD()" style="margin-top: 30px; background: rgba(0,0,0,0.3); border: 2px solid white;">Próximo →</button></div>`;
-  // Ajusta a barra de progresso para 100%
-  const progressBar = document.getElementById('quizProgressBar');
-  if (progressBar) progressBar.style.width = '100%';
+  // Marca o quiz atual como concluído no localStorage
+  markQuizCompleted(marcaAtual.id, kbdAtual.id);
+  // Determina o próximo KBD pendente (marcaId e kbdId) ou null
+  const next = findNextPending();
+  // Define rótulo e ação do botão de continuação
+  let btnLabel;
+  let btnAction;
+  if (next) {
+    btnLabel = "Próximo";
+    btnAction = `window.location.href = 'kbd.html?marca=${encodeURIComponent(next.marca)}&kbd=${encodeURIComponent(next.kbd)}'`;
+  } else {
+    btnLabel = "Concluir";
+    // Quando não há mais KBDs pendentes, voltar à home após parabenizar
+    btnAction = `alert('Parabéns! Você concluiu todos os quizzes!'); window.location.href = 'home.html'`;
+  }
+  // Cria layout da tela de medalha, usando card padrão para mobile
+  const container = document.getElementById("quizArea");
+  container.innerHTML = `<div class="card" style="padding: 32px 24px; text-align: center; border: 2px solid var(--border-glow); background: var(--card-bg); border-radius: 16px;">
+    <div style="font-size: 64px; margin-bottom: 16px;">${emoji}</div>
+    <div class="cardTitle" style="margin-bottom: 12px;">${msg}</div>
+    <div style="font-size: 36px; font-weight: 900; margin-bottom: 8px;">${pct}%</div>
+    <div class="small" style="margin-bottom: 24px;">${acertos} de ${total} perguntas corretas</div>
+    <button class="btnPrimary" style="margin-top: 8px;" onclick="${btnAction}">${btnLabel} →</button>
+  </div>`;
 }
 
 function proximoKBD() {
-  const p = new URLSearchParams(window.location.search);
-  const mid = p.get("marca");
-  const kid = p.get("kbd");
-  const ma = CONTENT.marcas.find(m => m.id === mid);
-  if (!ma) { voltarHome(); return; }
-  const ki = ma.kbds.findIndex(k => k.id === kid);
-  if (ki + 1 < ma.kbds.length) { const nk = ma.kbds[ki + 1]; window.location.href = "kbd.html?marca=" + encodeURIComponent(mid) + "&kbd=" + encodeURIComponent(nk.id); return; }
-  const mi = CONTENT.marcas.findIndex(m => m.id === mid);
-  if (mi + 1 < CONTENT.marcas.length) { const nm = CONTENT.marcas[mi + 1]; const pk = nm.kbds[0]; window.location.href = "kbd.html?marca=" + encodeURIComponent(nm.id) + "&kbd=" + encodeURIComponent(pk.id); return; }
-  alert("Parabéns! 🎉"); voltarHome();
+  // Usa findNextPending para encontrar o próximo KBD pendente. Se houver, navega até ele. Se não, parabeniza e volta ao início.
+  const next = findNextPending();
+  if (next) {
+    window.location.href = 'kbd.html?marca=' + encodeURIComponent(next.marca) + '&kbd=' + encodeURIComponent(next.kbd);
+    return;
+  }
+  alert('Parabéns! Você concluiu todos os quizzes!');
+  voltarHome();
+}
+
+// ====== PROGRESSO DE QUIZ ======
+// Armazena nosede quizzes completados por marca/kbd
+function markQuizCompleted(marcaId, kbdId) {
+  const data = JSON.parse(localStorage.getItem('QUIZZES_COMPLETED') || '{}');
+  if (!data[marcaId]) data[marcaId] = {};
+  data[marcaId][kbdId] = true;
+  localStorage.setItem('QUIZZES_COMPLETED', JSON.stringify(data));
+}
+
+function isQuizCompleted(marcaId, kbdId) {
+  const data = JSON.parse(localStorage.getItem('QUIZZES_COMPLETED') || '{}');
+  return data[marcaId] && data[marcaId][kbdId];
+}
+
+// Procura o próximo KBD pendente (não respondido) em todas as marcas
+function findNextPending() {
+  const data = JSON.parse(localStorage.getItem('QUIZZES_COMPLETED') || '{}');
+  for (const marca of CONTENT.marcas) {
+    for (const kbd of marca.kbds) {
+      if (!(data[marca.id] && data[marca.id][kbd.id])) {
+        return { marca: marca.id, kbd: kbd.id };
+      }
+    }
+  }
+  return null;
 }
 
 async function enviarParaSheets(d) {
@@ -280,39 +243,36 @@ async function enviarParaSheets(d) {
   } catch (e) { console.error(e); }
 }
 
-/**
- * Inicializa a barra de navegação inferior.  Recebe o identificador da página
- * atual ("home", "marcas" ou "quiz") e aplica a classe `.active` ao item
- * correspondente.  Também define os manipuladores de clique para realizar
- * a navegação.  Esta função deve ser chamada após o carregamento do
- * conteúdo de cada página.
- * @param {string} activePage
- */
-function initBottomNav(activePage) {
+// ====== Navegação inferior ======
+// Inicializa a barra de navegação inferior e destaca a página atual.
+function initBottomNav() {
   const nav = document.querySelector('.bottomNav');
   if (!nav) return;
-  nav.querySelectorAll('.navItem').forEach(btn => {
-    const navType = btn.dataset.nav;
-    // destaca o item ativo
-    if (navType === activePage) btn.classList.add('active');
-    else btn.classList.remove('active');
-    // configura o clique
-    btn.onclick = () => {
-      if (navType === 'home') {
+  const page = document.body.dataset.page;
+  const links = nav.querySelectorAll('a');
+  links.forEach(a => {
+    const target = a.getAttribute('data-target');
+    // Define estado ativo: marca página atual como ativa.
+    if (target === page || (target === 'marcas' && page === 'home')) {
+      a.classList.add('active');
+    } else {
+      a.classList.remove('active');
+    }
+    // Configura navegação sem recarregar o CSS inline.
+    a.onclick = (e) => {
+      e.preventDefault();
+      if (target === 'home' || target === 'marcas') {
         window.location.href = 'home.html';
-      } else if (navType === 'marcas') {
-        // a lista de marcas corresponde à home
-        window.location.href = 'home.html';
-      } else if (navType === 'quiz') {
-        // se já estamos em um quiz com marca e kbd definidos, recarrega
+      } else if (target === 'quiz') {
+        // Se estamos num quiz de um KBD específico e o usuário clicar em "Quiz",
+        // vamos apenas recarregar a página atual para exibir o histórico.
+        // Caso contrário, redirecione para a home do quiz.
         const params = new URLSearchParams(window.location.search);
-        const mid = params.get('marca');
-        const kid = params.get('kbd');
-        if (mid && kid) {
-          window.location.href = 'quiz.html?marca=' + encodeURIComponent(mid) + '&kbd=' + encodeURIComponent(kid);
+        if (params.has('marca') && params.has('kbd')) {
+          // Recarrega a mesma página
+          window.location.href = 'quiz.html?marca=' + encodeURIComponent(params.get('marca')) + '&kbd=' + encodeURIComponent(params.get('kbd'));
         } else {
-          // se não houver contexto, volta para home
-          window.location.href = 'home.html';
+          window.location.href = 'quiz.html';
         }
       }
     };
