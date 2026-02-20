@@ -1,4 +1,6 @@
 // quizzes.js — QUIZ fictício para TODOS os KBDs (marca -> kbd -> perguntas)
+// Estrutura obrigatória: QUIZZES[marcaId][kbdId] = [ { pergunta, alternativas, gabarito, justificativa } ]
+
 const QUIZZES = {
   always: {
     kbd1: [
@@ -11,7 +13,7 @@ const QUIZZES = {
           "D) Responder qualquer alternativa",
         ],
         gabarito: "A",
-        justificativa: "No fluxo, você assiste/consulta o KBD e responde o quiz para concluir.",
+        justificativa: "No fluxo, você abre o KBD e responde o quiz para concluir.",
       },
     ],
   },
@@ -19,7 +21,7 @@ const QUIZZES = {
   downy: {
     kbd1: [
       {
-        pergunta: "Teste (DOWNY • KBD1): Qual opção conclui o KBD corretamente?",
+        pergunta: "Teste (DOWNY • KBD1): O que finaliza corretamente este KBD?",
         alternativas: [
           "A) Responder o quiz corretamente",
           "B) Fechar o navegador",
@@ -57,7 +59,7 @@ const QUIZZES = {
   pantene: {
     kbd1: [
       {
-        pergunta: "Teste (PANTENE • KBD1): Qual alternativa finaliza este KBD?",
+        pergunta: "Teste (PANTENE • KBD1): Resposta correta (teste) é:",
         alternativas: ["A) A", "B) B", "C) C", "D) D"],
         gabarito: "A",
         justificativa: "Quiz fictício — alternativa A é a correta para testes.",
@@ -65,7 +67,7 @@ const QUIZZES = {
     ],
     kbd2: [
       {
-        pergunta: "Teste (PANTENE • KBD2): Se você acertar, ganha feedback de:",
+        pergunta: "Teste (PANTENE • KBD2): Se você acertar, aparece:",
         alternativas: ["A) Parabéns", "B) Erro 404", "C) Sem resposta", "D) Reinício total"],
         gabarito: "A",
         justificativa: "Acertou: aparece “Parabéns”.",
@@ -73,7 +75,7 @@ const QUIZZES = {
     ],
     kbd3: [
       {
-        pergunta: "Teste (PANTENE • KBD3): O progresso do KBD fica salvo onde?",
+        pergunta: "Teste (PANTENE • KBD3): O progresso do KBD fica salvo em:",
         alternativas: ["A) LocalStorage", "B) Bluetooth", "C) Wi-Fi", "D) Galeria"],
         gabarito: "A",
         justificativa: "O app salva progresso local via LocalStorage.",
@@ -81,7 +83,7 @@ const QUIZZES = {
     ],
     kbd4: [
       {
-        pergunta: "Teste (PANTENE • KBD4): Qual é o objetivo do teste?",
+        pergunta: "Teste (PANTENE • KBD4): Objetivo principal do teste é:",
         alternativas: [
           "A) Validar o fluxo completo",
           "B) Travar o app",
@@ -89,7 +91,7 @@ const QUIZZES = {
           "D) Não registrar nada",
         ],
         gabarito: "A",
-        justificativa: "Queremos garantir o fluxo completo por marca/KBD.",
+        justificativa: "Queremos validar o fluxo completo por marca/KBD.",
       },
     ],
   },
@@ -97,7 +99,7 @@ const QUIZZES = {
   pampers: {
     kbd1: [
       {
-        pergunta: "Teste (PAMPERS • KBD1): Para concluir uma marca, precisa:",
+        pergunta: "Teste (PAMPERS • KBD1): Para concluir a marca, precisa:",
         alternativas: [
           "A) Responder 1 KBD apenas",
           "B) Responder todos os KBDs da marca",
@@ -110,7 +112,7 @@ const QUIZZES = {
     ],
     kbd2: [
       {
-        pergunta: "Teste (PAMPERS • KBD2): O sistema indica pendência como:",
+        pergunta: "Teste (PAMPERS • KBD2): KBD pendente aparece como:",
         alternativas: ["A) 0%", "B) 100%", "C) 200%", "D) —"],
         gabarito: "A",
         justificativa: "KBD pendente aparece como 0%.",
@@ -147,7 +149,7 @@ const QUIZZES = {
           "D) Não mostra progresso",
         ],
         gabarito: "B",
-        justificativa: "O fluxo só completa quando todos os quizzes de todas as marcas estiverem concluídos.",
+        justificativa: "O fluxo só completa quando todas as marcas/KBDs estiverem concluídos.",
       },
     ],
   },
@@ -171,7 +173,7 @@ const QUIZZES = {
           "D) Reiniciar o celular",
         ],
         gabarito: "A",
-        justificativa: "Erro: mostra feedback imediato e a resposta correta.",
+        justificativa: "Erro: feedback imediato + resposta correta.",
       },
     ],
   },
@@ -179,7 +181,7 @@ const QUIZZES = {
   "oral-b": {
     kbd1: [
       {
-        pergunta: "Teste (ORAL-B • KBD1): O botão que inicia o quiz fica em:",
+        pergunta: "Teste (ORAL-B • KBD1): O botão do quiz fica em:",
         alternativas: ["A) No final do KBD", "B) No login", "C) No footer", "D) No console"],
         gabarito: "A",
         justificativa: "No KBD existe o botão “Responder o Quiz”.",
@@ -203,7 +205,7 @@ const QUIZZES = {
         pergunta: "Teste (ORAL-B • KBD3): A medalha de 100% é:",
         alternativas: ["A) 🥇", "B) 🥈", "C) 🥉", "D) 🏆"],
         gabarito: "A",
-        justificativa: "100% = 🥇 (ouro).",
+        justificativa: "100% = 🥇.",
       },
     ],
   },
