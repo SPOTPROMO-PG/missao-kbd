@@ -177,11 +177,14 @@ body{
 
 /* LOGO DAS MARCAS (uniforme e sem cortar) */
 .brand-logo{
-  width:54px; height:54px; border-radius:18px;
+  width:54px;
+  height:54px;
+  border-radius:18px;
   border:1px solid var(--stroke);
-  background: rgba(0,0,0,.35);
-  object-fit:contain;     /* <- não corta */
-  padding:6px;            /* <- centraliza e uniformiza */
+  background:#fff;
+  object-fit:contain;
+  padding:0;              /* <- ocupa todo o quadrado */
+
 }
 
 /* Buttons */
