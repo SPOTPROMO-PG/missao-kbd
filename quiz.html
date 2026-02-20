@@ -8,34 +8,33 @@
   <script defer src="quizzes.js"></script>
   <script defer src="app.js"></script>
 </head>
-<body data-page="quiz" onload="renderQuiz(); initBottomNav();">
+<body data-page="quiz" onload="renderQuiz();">
   <div class="bg-glow"></div>
   <div class="app">
     <div class="topbar">
       <div class="topbar-left">
-        <button class="back" onclick="voltarMarca()">←</button>
+        <button class="back" onclick="voltarMarca()" aria-label="Voltar" title="Voltar">←</button>
         <div class="brand">
           <div class="small" id="quizSubtitulo">—</div>
           <div class="title" id="quizTitulo">Quiz</div>
         </div>
       </div>
+
       <div class="topbar-right">
+        <div class="topnav" aria-label="Navegação">
+          <a class="iconbtn" href="home.html" aria-label="Home" title="Home">🏠</a>
+          <a class="iconbtn" href="home.html" aria-label="Marcas" title="Marcas">🏷️</a>
+          <a class="iconbtn active" href="quiz.html" aria-label="Quiz" title="Quiz">🧠</a>
+        </div>
+
         <div class="badge" id="setorBadgeQuiz">—</div>
-        <button class="btn-mini" onclick="trocarSetor()">Setor</button>
+        <button class="iconbtn" type="button" onclick="trocarSetor()" aria-label="Trocar setor" title="Trocar setor">⚙️</button>
       </div>
     </div>
 
     <div class="container">
       <div id="quizArea"></div>
     </div>
-
-    <nav class="bottomNav">
-      <div class="wrap">
-        <a href="#" data-target="home">Home</a>
-        <a href="#" data-target="marcas">Marcas</a>
-        <a href="#" data-target="quiz">Quiz</a>
-      </div>
-    </nav>
   </div>
 </body>
 </html>

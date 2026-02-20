@@ -1,61 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>Home - Missão KBD</title>
   <link rel="stylesheet" href="style.css">
+  <script defer src="app.js"></script>
 </head>
-<body data-page="home">
+<body data-page="home" onload="renderHome();">
+  <div class="bg-glow"></div>
+  <div class="app">
 
-  <!-- Barra Superior -->
-  <div class="topbar">
-    <img src="logo-missao-kbd.png" alt="Missão KBD" class="topbar-logo" onclick="location.reload()">
-    <div class="topbar-right">
-      <div class="topbar-setor" id="topbarSetor">---</div>
-      <button class="btn-sair" onclick="confirmarSaida()">Sair</button>
+    <div class="topbar">
+      <div class="topbar-left">
+        <img src="logo-missao-kbd.png" alt="Missão KBD" class="app-logo-sm" onclick="location.reload()">
+        <div class="brand">
+          <div class="small">Missão KBD</div>
+          <div class="title">Marcas P&G</div>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="topnav" aria-label="Navegação">
+          <a class="iconbtn active" href="home.html" aria-label="Home" title="Home">🏠</a>
+          <a class="iconbtn" href="home.html" aria-label="Marcas" title="Marcas">🏷️</a>
+          <a class="iconbtn" href="quiz.html" aria-label="Quiz" title="Quiz">🧠</a>
+        </div>
+
+        <div class="badge" id="setorBadge">—</div>
+
+        <button class="iconbtn" type="button" onclick="trocarSetor()" aria-label="Trocar setor" title="Trocar setor">⚙️</button>
+        <button class="iconbtn" type="button" onclick="confirmarSaida()" aria-label="Sair" title="Sair">⎋</button>
+      </div>
     </div>
-  </div>
 
-  <div class="container">
-    <h1>Marcas</h1>
-    <p class="small">Selecione uma marca para começar</p>
+    <div class="container">
+      <!-- Logo / Hero menor -->
+      <div class="hero-logo">
+        <img src="logo-missao-kbd.png" alt="Missão KBD">
+      </div>
 
-    <!-- Lista de marcas -->
-    <div class="lista" id="listaMarcas">
-      <!-- Preenchido pelo JS -->
+      <div class="section-head">
+        <h1>Marcas</h1>
+        <p class="small">Selecione uma marca para começar</p>
+      </div>
+
+      <div class="lista" id="listaMarcas"></div>
     </div>
+
   </div>
-
-  <script src="app.js"></script>
-  <script>
-    if (typeof renderHome === 'function') {
-      renderHome();
-      document.getElementById('topbarSetor').textContent = getSetor();
-    }
-  </script>
-
-  <!-- Barra de navegação inferior -->
-  <nav class="bottomNav">
-    <a href="home.html" data-target="home">
-      <span class="icon">🏠</span>
-      Home
-    </a>
-    <a href="home.html" data-target="marcas">
-      <span class="icon">🏷️</span>
-      Marcas
-    </a>
-    <a href="quiz.html" data-target="quiz">
-      <span class="icon">🧠</span>
-      Quiz
-    </a>
-  </nav>
-
-  <script>
-    // Inicializa a barra de navegação inferior
-    if (typeof initBottomNav === 'function') {
-      initBottomNav();
-    }
-  </script>
 </body>
 </html>
