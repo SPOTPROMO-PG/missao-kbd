@@ -8,6 +8,8 @@
   --muted2:rgba(255,255,255,.45);
   --ok: rgba(16,185,129,.18);
   --ok-stroke: rgba(16,185,129,.35);
+  --warn: rgba(250,204,21,.14);
+  --warn-stroke: rgba(250,204,21,.35);
   --bad: rgba(239,68,68,.16);
   --bad-stroke: rgba(239,68,68,.35);
   --shadow: 0 20px 60px rgba(0,0,0,.55);
@@ -23,9 +25,7 @@ body{
 }
 
 /* BG glow */
-.bg-glow{
-  position:fixed; inset:0; pointer-events:none;
-}
+.bg-glow{position:fixed; inset:0; pointer-events:none;}
 .bg-glow::before{
   content:"";
   position:absolute; left:50%; top:-120px;
@@ -50,7 +50,7 @@ body{
   max-width:480px;
   min-height:100vh;
   margin:0 auto;
-  padding-bottom:16px; /* sem barra inferior */
+  padding-bottom:16px;
 }
 
 /* Topbar */
@@ -72,9 +72,7 @@ body{
   display:flex; align-items:center; justify-content:center;
   cursor:pointer;
 }
-.brand{
-  display:flex; flex-direction:column; line-height:1.1;
-}
+.brand{display:flex; flex-direction:column; line-height:1.1;}
 .brand .small{font-size:12px; color:var(--muted2)}
 .brand .title{font-size:14px; font-weight:700}
 .topbar-right{display:flex; align-items:center; gap:10px}
@@ -98,7 +96,6 @@ body{
   padding:6px;
   cursor:pointer;
 }
-
 .topnav{
   display:flex;
   align-items:center;
@@ -108,7 +105,6 @@ body{
   border:1px solid var(--stroke);
   background: rgba(255,255,255,.05);
 }
-
 .iconbtn{
   width:38px;
   height:38px;
@@ -124,10 +120,7 @@ body{
   font-size:16px;
   line-height:1;
 }
-
-.iconbtn.active{
-  background: rgba(255,255,255,.12);
-}
+.iconbtn.active{background: rgba(255,255,255,.12);}
 
 /* Content spacing */
 .container{padding:14px 14px 0}
@@ -175,16 +168,25 @@ body{
 .card-row{display:flex; align-items:center; gap:12px}
 .card-col{display:flex; flex-direction:column}
 
-/* LOGO DAS MARCAS (uniforme e sem cortar) */
+/* ✅ Home visual status (borda por progresso) */
+.brand-card{cursor:pointer; transition: transform .08s ease, border-color .12s ease, box-shadow .12s ease;}
+.brand-card:active{transform: scale(.99);}
+.brand-card.pending{
+  border-color: var(--warn-stroke);
+  box-shadow: 0 18px 55px rgba(0,0,0,.55), 0 0 0 1px rgba(250,204,21,.10) inset;
+}
+.brand-card.done{
+  border-color: var(--ok-stroke);
+  box-shadow: 0 18px 55px rgba(0,0,0,.55), 0 0 0 1px rgba(16,185,129,.10) inset;
+}
+
+/* LOGO DAS MARCAS (uniforme e sem cortar, fundo branco) */
 .brand-logo{
-  width:54px;
-  height:54px;
-  border-radius:18px;
+  width:54px; height:54px; border-radius:18px;
   border:1px solid var(--stroke);
   background:#fff;
   object-fit:contain;
-  padding:0;              /* <- ocupa todo o quadrado */
-
+  padding:6px;
 }
 
 /* Buttons */
@@ -252,7 +254,7 @@ body{
   background: rgba(0,0,0,.25);
 }
 .kbd-status.done{border-color: var(--ok-stroke); background: var(--ok); color:#d1fae5}
-.kbd-status.pending{border-color: rgba(250,204,21,.30); background: rgba(250,204,21,.10); color:#fde68a}
+.kbd-status.pending{border-color: var(--warn-stroke); background: var(--warn); color:#fde68a}
 
 /* Quiz */
 .quiz-progress{font-size:12px; color:var(--muted); margin-bottom:8px}
@@ -302,7 +304,7 @@ body{
   background: rgba(0,0,0,.25);
   text-align:center;
 }
-.result-medal{font-size:22px; font-weight:900}
+.result-medal{font-size:42px; font-weight:900} /* medalha emoji grande */
 .result-score{font-size:36px; font-weight:1000; margin-top:6px}
 .result-sub{font-size:12px; color:var(--muted); margin:10px 0 14px}
 
@@ -347,3 +349,53 @@ body{
   margin-bottom:10px;
 }
 .modal-kbd-just{font-size:12px; color:var(--muted)}
+
+/* Layout helpers */
+.card-row-space{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.pct-pill{
+  min-width:56px;
+  height:30px;
+  padding:0 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:12px;
+  background: rgba(255,255,255,.06);
+}
+
+.pct-ok{
+  border-color: rgba(16,185,129,.35);
+  background: rgba(16,185,129,.16);
+  color: #d1fae5;
+}
+
+.pct-pending{
+  border-color: rgba(250,204,21,.30);
+  background: rgba(250,204,21,.10);
+  color:#fde68a;
+}
+
+.brand-progress{
+  margin-top:10px;
+  font-size:12px;
+  padding:10px 12px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.22);
+  color: rgba(255,255,255,.75);
+}
+.brand-progress.ok{
+  border-color: rgba(16,185,129,.35);
+  background: rgba(16,185,129,.12);
+  color:#d1fae5;
+}

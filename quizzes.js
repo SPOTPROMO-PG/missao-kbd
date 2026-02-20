@@ -1,138 +1,273 @@
+// quizzes.js — QUIZ fictício para TODOS os KBDs (marca -> kbd -> perguntas)
 const QUIZZES = {
-  // DOWNY
+  always: {
+    kbd1: [
+      {
+        pergunta: "Teste (ALWAYS): Qual é a ação correta após aprender o KBD?",
+        alternativas: [
+          "A) Responder o quiz e concluir",
+          "B) Sair do app sem salvar",
+          "C) Pular todas as marcas",
+          "D) Responder qualquer alternativa",
+        ],
+        gabarito: "A",
+        justificativa: "No fluxo, você assiste/consulta o KBD e responde o quiz para concluir.",
+      },
+    ],
+  },
+
   downy: {
-    // kbd2 = Bloco Azul (50%)
+    kbd1: [
+      {
+        pergunta: "Teste (DOWNY • KBD1): Qual opção conclui o KBD corretamente?",
+        alternativas: [
+          "A) Responder o quiz corretamente",
+          "B) Fechar o navegador",
+          "C) Trocar de setor sem concluir",
+          "D) Ignorar o quiz",
+        ],
+        gabarito: "A",
+        justificativa: "Conclui quando finaliza o quiz do KBD.",
+      },
+    ],
     kbd2: [
       {
-        pergunta: "O KBD Bloco Azul (Brisas) exige qual percentual do espaço de Downy?",
-        alternativas: ["A) 40%", "B) 50%", "C) 60%", "D) 70%"],
+        pergunta: "Teste (DOWNY • KBD2): Para concluir, você deve:",
+        alternativas: ["A) Abrir Home", "B) Responder o quiz", "C) Alterar setor", "D) Nada"],
         gabarito: "B",
-        justificativa: "Bloco Azul representa 50% do espaço de Downy.",
+        justificativa: "O quiz é a etapa que marca o KBD como concluído.",
       },
     ],
-    // kbd3 = Bloco Colorido (40%) / Alfazema/Lírios/Verão Tropical/Frescor
     kbd3: [
       {
-        pergunta:
-          "No KBD Bloco Colorido de Downy, qual é o target e quais fragrâncias compõem o bloco?",
+        pergunta: "Teste (DOWNY • KBD3): O que acontece após concluir o quiz?",
         alternativas: [
-          "A) 50% | Brisa Suave, Brisa Intenso, Brisa de Verão e Verão Tropical",
-          "B) 40% | Alfazema, Lírios, Verão Tropical e Frescor",
-          "C) 40% | Brisa Suave, Frescor, Lírios e Alfazema",
-          "D) 20% | Alfazema, Lírios, Verão Tropical e Frescor",
+          "A) Volta ao login",
+          "B) Vai para o próximo KBD pendente",
+          "C) Apaga o progresso",
+          "D) Fecha o site",
         ],
         gabarito: "B",
         justificativa:
-          "Bloco Colorido tem target de 40% com Alfazema, Lírios, Verão Tropical e Frescor.",
+          "Após concluir, o fluxo leva para o próximo KBD da marca; se acabar, vai para a próxima marca pendente.",
       },
     ],
   },
 
-  // PANTENE
   pantene: {
-    // kbd1 = Bond Repair (20%)
     kbd1: [
       {
-        pergunta: "No KBD Bond Repair, qual é o target?",
-        alternativas: [
-          "A) 20% do espaço de Pantene",
-          "B) 40% do espaço de Pantene",
-          "C) 50% do espaço da categoria",
-          "D) 60% do espaço da categoria",
-        ],
+        pergunta: "Teste (PANTENE • KBD1): Qual alternativa finaliza este KBD?",
+        alternativas: ["A) A", "B) B", "C) C", "D) D"],
         gabarito: "A",
-        justificativa: "Bond Repair deve ocupar 20% do espaço de Pantene.",
+        justificativa: "Quiz fictício — alternativa A é a correta para testes.",
       },
     ],
-  },
-
-  // PAMPERS
-  pampers: {
-    // kbd4 = Vale Night – SOS Gôndola
+    kbd2: [
+      {
+        pergunta: "Teste (PANTENE • KBD2): Se você acertar, ganha feedback de:",
+        alternativas: ["A) Parabéns", "B) Erro 404", "C) Sem resposta", "D) Reinício total"],
+        gabarito: "A",
+        justificativa: "Acertou: aparece “Parabéns”.",
+      },
+    ],
+    kbd3: [
+      {
+        pergunta: "Teste (PANTENE • KBD3): O progresso do KBD fica salvo onde?",
+        alternativas: ["A) LocalStorage", "B) Bluetooth", "C) Wi-Fi", "D) Galeria"],
+        gabarito: "A",
+        justificativa: "O app salva progresso local via LocalStorage.",
+      },
+    ],
     kbd4: [
       {
-        pergunta: "Qual a diferença entre os KBDs Vale Night?",
+        pergunta: "Teste (PANTENE • KBD4): Qual é o objetivo do teste?",
         alternativas: [
-          "A) Ambos são Farma",
-          "B) Ambos são Todos os Canais",
-          "C) Gôndola é Todos os Canais e PE é Farma",
-          "D) Gôndola é Farma e PE é Todos",
-        ],
-        gabarito: "C",
-        justificativa:
-          "Vale Night gôndola vale para todos os canais e PE é exclusivo Farma.",
-      },
-    ],
-    // kbd5 = Vale Night – Ponto Extra Farma (mesma pergunta, para não ficar sem quiz)
-    kbd5: [
-      {
-        pergunta: "Qual a diferença entre os KBDs Vale Night?",
-        alternativas: [
-          "A) Ambos são Farma",
-          "B) Ambos são Todos os Canais",
-          "C) Gôndola é Todos os Canais e PE é Farma",
-          "D) Gôndola é Farma e PE é Todos",
-        ],
-        gabarito: "C",
-        justificativa:
-          "Vale Night gôndola vale para todos os canais e PE é exclusivo Farma.",
-      },
-    ],
-  },
-
-  // GILLETTE
-  gillette: {
-    // kbd3 = Carga Mach3 c/8 – 2 Ganchos
-    kbd3: [
-      {
-        pergunta: "No KBD novo de Gillette Mach3, qual é a exigência?",
-        alternativas: [
-          "A) 2 ganchos de Carga Mach3 c/8 no Farma",
-          "B) 8 ganchos de Carga Mach3 c/2",
-          "C) 2 ganchos Venus",
-          "D) 2 ganchos Mach3 c/6",
+          "A) Validar o fluxo completo",
+          "B) Travar o app",
+          "C) Pular marcas",
+          "D) Não registrar nada",
         ],
         gabarito: "A",
-        justificativa:
-          "Exigência é 2 ganchos de Carga Mach3 com 8 unidades no Farma.",
+        justificativa: "Queremos garantir o fluxo completo por marca/KBD.",
       },
     ],
   },
 
-  // VENUS
-  venus: {
-    // kbd3 = Checkout – Venus Pele Sensível
-    kbd3: [
-      {
-        pergunta: "O KBD Checkout Venus Pele Sensível exige:",
-        alternativas: [
-          "A) 2 pontos no checkout e ponto natural",
-          "B) 2 pontos fora do ponto natural e checkout",
-          "C) 2 ganchos de carga",
-          "D) 15 frentes blocadas",
-        ],
-        gabarito: "B",
-        justificativa:
-          "São exigidos 2 pontos de contato fora do ponto natural e checkout.",
-      },
-    ],
-  },
-
-  // ALWAYS
-  always: {
-    // kbd1 = Always Suave
+  pampers: {
     kbd1: [
       {
-        pergunta: "O que mudou nos KBDs de Always em 2026?",
+        pergunta: "Teste (PAMPERS • KBD1): Para concluir uma marca, precisa:",
         alternativas: [
-          "A) Dois KBDs distintos",
-          "B) Um KBD único de Suave (70%)",
-          "C) Inclusão de versões secas",
-          "D) Medição por frentes",
+          "A) Responder 1 KBD apenas",
+          "B) Responder todos os KBDs da marca",
+          "C) Apenas ver o vídeo",
+          "D) Só entrar no app",
         ],
         gabarito: "B",
-        justificativa:
-          "Always passou a ter um KBD único focado em Suave (70%).",
+        justificativa: "A marca só conclui quando todos os KBDs dela forem respondidos.",
+      },
+    ],
+    kbd2: [
+      {
+        pergunta: "Teste (PAMPERS • KBD2): O sistema indica pendência como:",
+        alternativas: ["A) 0%", "B) 100%", "C) 200%", "D) —"],
+        gabarito: "A",
+        justificativa: "KBD pendente aparece como 0%.",
+      },
+    ],
+    kbd3: [
+      {
+        pergunta: "Teste (PAMPERS • KBD3): KBD concluído aparece como:",
+        alternativas: ["A) 0%", "B) 50%", "C) 100%", "D) 10%"],
+        gabarito: "C",
+        justificativa: "KBD concluído aparece como 100%.",
+      },
+    ],
+    kbd4: [
+      {
+        pergunta: "Teste (PAMPERS • KBD4): Ao terminar a marca, o app:",
+        alternativas: [
+          "A) Vai para próxima marca pendente",
+          "B) Desloga",
+          "C) Apaga tudo",
+          "D) Trava",
+        ],
+        gabarito: "A",
+        justificativa: "Concluiu a marca: vai para a próxima marca que ainda tem pendências.",
+      },
+    ],
+    kbd5: [
+      {
+        pergunta: "Teste (PAMPERS • KBD5): Se faltar 1 quiz em qualquer marca:",
+        alternativas: [
+          "A) Finaliza mesmo assim",
+          "B) Indica pendência e não finaliza",
+          "C) Oculta a marca",
+          "D) Não mostra progresso",
+        ],
+        gabarito: "B",
+        justificativa: "O fluxo só completa quando todos os quizzes de todas as marcas estiverem concluídos.",
+      },
+    ],
+  },
+
+  secret: {
+    kbd1: [
+      {
+        pergunta: "Teste (SECRET • KBD1): Resposta correta (teste) é:",
+        alternativas: ["A) A", "B) B", "C) C", "D) D"],
+        gabarito: "A",
+        justificativa: "Quiz fictício: alternativa A é correta.",
+      },
+    ],
+    kbd2: [
+      {
+        pergunta: "Teste (SECRET • KBD2): Ao errar, o app deve:",
+        alternativas: [
+          "A) Mostrar incorreto + resposta certa",
+          "B) Fechar a página",
+          "C) Ir para home sem aviso",
+          "D) Reiniciar o celular",
+        ],
+        gabarito: "A",
+        justificativa: "Erro: mostra feedback imediato e a resposta correta.",
+      },
+    ],
+  },
+
+  "oral-b": {
+    kbd1: [
+      {
+        pergunta: "Teste (ORAL-B • KBD1): O botão que inicia o quiz fica em:",
+        alternativas: ["A) No final do KBD", "B) No login", "C) No footer", "D) No console"],
+        gabarito: "A",
+        justificativa: "No KBD existe o botão “Responder o Quiz”.",
+      },
+    ],
+    kbd2: [
+      {
+        pergunta: "Teste (ORAL-B • KBD2): Progresso do quiz mostra:",
+        alternativas: [
+          "A) Pergunta X de Y",
+          "B) Só um relógio",
+          "C) Apenas pontos",
+          "D) Nada",
+        ],
+        gabarito: "A",
+        justificativa: "O quiz exibe “Pergunta X de Y”.",
+      },
+    ],
+    kbd3: [
+      {
+        pergunta: "Teste (ORAL-B • KBD3): A medalha de 100% é:",
+        alternativas: ["A) 🥇", "B) 🥈", "C) 🥉", "D) 🏆"],
+        gabarito: "A",
+        justificativa: "100% = 🥇 (ouro).",
+      },
+    ],
+  },
+
+  gillette: {
+    kbd1: [
+      {
+        pergunta: "Teste (GILLETTE • KBD1): Qual medalha para <80%?",
+        alternativas: ["A) 🥇", "B) 🥈", "C) 🥉", "D) 🏆"],
+        gabarito: "C",
+        justificativa: "<80% = 🥉.",
+      },
+    ],
+    kbd2: [
+      {
+        pergunta: "Teste (GILLETTE • KBD2): Entre 80–99% é:",
+        alternativas: ["A) 🥇", "B) 🥈", "C) 🥉", "D) 🎖️"],
+        gabarito: "B",
+        justificativa: "80–99% = 🥈.",
+      },
+    ],
+    kbd3: [
+      {
+        pergunta: "Teste (GILLETTE • KBD3): Ao finalizar este quiz, o app:",
+        alternativas: [
+          "A) Vai para o próximo KBD da marca",
+          "B) Apaga o progresso",
+          "C) Volta pro login",
+          "D) Sai do navegador",
+        ],
+        gabarito: "A",
+        justificativa: "Fluxo automático para o próximo pendente.",
+      },
+    ],
+  },
+
+  venus: {
+    kbd1: [
+      {
+        pergunta: "Teste (VENUS • KBD1): Para concluir o fluxo total, precisa:",
+        alternativas: [
+          "A) Apenas 1 marca",
+          "B) Todas as marcas",
+          "C) Somente Always",
+          "D) Somente Gillette",
+        ],
+        gabarito: "B",
+        justificativa: "O fluxo completa quando todas as marcas/KBDs estiverem respondidos.",
+      },
+    ],
+    kbd2: [
+      {
+        pergunta: "Teste (VENUS • KBD2): O sistema indica % por:",
+        alternativas: ["A) KBD", "B) GPS", "C) Rede social", "D) IMEI"],
+        gabarito: "A",
+        justificativa: "Indicamos percentuais por KBD e por marca.",
+      },
+    ],
+    kbd3: [
+      {
+        pergunta: "Teste (VENUS • KBD3): Qual é a medalha de 100%?",
+        alternativas: ["A) 🥇", "B) 🥈", "C) 🥉", "D) 🏆"],
+        gabarito: "A",
+        justificativa: "100% = 🥇.",
       },
     ],
   },
