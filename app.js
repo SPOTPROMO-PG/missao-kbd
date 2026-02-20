@@ -1,118 +1,415 @@
-// ====== CONFIGURAÇÃO GOOGLE SHEETS ======
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyWERu4e0iNLGkeB3Xq8Ou1dM4FFGI7SQagRVEjhCNIc-4gVAyt4DJPNe_rp9Le6kM/exec";
+/* ==============================
+   Missão KBD — app.js (mobile-first)
+   Regras:
+   - Login por setor: apenas setores liberados
+   - Fluxo: Login -> Home (Marcas) -> Marca (KBDs) -> KBD (Aula) -> Quiz
+   - “Quiz em breve” CONTA como pendente (opção 2)
+   - Progresso por KBD salvo em localStorage (QUIZZES_COMPLETED)
+   - Envio por resposta para Google Sheets via Apps Script
+================================ */
 
-// ====== DADOS ======
+// ====== CONFIGURAÇÃO GOOGLE SHEETS ======
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbyWERu4e0iNLGkeB3Xq8Ou1dM4FFGI7SQagRVEjhCNIc-4gVAyt4DJPNe_rp9Le6kM/exec";
+
+// ====== SETORES LIBERADOS ======
+const ALLOWED_SECTORS = ["SPI200", "RS234", "PR87", "SC01"];
+
+// ====== DADOS (Marcas/KBDs) ======
 const CONTENT = {
   marcas: [
-    { id: "always", nome: "ALWAYS", logo: "logos/always.jpg", kbds: [{ id: "kbd1", nome: "KBD Absorventes – Always Suave", videoId: null, imagens: [] }] },
-    { id: "downy", nome: "DOWNY", logo: "logos/downy.png", kbds: [{ id: "kbd1", nome: "KBD Ponto Extra – Brisa", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD Bloco Azul (50%)", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Bloco Colorido (40%) ou [Alfazema ou Lírios]", videoId: null, imagens: [] }] },
-    { id: "pantene", nome: "PANTENE", logo: "logos/pantene.png", kbds: [{ id: "kbd1", nome: "KBD Bond Repair (20%)", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: null, imagens: [] }, { id: "kbd4", nome: "KBD Rio/Cachoeira Dourada", videoId: null, imagens: [] }] },
-    { id: "pampers", nome: "PAMPERS", logo: "logos/pampers.png", kbds: [{ id: "kbd1", nome: "KBD Ponto Extra – 50% Tamanhos Grandes", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD Pants", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Pants + Premium (Lojas Sul)", videoId: null, imagens: [] }, { id: "kbd4", nome: "KBD Vale Night – SOS Gôndola", videoId: null, imagens: [] }, { id: "kbd5", nome: "KBD Vale Night – Ponto Extra Farma", videoId: null, imagens: [] }] },
-    { id: "secret", nome: "SECRET", logo: "logos/secret.png", kbds: [{ id: "kbd1", nome: "KBD 2 Bandejas", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD Bloco 15 Frentes ou 3 Bandejas", videoId: null, imagens: [] }] },
-    { id: "oral-b", nome: "ORAL-B", logo: "logos/oral-b.png", kbds: [{ id: "kbd1", nome: "KBD Branqueamento (60%)", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD 2 Pontos de Contato – Escovas", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Layout BIPE – Escovas", videoId: null, imagens: [] }] },
-    { id: "gillette", nome: "GILLETTE", logo: "logos/gillette.png", kbds: [{ id: "kbd1", nome: "KBD Sistemas – % de Ganchos", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD 2 Pontos de Contato – Mach3/Presto3", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Carga Mach3 c/8 – 2 Ganchos", videoId: null, imagens: [] }] },
-    { id: "venus", nome: "VENUS", logo: "logos/venus.png", kbds: [{ id: "kbd1", nome: "KBD Sistemas – 20% de Ganchos", videoId: null, imagens: [] }, { id: "kbd2", nome: "KBD 2 Pontos de Contato", videoId: null, imagens: [] }, { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: null, imagens: [] }] }
-  ]
+    {
+      id: "always",
+      nome: "ALWAYS",
+      logo: "logos/always.jpg",
+      kbds: [{ id: "kbd1", nome: "KBD Absorventes – Always Suave", videoId: null, imagens: [] }],
+    },
+    {
+      id: "downy",
+      nome: "DOWNY",
+      logo: "logos/downy.png",
+      kbds: [
+        { id: "kbd1", nome: "KBD Ponto Extra – Brisa", videoId: null, imagens: [] },
+        { id: "kbd2", nome: "KBD Bloco Azul (50%)", videoId: null, imagens: [] },
+        { id: "kbd3", nome: "KBD Bloco Colorido (40%) ou [Alfazema ou Lírios]", videoId: null, imagens: [] },
+      ],
+    },
+    {
+      id: "pantene",
+      nome: "PANTENE",
+      logo: "logos/pantene.png",
+      kbds: [
+        { id: "kbd1", nome: "KBD Bond Repair (20%)", videoId: null, imagens: [] },
+        { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: null, imagens: [] },
+        { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: null, imagens: [] },
+        { id: "kbd4", nome: "KBD Rio/Cachoeira Dourada", videoId: null, imagens: [] },
+      ],
+    },
+    {
+      id: "pampers",
+      nome: "PAMPERS",
+      logo: "logos/pampers.png",
+      kbds: [
+        { id: "kbd1", nome: "KBD Ponto Extra – 50% Tamanhos Grandes", videoId: null, imagens: [] },
+        { id: "kbd2", nome: "KBD Pants", videoId: null, imagens: [] },
+        { id: "kbd3", nome: "KBD Pants + Premium (Lojas Sul)", videoId: null, imagens: [] },
+        { id: "kbd4", nome: "KBD Vale Night – SOS Gôndola", videoId: null, imagens: [] },
+        { id: "kbd5", nome: "KBD Vale Night – Ponto Extra Farma", videoId: null, imagens: [] },
+      ],
+    },
+    {
+      id: "secret",
+      nome: "SECRET",
+      logo: "logos/secret.png",
+      kbds: [
+        { id: "kbd1", nome: "KBD 2 Bandejas", videoId: null, imagens: [] },
+        { id: "kbd2", nome: "KBD Bloco 15 Frentes ou 3 Bandejas", videoId: null, imagens: [] },
+      ],
+    },
+    {
+      id: "oral-b",
+      nome: "ORAL-B",
+      logo: "logos/oral-b.png",
+      kbds: [
+        { id: "kbd1", nome: "KBD Branqueamento (60%)", videoId: null, imagens: [] },
+        { id: "kbd2", nome: "KBD 2 Pontos de Contato – Escovas", videoId: null, imagens: [] },
+        { id: "kbd3", nome: "KBD Layout BIPE – Escovas", videoId: null, imagens: [] },
+      ],
+    },
+    {
+      id: "gillette",
+      nome: "GILLETTE",
+      logo: "logos/gillette.png",
+      kbds: [
+        { id: "kbd1", nome: "KBD Sistemas – % de Ganchos", videoId: null, imagens: [] },
+        { id: "kbd2", nome: "KBD 2 Pontos de Contato – Mach3/Presto3", videoId: null, imagens: [] },
+        { id: "kbd3", nome: "KBD Carga Mach3 c/8 – 2 Ganchos", videoId: null, imagens: [] },
+      ],
+    },
+    {
+      id: "venus",
+      nome: "VENUS",
+      logo: "logos/venus.png",
+      kbds: [
+        { id: "kbd1", nome: "KBD Sistemas – 20% de Ganchos", videoId: null, imagens: [] },
+        { id: "kbd2", nome: "KBD 2 Pontos de Contato", videoId: null, imagens: [] },
+        { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: null, imagens: [] },
+      ],
+    },
+  ],
 };
 
+// ====== Utils ======
+function normalizeSector(v) {
+  return String(v || "").trim().toUpperCase().replace(/\s+/g, "");
+}
+
+function getSetor() {
+  return (localStorage.getItem("SETOR") || "").trim();
+}
+
+function ensureSetor() {
+  if (!getSetor()) window.location.href = "index.html";
+}
+
+function qs() {
+  return new URLSearchParams(window.location.search);
+}
+
+// ====== Modal ======
 function criarModal(c) {
-  const o = document.createElement('div');
-  o.className = 'modal-overlay';
-  o.innerHTML = `<div class="modal-content"><div class="modal-icon">${c.icon}</div><div class="modal-title">${c.title}</div><div class="modal-text">${c.text}</div><div class="modal-buttons">${c.buttons.map(b => `<button class="modal-btn ${b.class}" onclick="${b.action}">${b.label}</button>`).join('')}</div></div>`;
+  const o = document.createElement("div");
+  o.className = "modal-overlay";
+  o.innerHTML = `
+    <div class="modal">
+      <div class="modal-icon">${c.icon || ""}</div>
+      <div class="modal-title">${c.title || ""}</div>
+      <div class="modal-text">${c.text || ""}</div>
+      <div class="modal-actions">
+        ${(c.buttons || [])
+          .map(
+            (b) =>
+              `<button class="modal-btn ${b.class || ""}" onclick="${b.action}">${b.label}</button>`
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
   document.body.appendChild(o);
   return o;
 }
 
-function fecharModal() { const o = document.querySelector('.modal-overlay'); if (o) o.remove(); }
-function confirmarSaida() { criarModal({ icon: '⚠️', title: 'Tem certeza?', text: 'Ao sair, você perderá todo o progresso.', buttons: [{ label: 'Sim, sair', class: 'modal-btn-confirm', action: 'sairConfirmado()' }, { label: 'Cancelar', class: 'modal-btn-cancel', action: 'fecharModal()' }] }); }
-function sairConfirmado() { localStorage.removeItem("SETOR"); window.location.href = "index.html"; }
-function entrar() { const s = document.getElementById("setor").value.trim().toUpperCase(); if (!s) return alert("Digite seu setor"); if (!s.startsWith("SPI")) return alert("Setor inválido"); localStorage.setItem("SETOR", s); window.location.href = "home.html"; }
-function getSetor() { return (localStorage.getItem("SETOR") || "").trim(); }
-function ensureSetor() { if (!getSetor()) window.location.href = "index.html"; }
-function trocarSetor() { confirmarSaida(); }
+function fecharModal() {
+  const o = document.querySelector(".modal-overlay");
+  if (o) o.remove();
+}
 
+function confirmarSaida() {
+  criarModal({
+    icon: "⚠️",
+    title: "Tem certeza?",
+    text: "Ao sair, você perderá todo o progresso.",
+    buttons: [
+      { label: "Sim, sair", class: "confirm", action: "sairConfirmado()" },
+      { label: "Cancelar", class: "cancel", action: "fecharModal()" },
+    ],
+  });
+}
+
+function sairConfirmado() {
+  localStorage.removeItem("SETOR");
+  window.location.href = "index.html";
+}
+
+function trocarSetor() {
+  confirmarSaida();
+}
+
+// ====== Login ======
+function entrar() {
+  const raw = document.getElementById("setor")?.value || "";
+  const s = normalizeSector(raw);
+
+  if (!s) return alert("Digite seu setor.");
+  if (!ALLOWED_SECTORS.includes(s)) {
+    return alert(
+      `Setor inválido. Use um dos setores liberados: ${ALLOWED_SECTORS.join(", ")}`
+    );
+  }
+
+  localStorage.setItem("SETOR", s);
+  window.location.href = "home.html";
+}
+
+// ====== Home (Marcas) ======
 function renderHome() {
   ensureSetor();
+
   const badge = document.getElementById("setorBadge");
   if (badge) badge.textContent = getSetor();
+
   const lista = document.getElementById("listaMarcas");
   if (!lista) return;
+
   lista.innerHTML = "";
   CONTENT.marcas.forEach((m) => {
     const div = document.createElement("div");
-    div.className = "card";
+    div.className = "card brand-card";
     const totalKbds = (m.kbds || []).length;
-    div.innerHTML = `<div class="cardLogo"><img src="${m.logo}" alt="${m.nome}"></div><div class="cardContent"><div class="cardTitle">${m.nome}</div><div class="cardSub">${totalKbds} KBD${totalKbds > 1 ? 's' : ''}</div></div>`;
-    div.onclick = () => { window.location.href = "marca.html?marca=" + encodeURIComponent(m.id); };
+
+    div.innerHTML = `
+      <div class="card-row">
+        <img class="brand-logo" src="${m.logo}" alt="${m.nome}">
+        <div class="card-col">
+          <div class="card-title">${m.nome}</div>
+          <div class="card-sub">${totalKbds} KBD${totalKbds > 1 ? "s" : ""}</div>
+        </div>
+      </div>
+    `;
+
+    div.onclick = () => {
+      window.location.href = "marca.html?marca=" + encodeURIComponent(m.id);
+    };
+
     lista.appendChild(div);
   });
 }
 
-function voltarHome() { window.location.href = "home.html"; }
+function voltarHome() {
+  window.location.href = "home.html";
+}
 
+// ====== Marca (KBDs) ======
 function renderMarca() {
   ensureSetor();
-  const params = new URLSearchParams(window.location.search);
-  const marcaId = params.get("marca");
-  const marca = CONTENT.marcas.find(m => m.id === marcaId);
-  if (!marca) { alert("Marca não encontrada"); voltarHome(); return; }
-  document.getElementById("marcaTitulo").textContent = marca.nome;
-  // Atualiza o badge de setor na lista de KBDs
+
+  const marcaId = qs().get("marca");
+  const marca = CONTENT.marcas.find((m) => m.id === marcaId);
+
+  if (!marca) {
+    alert("Marca não encontrada");
+    voltarHome();
+    return;
+  }
+
   const badgeEl = document.getElementById("setorBadge");
   if (badgeEl) badgeEl.textContent = getSetor();
+
+  const titulo = document.getElementById("marcaTitulo");
+  if (titulo) titulo.textContent = marca.nome;
+
   const lista = document.getElementById("listaKbds");
+  if (!lista) return;
+
   lista.innerHTML = "";
-  marca.kbds.forEach(kbd => {
+  marca.kbds.forEach((kbd) => {
     const div = document.createElement("div");
     div.className = "card";
-    div.innerHTML = `<div class="cardContent"><div class="cardTitle">${kbd.nome}</div><div class="cardSub">Clique para abrir</div></div>`;
-    div.onclick = () => { window.location.href = "kbd.html?marca=" + encodeURIComponent(marca.id) + "&kbd=" + encodeURIComponent(kbd.id); };
+    const done = isQuizCompleted(marca.id, kbd.id);
+
+    div.innerHTML = `
+      <div class="card-title">${kbd.nome}</div>
+      <div class="card-sub">${done ? "✅ Concluído" : "Toque para abrir"}</div>
+    `;
+
+    div.onclick = () => {
+      window.location.href =
+        "kbd.html?marca=" +
+        encodeURIComponent(marca.id) +
+        "&kbd=" +
+        encodeURIComponent(kbd.id);
+    };
+
     lista.appendChild(div);
   });
 }
 
-function voltarMarca() { const p = new URLSearchParams(window.location.search); window.location.href = "marca.html?marca=" + encodeURIComponent(p.get("marca")); }
-
-function renderKbd() {
-  ensureSetor();
-  const params = new URLSearchParams(window.location.search);
-  const marcaId = params.get("marca");
-  const kbdId = params.get("kbd");
-  const marca = CONTENT.marcas.find(m => m.id === marcaId);
-  if (!marca) { alert("Marca não encontrada"); voltarHome(); return; }
-  const kbd = (marca.kbds || []).find(k => k.id === kbdId);
-  if (!kbd) { alert("KBD não encontrado"); voltarMarca(); return; }
-  document.getElementById("kbdTitulo").textContent = `${marca.nome} • ${kbd.nome}`;
-  const topbarSetor = document.getElementById("topbarSetor");
-  if (topbarSetor) topbarSetor.textContent = getSetor();
-  const iframe = document.getElementById("videoFrame");
-  const placeholder = document.getElementById("videoPlaceholder");
-  if (kbd.videoId) { iframe.src = "https://www.youtube.com/embed/" + kbd.videoId; iframe.style.display = "block"; placeholder.style.display = "none"; } else { iframe.style.display = "none"; placeholder.style.display = "flex"; }
-  const imgBox = document.getElementById("imagensKbd");
-  imgBox.innerHTML = "";
-  if (kbd.imagens && kbd.imagens.length > 0) { kbd.imagens.forEach(src => { const img = document.createElement("img"); img.src = src; imgBox.appendChild(img); }); } else { const msg = document.createElement("div"); msg.className = "small"; msg.style.marginTop = "16px"; msg.style.opacity = ".8"; msg.textContent = "Imagens em breve."; imgBox.appendChild(msg); }
+function voltarMarca() {
+  const marca = qs().get("marca");
+  window.location.href = "marca.html?marca=" + encodeURIComponent(marca);
 }
 
-function irParaQuiz() { const p = new URLSearchParams(window.location.search); window.location.href = "quiz.html?marca=" + encodeURIComponent(p.get("marca")) + "&kbd=" + encodeURIComponent(p.get("kbd")); }
+// ====== KBD (Aula) ======
+function renderKbd() {
+  ensureSetor();
 
-let quizState = { marcaAtual: null, kbdAtual: null, perguntaIndex: 0, tentativa: 1, acertos: 0, total: 0, historico: [], respondendo: false };
+  const marcaId = qs().get("marca");
+  const kbdId = qs().get("kbd");
+
+  const marca = CONTENT.marcas.find((m) => m.id === marcaId);
+  if (!marca) {
+    alert("Marca não encontrada");
+    voltarHome();
+    return;
+  }
+
+  const kbd = (marca.kbds || []).find((k) => k.id === kbdId);
+  if (!kbd) {
+    alert("KBD não encontrado");
+    voltarMarca();
+    return;
+  }
+
+  const title = document.getElementById("kbdTitulo");
+  if (title) title.textContent = `${marca.nome} • ${kbd.nome}`;
+
+  const topbarSetor = document.getElementById("topbarSetor");
+  if (topbarSetor) topbarSetor.textContent = getSetor();
+
+  // Vídeo
+  const iframe = document.getElementById("videoFrame");
+  const placeholder = document.getElementById("videoPlaceholder");
+
+  if (kbd.videoId) {
+    iframe.src = "https://www.youtube.com/embed/" + kbd.videoId;
+    iframe.style.display = "block";
+    placeholder.style.display = "none";
+  } else {
+    iframe.style.display = "none";
+    placeholder.style.display = "flex";
+  }
+
+  // Imagens
+  const imgBox = document.getElementById("imagensKbd");
+  imgBox.innerHTML = "";
+
+  if (kbd.imagens && kbd.imagens.length > 0) {
+    kbd.imagens.forEach((src) => {
+      const img = document.createElement("img");
+      img.src = src;
+      imgBox.appendChild(img);
+    });
+  } else {
+    const msg = document.createElement("div");
+    msg.className = "small muted";
+    msg.textContent = "Imagens em breve.";
+    imgBox.appendChild(msg);
+  }
+
+  // Status do KBD
+  const status = document.getElementById("kbdStatus");
+  if (status) {
+    const done = isQuizCompleted(marca.id, kbd.id);
+    status.textContent = done ? "✅ Quiz concluído" : "⏳ Pendente";
+    status.className = done ? "kbd-status done" : "kbd-status pending";
+  }
+}
+
+function irParaQuiz() {
+  const marca = qs().get("marca");
+  const kbd = qs().get("kbd");
+  window.location.href =
+    "quiz.html?marca=" + encodeURIComponent(marca) + "&kbd=" + encodeURIComponent(kbd);
+}
+
+// ====== Quiz ======
+let quizState = {
+  marcaAtual: null,
+  kbdAtual: null,
+  perguntaIndex: 0,
+  tentativa: 1,
+  acertos: 0,
+  total: 0,
+  historico: [],
+  respondendo: false,
+  perguntas: [],
+};
 
 function renderQuiz() {
   ensureSetor();
-  const params = new URLSearchParams(window.location.search);
-  const marcaId = params.get("marca");
-  const kbdId = params.get("kbd");
-  const marca = CONTENT.marcas.find(m => m.id === marcaId);
-  if (!marca) { alert("Marca não encontrada"); voltarHome(); return; }
-  const kbd = (marca.kbds || []).find(k => k.id === kbdId);
-  const perguntas = QUIZZES[marcaId] || [];
-  if (perguntas.length === 0) { document.getElementById("quizArea").innerHTML = `<div class="card" style="text-align: center; padding: 40px;"><div style="font-size: 48px; margin-bottom: 16px;">📝</div><div class="cardTitle">Quiz em breve</div><button class="btnPrimary" onclick="proximoKBD()">Próximo KBD →</button></div>`; return; }
-  quizState = { marcaAtual: marca, kbdAtual: kbd, perguntaIndex: 0, tentativa: 1, acertos: 0, total: perguntas.length, historico: [], perguntas: perguntas, respondendo: false };
-  document.getElementById("quizTitulo").textContent = `Quiz ${marca.nome}`;
-  document.getElementById("quizSubtitulo").textContent = kbd ? kbd.nome : "";
-  // Atualiza o badge de setor no quiz
+
+  const marcaId = qs().get("marca");
+  const kbdId = qs().get("kbd");
+
+  const marca = CONTENT.marcas.find((m) => m.id === marcaId);
+  if (!marca) {
+    alert("Marca não encontrada");
+    voltarHome();
+    return;
+  }
+
+  const kbd = (marca.kbds || []).find((k) => k.id === kbdId);
+
+  // **IMPORTANTE**: seu banco atual usa QUIZZES[marcaId]
+  // (quando você evoluir, recomendo virar QUIZZES[marcaId][kbdId])
+  const perguntas = (window.QUIZZES && window.QUIZZES[marcaId]) || [];
+
+  // Badge setor
   const badgeQuiz = document.getElementById("setorBadgeQuiz");
   if (badgeQuiz) badgeQuiz.textContent = getSetor();
+
+  // Títulos
+  const qt = document.getElementById("quizTitulo");
+  const qsEl = document.getElementById("quizSubtitulo");
+  if (qt) qt.textContent = `Quiz ${marca.nome}`;
+  if (qsEl) qsEl.textContent = kbd ? kbd.nome : "";
+
+  // Sem perguntas => “Quiz em breve” (PENDENTE => bloqueia conclusão)
+  if (!perguntas || perguntas.length === 0) {
+    document.getElementById("quizArea").innerHTML = `
+      <div class="card">
+        <div class="card-title">Quiz em breve</div>
+        <div class="card-sub">Este KBD continua pendente até você cadastrar as perguntas.</div>
+        <div style="height:12px"></div>
+        <button class="btn" onclick="voltarMarca()">Voltar</button>
+        <button class="btn ghost" onclick="proximoKBD()">Ir para próximo pendente</button>
+      </div>
+    `;
+    return;
+  }
+
+  quizState = {
+    marcaAtual: marca,
+    kbdAtual: kbd,
+    perguntaIndex: 0,
+    tentativa: 1,
+    acertos: 0,
+    total: perguntas.length,
+    historico: [],
+    respondendo: false,
+    perguntas,
+  };
+
   mostrarPergunta();
 }
 
@@ -120,108 +417,153 @@ function mostrarPergunta() {
   const { perguntas, perguntaIndex } = quizState;
   const p = perguntas[perguntaIndex];
   quizState.respondendo = false;
-  document.getElementById("quizArea").innerHTML = `<div class="card" style="padding: 24px;"><div style="text-align: center; margin-bottom: 20px;"><div class="small" style="font-weight: 700;">Pergunta ${perguntaIndex + 1} de ${perguntas.length}</div></div><div class="cardTitle" style="margin-bottom: 24px; font-size: 18px;">${p.pergunta}</div><div style="display: grid; gap: 12px;">${p.alternativas.map((alt, i) => { const l = String.fromCharCode(65 + i); return `<button onclick="responderQuiz('${l}')" style="width: 100%; padding: 16px; text-align: left; border-radius: 12px; background: rgba(168, 85, 247, 0.1); border: 2px solid rgba(0, 217, 255, 0.3); color: white; cursor: pointer; font-size: 15px;"><strong>${l})</strong> ${alt.replace(/^[A-D]\)\s*/, '')}</button>`; }).join('')}</div></div>`;
+
+  document.getElementById("quizArea").innerHTML = `
+    <div class="quiz-progress">Pergunta ${perguntaIndex + 1} de ${perguntas.length}</div>
+    <div class="quiz-question">${p.pergunta}</div>
+    <div class="quiz-options">
+      ${p.alternativas
+        .map((alt, i) => {
+          const l = String.fromCharCode(65 + i);
+          const clean = String(alt).replace(/^[A-D]\)\\s*/, "");
+          return `<button class="opt" onclick="responderQuiz('${l}')">
+                    <span class="opt-letter">${l}</span>
+                    <span class="opt-text">${clean}</span>
+                  </button>`;
+        })
+        .join("")}
+    </div>
+  `;
 }
 
 async function responderQuiz(r) {
   if (quizState.respondendo) return;
   quizState.respondendo = true;
+
   const { perguntas, perguntaIndex, marcaAtual, kbdAtual } = quizState;
   const p = perguntas[perguntaIndex];
+
   const c = r === p.gabarito;
-  quizState.historico.push({ pergunta: p.pergunta, resposta: r, correta: p.gabarito, acertou: c });
+
+  quizState.historico.push({
+    pergunta: p.pergunta,
+    resposta: r,
+    correta: p.gabarito,
+    acertou: c,
+  });
+
   if (c) quizState.acertos++;
-  enviarParaSheets({ setor: getSetor(), marca: marcaAtual.nome, kbd: kbdAtual ? kbdAtual.nome : "N/A", pergunta: p.pergunta, resposta: r, correta: p.gabarito, acertou: c, score: Math.round((quizState.acertos / quizState.total) * 100), tentativa: quizState.tentativa });
-  if (c) { mostrarFeedbackCorreto(); } else { mostrarPopupErro(p); }
+
+  // envia log por resposta
+  enviarParaSheets({
+    setor: getSetor(),
+    marca: marcaAtual.nome,
+    kbd: kbdAtual ? kbdAtual.nome : "N/A",
+    pergunta: p.pergunta,
+    resposta: r,
+    correta: p.gabarito,
+    acertou: c,
+    score: Math.round((quizState.acertos / quizState.total) * 100),
+    tentativa: quizState.tentativa,
+  });
+
+  if (c) {
+    mostrarFeedbackCorreto();
+  } else {
+    mostrarPopupErro(p);
+  }
 }
 
 function mostrarFeedbackCorreto() {
-  const { perguntas, perguntaIndex } = quizState;
-  document.getElementById("quizArea").innerHTML = `<div class="card" style="padding: 40px; text-align: center; background: rgba(0, 255, 100, 0.15); border: 2px solid #00ff64;"><div style="font-size: 64px;">✓</div><div class="cardTitle" style="color: #00ff64;">Correto!</div></div>`;
-  setTimeout(() => { proximaPergunta(); }, 1200);
+  document.getElementById("quizArea").innerHTML = `
+    <div class="feedback ok">
+      <div class="feedback-icon">✓</div>
+      <div class="feedback-title">Parabéns!</div>
+      <div class="feedback-sub">Resposta correta.</div>
+    </div>
+  `;
+
+  setTimeout(() => {
+    proximaPergunta();
+  }, 900);
 }
 
 function mostrarPopupErro(p) {
-  const rt = p.alternativas[p.gabarito.charCodeAt(0) - 65].replace(/^[A-D]\)\s*/, '');
-  criarModal({ icon: '✗', title: 'Incorreto', text: `<div style="background: rgba(0,0,0,0.3); padding: 16px; border-radius: 12px; margin: 16px 0;"><div style="font-weight: 700; margin-bottom: 8px;">Resposta correta:</div><div style="font-size: 16px; font-weight: 900; color: #00ff64;">${p.gabarito}) ${rt}</div>${p.justificativa ? `<div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 14px;">${p.justificativa}</div>` : ''}</div>`, buttons: [{ label: 'Entendi', class: 'modal-btn-confirm', action: 'fecharModalEProximo()' }] });
+  const rt =
+    p.alternativas[p.gabarito.charCodeAt(0) - 65].replace(/^[A-D]\)\\s*/, "");
+
+  criarModal({
+    icon: "✗",
+    title: "Incorreto",
+    text: `
+      <div class="modal-kbd">
+        <div class="modal-kbd-title">Resposta correta:</div>
+        <div class="modal-kbd-answer">${p.gabarito}) ${rt}</div>
+        ${p.justificativa ? `<div class="modal-kbd-just">${p.justificativa}</div>` : ""}
+      </div>
+    `,
+    buttons: [{ label: "Entendi", class: "confirm", action: "fecharModalEProximo()" }],
+  });
 }
 
-function fecharModalEProximo() { fecharModal(); proximaPergunta(); }
+function fecharModalEProximo() {
+  fecharModal();
+  proximaPergunta();
+}
 
 function proximaPergunta() {
   quizState.perguntaIndex++;
-  if (quizState.perguntaIndex < quizState.perguntas.length) { mostrarPergunta(); } else { mostrarResultadoFinal(); }
+  if (quizState.perguntaIndex < quizState.perguntas.length) {
+    mostrarPergunta();
+  } else {
+    mostrarResultadoFinal();
+  }
 }
 
 function mostrarResultadoFinal() {
   const { acertos, total, marcaAtual, kbdAtual } = quizState;
-  // Calcula percentuais e define medalhas
   const pct = Math.round((acertos / total) * 100);
-  let emoji, msg;
-  if (pct === 100) {
-    emoji = "🥇";
-    msg = "Ouro";
-  } else if (pct >= 80) {
-    emoji = "🥈";
-    msg = "Prata";
-  } else {
-    emoji = "🥉";
-    msg = "Bronze";
-  }
-  // Marca o quiz atual como concluído no localStorage
+
+  let medalha = "Bronze";
+  if (pct === 100) medalha = "Ouro";
+  else if (pct >= 80) medalha = "Prata";
+
+  // Marca concluído (somente aqui)
   markQuizCompleted(marcaAtual.id, kbdAtual.id);
-  // Determina o próximo KBD pendente (marcaId e kbdId) ou null
+
   const next = findNextPending();
-  // Define rótulo e ação do botão de continuação
-  let btnLabel;
-  let btnAction;
-  if (next) {
-    btnLabel = "Próximo";
-    btnAction = `window.location.href = 'kbd.html?marca=${encodeURIComponent(next.marca)}&kbd=${encodeURIComponent(next.kbd)}'`;
-  } else {
-    btnLabel = "Concluir";
-    // Quando não há mais KBDs pendentes, voltar à home após parabenizar
-    btnAction = `alert('Parabéns! Você concluiu todos os quizzes!'); window.location.href = 'home.html'`;
-  }
-  // Cria layout da tela de medalha, usando card padrão para mobile
-  const container = document.getElementById("quizArea");
-  container.innerHTML = `<div class="card" style="padding: 32px 24px; text-align: center; border: 2px solid var(--border-glow); background: var(--card-bg); border-radius: 16px;">
-    <div style="font-size: 64px; margin-bottom: 16px;">${emoji}</div>
-    <div class="cardTitle" style="margin-bottom: 12px;">${msg}</div>
-    <div style="font-size: 36px; font-weight: 900; margin-bottom: 8px;">${pct}%</div>
-    <div class="small" style="margin-bottom: 24px;">${acertos} de ${total} perguntas corretas</div>
-    <button class="btnPrimary" style="margin-top: 8px;" onclick="${btnAction}">${btnLabel} →</button>
-  </div>`;
+
+  const btnLabel = next ? "Próximo pendente" : "Concluir";
+  const btnAction = next
+    ? `window.location.href='kbd.html?marca=${encodeURIComponent(next.marca)}&kbd=${encodeURIComponent(next.kbd)}'`
+    : `alert('Parabéns! Você concluiu todos os quizzes!'); window.location.href='home.html'`;
+
+  document.getElementById("quizArea").innerHTML = `
+    <div class="result">
+      <div class="result-medal">${medalha}</div>
+      <div class="result-score">${pct}%</div>
+      <div class="result-sub">${acertos} de ${total} perguntas corretas</div>
+      <button class="btn" onclick="${btnAction}">${btnLabel} →</button>
+    </div>
+  `;
 }
 
-function proximoKBD() {
-  // Usa findNextPending para encontrar o próximo KBD pendente. Se houver, navega até ele. Se não, parabeniza e volta ao início.
-  const next = findNextPending();
-  if (next) {
-    window.location.href = 'kbd.html?marca=' + encodeURIComponent(next.marca) + '&kbd=' + encodeURIComponent(next.kbd);
-    return;
-  }
-  alert('Parabéns! Você concluiu todos os quizzes!');
-  voltarHome();
-}
-
-// ====== PROGRESSO DE QUIZ ======
-// Armazena nosede quizzes completados por marca/kbd
+// ====== PROGRESSO DE QUIZ (opção 2) ======
 function markQuizCompleted(marcaId, kbdId) {
-  const data = JSON.parse(localStorage.getItem('QUIZZES_COMPLETED') || '{}');
+  const data = JSON.parse(localStorage.getItem("QUIZZES_COMPLETED") || "{}");
   if (!data[marcaId]) data[marcaId] = {};
   data[marcaId][kbdId] = true;
-  localStorage.setItem('QUIZZES_COMPLETED', JSON.stringify(data));
+  localStorage.setItem("QUIZZES_COMPLETED", JSON.stringify(data));
 }
 
 function isQuizCompleted(marcaId, kbdId) {
-  const data = JSON.parse(localStorage.getItem('QUIZZES_COMPLETED') || '{}');
-  return data[marcaId] && data[marcaId][kbdId];
+  const data = JSON.parse(localStorage.getItem("QUIZZES_COMPLETED") || "{}");
+  return !!(data[marcaId] && data[marcaId][kbdId]);
 }
 
-// Procura o próximo KBD pendente (não respondido) em todas as marcas
 function findNextPending() {
-  const data = JSON.parse(localStorage.getItem('QUIZZES_COMPLETED') || '{}');
+  const data = JSON.parse(localStorage.getItem("QUIZZES_COMPLETED") || "{}");
+
   for (const marca of CONTENT.marcas) {
     for (const kbd of marca.kbds) {
       if (!(data[marca.id] && data[marca.id][kbd.id])) {
@@ -232,47 +574,81 @@ function findNextPending() {
   return null;
 }
 
+function proximoKBD() {
+  const next = findNextPending();
+  if (next) {
+    window.location.href =
+      "kbd.html?marca=" +
+      encodeURIComponent(next.marca) +
+      "&kbd=" +
+      encodeURIComponent(next.kbd);
+    return;
+  }
+  alert("Parabéns! Você concluiu todos os quizzes!");
+  voltarHome();
+}
+
+// ====== Sheets ======
 async function enviarParaSheets(d) {
   try {
     fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ timestamp: new Date().toISOString(), setor: d.setor, marca: d.marca, kbd: d.kbd, pergunta: d.pergunta, resposta: d.resposta, correta: d.correta, acertou: d.acertou ? "SIM" : "NÃO", score: d.score, tentativa: d.tentativa, userAgent: navigator.userAgent })
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        timestamp: new Date().toISOString(),
+        setor: d.setor,
+        marca: d.marca,
+        kbd: d.kbd,
+        pergunta: d.pergunta,
+        resposta: d.resposta,
+        correta: d.correta,
+        acertou: d.acertou ? "SIM" : "NÃO",
+        score: d.score,
+        tentativa: d.tentativa,
+        userAgent: navigator.userAgent,
+      }),
     });
-  } catch (e) { console.error(e); }
+  } catch (e) {
+    console.error(e);
+  }
 }
 
-// ====== Navegação inferior ======
-// Inicializa a barra de navegação inferior e destaca a página atual.
+// ====== Bottom Nav ======
 function initBottomNav() {
-  const nav = document.querySelector('.bottomNav');
+  const nav = document.querySelector(".bottomNav");
   if (!nav) return;
+
   const page = document.body.dataset.page;
-  const links = nav.querySelectorAll('a');
-  links.forEach(a => {
-    const target = a.getAttribute('data-target');
-    // Define estado ativo: marca página atual como ativa.
-    if (target === page || (target === 'marcas' && page === 'home')) {
-      a.classList.add('active');
+  const links = nav.querySelectorAll("a");
+
+  links.forEach((a) => {
+    const target = a.getAttribute("data-target");
+
+    if (target === page || (target === "marcas" && page === "home")) {
+      a.classList.add("active");
     } else {
-      a.classList.remove('active');
+      a.classList.remove("active");
     }
-    // Configura navegação sem recarregar o CSS inline.
+
     a.onclick = (e) => {
       e.preventDefault();
-      if (target === 'home' || target === 'marcas') {
-        window.location.href = 'home.html';
-      } else if (target === 'quiz') {
-        // Se estamos num quiz de um KBD específico e o usuário clicar em "Quiz",
-        // vamos apenas recarregar a página atual para exibir o histórico.
-        // Caso contrário, redirecione para a home do quiz.
-        const params = new URLSearchParams(window.location.search);
-        if (params.has('marca') && params.has('kbd')) {
-          // Recarrega a mesma página
-          window.location.href = 'quiz.html?marca=' + encodeURIComponent(params.get('marca')) + '&kbd=' + encodeURIComponent(params.get('kbd'));
+      if (target === "home" || target === "marcas") {
+        window.location.href = "home.html";
+        return;
+      }
+      if (target === "quiz") {
+        // se estiver em um quiz com marca/kbd, mantém
+        const p = new URLSearchParams(window.location.search);
+        if (p.has("marca") && p.has("kbd")) {
+          window.location.href =
+            "quiz.html?marca=" +
+            encodeURIComponent(p.get("marca")) +
+            "&kbd=" +
+            encodeURIComponent(p.get("kbd"));
         } else {
-          window.location.href = 'quiz.html';
+          // vai para próximo pendente
+          proximoKBD();
         }
       }
     };

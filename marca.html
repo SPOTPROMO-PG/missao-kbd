@@ -1,56 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>Missão KBD - Marca</title>
   <link rel="stylesheet" href="style.css">
+  <script defer src="app.js"></script>
 </head>
-<body data-page="marcas">
-  <div class="container">
-
-    <div class="top">
-      <div>
-        <!-- Botão de voltar com seta apenas para ficar compacto -->
-        <button class="btnSmall" onclick="voltarHome()">←</button>
-        <h1 id="marcaTitulo">Marca</h1>
-        <p>Selecione o KBD</p>
+<body data-page="marcas" onload="renderMarca(); initBottomNav();">
+  <div class="bg-glow"></div>
+  <div class="app">
+    <div class="topbar">
+      <div class="topbar-left">
+        <button class="back" onclick="voltarHome()">←</button>
+        <div class="brand">
+          <div class="small">Marca</div>
+          <div class="title" id="marcaTitulo">—</div>
+        </div>
       </div>
-
-      <div class="setorBox">
-        <div class="small">SETOR</div>
-        <div id="setorBadge" class="badge">---</div>
+      <div class="topbar-right">
+        <div class="badge" id="setorBadge">—</div>
+        <button class="btn-mini" onclick="trocarSetor()">Setor</button>
       </div>
     </div>
 
-    <div id="listaKbds" class="lista"></div>
+    <div class="container">
+      <div id="listaKbds"></div>
+    </div>
 
+    <nav class="bottomNav">
+      <div class="wrap">
+        <a href="#" data-target="home">Home</a>
+        <a href="#" data-target="marcas">Marcas</a>
+        <a href="#" data-target="quiz">Quiz</a>
+      </div>
+    </nav>
   </div>
-
-  <script src="app.js"></script>
-  <script>
-    renderMarca();
-  </script>
-
-  <!-- Barra de navegação inferior -->
-  <nav class="bottomNav">
-    <a href="home.html" data-target="home">
-      <span class="icon">🏠</span>
-      Home
-    </a>
-    <a href="home.html" data-target="marcas">
-      <span class="icon">🏷️</span>
-      Marcas
-    </a>
-    <a href="quiz.html" data-target="quiz">
-      <span class="icon">🧠</span>
-      Quiz
-    </a>
-  </nav>
-  <script>
-    if (typeof initBottomNav === 'function') {
-      initBottomNav();
-    }
-  </script>
 </body>
 </html>
