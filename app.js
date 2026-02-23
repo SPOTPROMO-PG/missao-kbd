@@ -7,7 +7,7 @@
 ================================ */
 
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyWERu4e0iNLGkeB3Xq8Ou1dM4FFGI7SQagRVEjhCNIc-4gVAyt4DJPNe_rp9Le6kM/exec";
+  "https://script.google.com/macros/s/AKfycbwYBJDwEw2OzqhzYViIQhA6TgaxzmdvGM9CE-ycH5h5o-YMLDIsrgvOwxHT4MlgPrNQ/exec";
 
 const ALLOWED_SECTORS = ["SPI200", "RS234", "PR87", "SC01"];
 
@@ -598,26 +598,28 @@ function mostrarResultadoFinal() {
 }
 
 // ====== Sheets ======
-async function enviarParaSheets(d) {
+async function enviarParaSheets(data) {
+  if (!GOOGLE_SCRIPT_URL) return;
+
+  const params = new URLSearchParams();
+  Object.keys(data || {}).forEach((k) => params.append(k, String(data[k] ?? "")));
+
   try {
-    fetch(GOOGLE_SCRIPT_URL, {
+    await fetch(GOOGLE_SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        timestamp: new Date().toISOString(),
-        setor: d.setor,
-        marca: d.marca,
-        kbd: d.kbd,
-        pergunta: d.pergunta,
-        resposta: d.resposta,
-        correta: d.correta,
-        acertou: d.acertou ? "SIM" : "NÃO",
-        score: d.score,
-        userAgent: navigator.userAgent,
-      }),
+      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+      body: params.toString(),
     });
   } catch (e) {
-    console.error(e);
+    // fallback
+    try {
+      const blob = new Blob([params.toString()], {
+        type: "application/x-www-form-urlencoded;charset=UTF-8",
+      });
+      navigator.sendBeacon(GOOGLE_SCRIPT_URL, blob);
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
