@@ -18,16 +18,16 @@ const CONTENT = {
       id: "always",
       nome: "ALWAYS",
       logo: "logos/always.jpg",
-      kbds: [{ id: "kbd1", nome: "KBD Absorventes – Always Suave", videoId: null, imagens: [] }],
+      kbds: [{ id: "kbd1", nome: "KBD Absorventes – Always Suave", videoId: null, imagens: ["kbds/Always.jpg"] }],
     },
     {
       id: "downy",
       nome: "DOWNY",
       logo: "logos/downy.png",
       kbds: [
-        { id: "kbd1", nome: "KBD Ponto Extra – Brisa", videoId: null, imagens: [] },
-        { id: "kbd2", nome: "KBD Bloco Azul (50%)", videoId: null, imagens: [] },
-        { id: "kbd3", nome: "KBD Bloco Colorido (40%) ou [Alfazema ou Lírios]", videoId: null, imagens: [] },
+        { id: "kbd1", nome: "KBD Ponto Extra – Brisa", videoId: null, imagens: ["kbds/ponto extra - downy.jpg"] },
+        { id: "kbd2", nome: "KBD Bloco Azul (50%)", videoId: null, imagens: ["kbds/bloco azul downy.jpg"] },
+        { id: "kbd3", nome: "KBD Bloco Colorido (40%) ou [Alfazema ou Lírios]", videoId: null, imagens: ["kbds/bloco colorido downy.jpg"] },
       ],
     },
     {
@@ -35,10 +35,10 @@ const CONTENT = {
       nome: "PANTENE",
       logo: "logos/pantene.png",
       kbds: [
-        { id: "kbd1", nome: "KBD Bond Repair (20%)", videoId: null, imagens: [] },
-        { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: null, imagens: [] },
-        { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: null, imagens: [] },
-        { id: "kbd4", nome: "KBD Rio/Cachoeira Dourada", videoId: null, imagens: [] },
+        { id: "kbd1", nome: "KBD Bond Repair (20%)", videoId: null, imagens: ["kbds/bond repair pantene.jpg"] },
+        { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: null, imagens: ["kbds/top versões pantene .jpg"] },
+        { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: null, imagens: ["kbds/oleo pantene.jpg"] },
+        { id: "kbd4", nome: "KBD Rio/Cachoeira Dourada", videoId: null, imagens: ["kbds/rio cachoeira dourada pantene.jpg"] },
       ],
     },
     {
@@ -46,11 +46,11 @@ const CONTENT = {
       nome: "PAMPERS",
       logo: "logos/pampers.png",
       kbds: [
-        { id: "kbd1", nome: "KBD Ponto Extra – 50% Tamanhos Grandes", videoId: null, imagens: [] },
-        { id: "kbd2", nome: "KBD Pants", videoId: null, imagens: [] },
-        { id: "kbd3", nome: "KBD Pants + Premium (Lojas Sul)", videoId: null, imagens: [] },
-        { id: "kbd4", nome: "KBD Vale Night – SOS Gôndola", videoId: null, imagens: [] },
-        { id: "kbd5", nome: "KBD Vale Night – Ponto Extra Farma", videoId: null, imagens: [] },
+        { id: "kbd1", nome: "KBD Ponto Extra – 50% Tamanhos Grandes", videoId: null, imagens: ["kbds/ponto extra pampers.jpg"] },
+        { id: "kbd2", nome: "KBD Pants", videoId: null, imagens: ["kbds/pants sp pampers.jpg"] },
+        { id: "kbd3", nome: "KBD Pants + Premium (Lojas Sul)", videoId: null, imagens: ["kbds/pants + premium sul pampers.jpg"] },
+        { id: "kbd4", nome: "KBD Vale Night – SOS Gôndola", videoId: null, imagens: ["kbds/vale night SOS pampers.jpg"] },
+        { id: "kbd5", nome: "KBD Vale Night – Ponto Extra Farma", videoId: null, imagens: ["kbds/vale night ponto extra pammpers .jpg"] },
       ],
     },
     {
@@ -58,8 +58,8 @@ const CONTENT = {
       nome: "SECRET",
       logo: "logos/secret.png",
       kbds: [
-        { id: "kbd1", nome: "KBD 2 Bandejas", videoId: null, imagens: [] },
-        { id: "kbd2", nome: "KBD Bloco 15 Frentes ou 3 Bandejas", videoId: null, imagens: [] },
+        { id: "kbd1", nome: "KBD 2 Bandejas", videoId: null, imagens: ["kbds/2 bandejas secret.jpg"] },
+        { id: "kbd2", nome: "KBD Bloco 15 Frentes ou 3 Bandejas", videoId: null, imagens: ["kbds/15 frentes secret.jpg"] },
       ],
     },
     {
@@ -67,9 +67,9 @@ const CONTENT = {
       nome: "ORAL-B",
       logo: "logos/oral-b.png",
       kbds: [
-        { id: "kbd1", nome: "KBD Branqueamento (60%)", videoId: null, imagens: [] },
-        { id: "kbd2", nome: "KBD 2 Pontos de Contato – Escovas", videoId: null, imagens: [] },
-        { id: "kbd3", nome: "KBD Layout BIPE – Escovas", videoId: null, imagens: [] },
+        { id: "kbd1", nome: "KBD Branqueamento (60%)", videoId: null, imagens: ["kbds/branqueamento oral-b.jpg"] },
+        { id: "kbd2", nome: "KBD 2 Pontos de Contato – Escovas", videoId: null, imagens: ["kbds/2 pontos de contato oral-b.jpg"] },
+        { id: "kbd3", nome: "KBD Layout BIPE – Escovas", videoId: null, imagens: ["kbds/layout bipe oral-b.jpg"] },
       ],
     },
     {
@@ -77,9 +77,9 @@ const CONTENT = {
       nome: "GILLETTE",
       logo: "logos/gillette.png",
       kbds: [
-        { id: "kbd1", nome: "KBD Sistemas – % de Ganchos", videoId: null, imagens: [] },
-        { id: "kbd2", nome: "KBD 2 Pontos de Contato – Mach3/Presto3", videoId: null, imagens: [] },
-        { id: "kbd3", nome: "KBD Carga Mach3 c/8 – 2 Ganchos", videoId: null, imagens: [] },
+        { id: "kbd1", nome: "KBD Sistemas – % de Ganchos", videoId: null, imagens: ["kbds/ganchos c8 gillette.jpg"] },
+        { id: "kbd2", nome: "KBD 2 Pontos de Contato – Mach3/Presto3", videoId: null, imagens: ["kbds/KBD GILLETTE  2 PONTOS DE CONTATO .jpg"] },
+        { id: "kbd3", nome: "KBD Carga Mach3 c/8 – 2 Ganchos", videoId: null, imagens: ["kbds/KBD GILLETTE  CARGA MACH3 C8 (2 GANCHOS).jpg"] },
       ],
     },
     {
@@ -87,9 +87,9 @@ const CONTENT = {
       nome: "VENUS",
       logo: "logos/venus.png",
       kbds: [
-        { id: "kbd1", nome: "KBD Sistemas – 20% de Ganchos", videoId: null, imagens: [] },
-        { id: "kbd2", nome: "KBD 2 Pontos de Contato", videoId: null, imagens: [] },
-        { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: null, imagens: [] },
+        { id: "kbd1", nome: "KBD Sistemas – 20% de Ganchos", videoId: null, imagens: ["kbds/KBD VENUS  SISTEMAS (20_ GANCHOS).jpg"] },
+        { id: "kbd2", nome: "KBD 2 Pontos de Contato", videoId: null, imagens: ["kbds/KBD VENUS  2 PONTOS DE CONTATO .jpg"] },
+        { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: null, imagens: ["kbds/KBD VENUS  CHECKOUT (PELE SENSÍVEL).jpg"] },
       ],
     },
   ],
