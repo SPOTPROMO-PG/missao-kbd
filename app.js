@@ -3,43 +3,43 @@ const ALLOWED_SECTORS = ["SPI200", "RS234", "PR87", "SC01"];
 
 const CONTENT = {
   marcas: [
-    { id: "always", nome: "ALWAYS", logo: "logos/always.jpg", kbds: [{ id: "kbd1", nome: "KBD Absorventes – Always Suave", videoId: null, imagens: [] }] },
+    { id: "always", nome: "ALWAYS", logo: "logos/always.jpg", kbds: [{ id: "kbd1", nome: "KBD Absorventes – Always Suave", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/Always.jpg"] }] },
     { id: "downy", nome: "DOWNY", logo: "logos/downy.png", kbds: [
-      { id: "kbd1", nome: "KBD Ponto Extra – Brisa", videoId: null, imagens: [] },
-      { id: "kbd2", nome: "KBD Bloco Azul (50%)", videoId: null, imagens: [] },
-      { id: "kbd3", nome: "KBD Bloco Colorido (40%)", videoId: null, imagens: [] },
+      { id: "kbd1", nome: "KBD Ponto Extra – Brisa", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/ponto%20extra%20-%20downy.jpg"] },
+      { id: "kbd2", nome: "KBD Bloco Azul (50%)", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/bloco%20azul%20downy.jpg"] },
+      { id: "kbd3", nome: "KBD Bloco Colorido (40%)", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/bloco%20colorido%20downy.jpg"] },
     ]},
     { id: "pantene", nome: "PANTENE", logo: "logos/pantene.png", kbds: [
-      { id: "kbd1", nome: "KBD Bond Repair (20%)", videoId: null, imagens: [] },
-      { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: null, imagens: [] },
-      { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: null, imagens: [] },
-      { id: "kbd4", nome: "KBD Rio/Cachoeira Dourada", videoId: null, imagens: [] },
+      { id: "kbd1", nome: "KBD Bond Repair (20%)", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/bond%20repair%20pantene.jpg"] },
+      { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/top%20vers%C3%B5es%20pantene%20.jpg"] },
+      { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/oleo%20pantene.jpg"] },
+      { id: "kbd4", nome: "KBD Rio/Cachoeira Dourada", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/rio%20cachoeira%20dourada%20pantene.jpg"] },
     ]},
     { id: "pampers", nome: "PAMPERS", logo: "logos/pampers.png", kbds: [
-      { id: "kbd1", nome: "KBD Ponto Extra – 50% Tamanhos Grandes", videoId: null, imagens: [] },
-      { id: "kbd2", nome: "KBD Pants", videoId: null, imagens: [] },
-      { id: "kbd3", nome: "KBD Pants + Premium (Lojas Sul)", videoId: null, imagens: [] },
-      { id: "kbd4", nome: "KBD Vale Night – SOS Gôndola", videoId: null, imagens: [] },
-      { id: "kbd5", nome: "KBD Vale Night – Ponto Extra Farma", videoId: null, imagens: [] },
+      { id: "kbd1", nome: "KBD Ponto Extra – 50% Tamanhos Grandes", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/ponto%20extra%20pampers.jpg"] },
+      { id: "kbd2", nome: "KBD Pants", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/pants%20sp%20pampers.jpg"] },
+      { id: "kbd3", nome: "KBD Pants + Premium (Lojas Sul)", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/pants%20%2B%20premium%20sul%20pampers.jpg"] },
+      { id: "kbd4", nome: "KBD Vale Night – SOS Gôndola", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/vale%20night%20SOS%20pampers.jpg"] },
+      { id: "kbd5", nome: "KBD Vale Night – Ponto Extra Farma", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/vale%20night%20ponto%20extra%20pammpers%20.jpg"] },
     ]},
     { id: "secret", nome: "SECRET", logo: "logos/secret.png", kbds: [
-      { id: "kbd1", nome: "KBD 2 Bandejas", videoId: null, imagens: [] },
-      { id: "kbd2", nome: "KBD Bloco 15 Frentes ou 3 Bandejas", videoId: null, imagens: [] },
+      { id: "kbd1", nome: "KBD 2 Bandejas", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/2%20bandejas%20secret.jpg"] },
+      { id: "kbd2", nome: "KBD Bloco 15 Frentes ou 3 Bandejas", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/15%20frentes%20secret.jpg"] },
     ]},
     { id: "oral-b", nome: "ORAL-B", logo: "logos/oral-b.png", kbds: [
-      { id: "kbd1", nome: "KBD Branqueamento (60%)", videoId: null, imagens: [] },
-      { id: "kbd2", nome: "KBD 2 Pontos de Contato – Escovas", videoId: null, imagens: [] },
-      { id: "kbd3", nome: "KBD Layout BIPE – Escovas", videoId: null, imagens: [] },
+      { id: "kbd1", nome: "KBD Branqueamento (60%)", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/branqueamento%20oral-b.jpg"] },
+      { id: "kbd2", nome: "KBD 2 Pontos de Contato – Escovas", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/2%20pontos%20de%20contato%20oral-b.jpg"] },
+      { id: "kbd3", nome: "KBD Layout BIPE – Escovas", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/layout%20bipe%20oral-b.jpg"] },
     ]},
     { id: "gillette", nome: "GILLETTE", logo: "logos/gillette.png", kbds: [
-      { id: "kbd1", nome: "KBD Sistemas – % de Ganchos", videoId: null, imagens: [] },
-      { id: "kbd2", nome: "KBD 2 Pontos de Contato – Mach3/Presto3", videoId: null, imagens: [] },
-      { id: "kbd3", nome: "KBD Carga Mach3 c/8 – 2 Ganchos", videoId: null, imagens: [] },
+      { id: "kbd1", nome: "KBD Sistemas – % de Ganchos", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/ganchos%20c8%20gillette.jpg"] },
+      { id: "kbd2", nome: "KBD 2 Pontos de Contato – Mach3/Presto3", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/KBD%20GILLETTE%202%20PONTOS%20DE%20CONTATO%20.jpg"] },
+      { id: "kbd3", nome: "KBD Carga Mach3 c/8 – 2 Ganchos", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/KBD%20GILLETTE%20CARGA%20MACH3%20C8%20%282%20GANCHOS%29.jpg"] },
     ]},
     { id: "venus", nome: "VENUS", logo: "logos/venus.png", kbds: [
-      { id: "kbd1", nome: "KBD Sistemas – 20% de Ganchos", videoId: null, imagens: [] },
-      { id: "kbd2", nome: "KBD 2 Pontos de Contato", videoId: null, imagens: [] },
-      { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: null, imagens: [] },
+      { id: "kbd1", nome: "KBD Sistemas – 20% de Ganchos", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/KBD%20VENUS%20SISTEMAS%20%2820_%20GANCHOS%29.jpg"] },
+      { id: "kbd2", nome: "KBD 2 Pontos de Contato", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/KBD%20VENUS%202%20PONTOS%20DE%20CONTATO%20.jpg"] },
+      { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/KBD%20VENUS%20CHECKOUT%20%28PELE%20SENS%C3%8DVEL%29.jpg"] },
     ]},
   ],
 };
@@ -283,9 +283,10 @@ function confirmarResposta() {
   const respostaCerta = pergunta.alternativas[pergunta.gabarito.charCodeAt(0) - 65].replace(/^[A-D][\.|\)]\s*/, "");
   const wrapper = document.querySelector(".quiz-shell");
   const feedback = document.createElement("div");
-  feedback.className = "feedback-card";
+  feedback.className = "feedback-card feedback-card-slide";
   feedback.innerHTML = `<div class="feedback-top"><div class="feedback-badge ${acertou ? "success" : "error"}">${renderIcon(acertou ? "check" : "x")}</div><div class="feedback-copy"><h3 class="feedback-title">${acertou ? "Resposta correta" : "Resposta incorreta"}</h3><p class="feedback-text">${acertou ? "Boa! Você pode avançar para a próxima pergunta." : "Confira a alternativa correta e a regra do material antes de seguir."}</p></div></div><div class="answer-box"><div class="option-icon">${pergunta.gabarito}</div><div><div class="answer-label">Resposta correta</div><div class="answer-value">${escapeHtml(respostaCerta)}</div></div></div>${pergunta.justificativa ? `<div class="justification-box">${escapeHtml(pergunta.justificativa)}</div>` : ""}<div class="action-stack"><button class="primary-button" type="button" onclick="proximaPergunta()">${quizState.perguntaIndex + 1 < quizState.total ? "Próxima pergunta" : "Ver resultado"}</button></div>`;
   wrapper.appendChild(feedback);
+  setTimeout(() => feedback.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
 }
 
 function proximaPergunta() { quizState.perguntaIndex += 1; if (quizState.perguntaIndex < quizState.perguntas.length) mostrarPergunta(); else mostrarResultadoFinal(); }
@@ -305,7 +306,7 @@ function mostrarResultadoFinal() {
   let secondaryLabel = "Rever a marca";
   if (nextInBrand) { primaryHref = `kbd.html?marca=${encodeURIComponent(nextInBrand.marcaId)}&kbd=${encodeURIComponent(nextInBrand.kbdId)}`; primaryLabel = "Abrir próximo KBD"; secondaryHref = `marca.html?marca=${encodeURIComponent(nextInBrand.marcaId)}`; secondaryLabel = "Voltar para a marca"; }
   else if (nextBrandId) { primaryHref = `marca.html?marca=${encodeURIComponent(nextBrandId)}`; primaryLabel = "Ir para próxima marca"; secondaryHref = "home.html"; secondaryLabel = "Ver todas as marcas"; }
-  area.innerHTML = `<div class="result-card"><div class="result-top"><div class="medal-emoji">${medal}</div><div class="result-copy"><h2 class="result-title">Quiz finalizado</h2><p class="result-subtitle">${escapeHtml(quizState.marcaAtual.nome)} • ${escapeHtml(quizState.kbdAtual.nome)}</p></div></div><div class="result-score">${pct}%</div><div class="helper-text">Você acertou ${quizState.acertos} de ${quizState.total} perguntas.</div><div class="result-stats"><span class="summary-chip completed">Medalha ${medal}</span><span class="summary-chip ${pct === 100 ? "completed" : "pending"}">${pct === 100 ? "Aproveitamento máximo" : "Continue evoluindo"}</span>${!nextInBrand ? `<span class="summary-chip completed">Marca enviada ao Sheets</span>` : ""}</div><div class="action-stack"><a class="primary-button" href="${primaryHref}">${primaryLabel}</a><a class="secondary-button" href="${secondaryHref}">${secondaryLabel}</a></div></div>`;
+  area.innerHTML = `<div class="result-card"><div class="result-top"><div class="medal-emoji">${medal}</div><div class="result-copy"><h2 class="result-title">Quiz finalizado</h2><p class="result-subtitle">${escapeHtml(quizState.marcaAtual.nome)} • ${escapeHtml(quizState.kbdAtual.nome)}</p></div></div><div class="result-score">${pct}%</div><div class="helper-text">Você acertou ${quizState.acertos} de ${quizState.total} perguntas.</div><div class="result-stats"><span class="summary-chip completed">Medalha ${medal}</span><span class="summary-chip ${pct === 100 ? "completed" : "pending"}">${pct === 100 ? "Aproveitamento máximo" : "Continue evoluindo"}</span>${!nextInBrand ? `<span class="summary-chip completed">Envio da marca disparado</span>` : ""}</div><div class="action-stack"><a class="primary-button" href="${primaryHref}">${primaryLabel}</a><a class="secondary-button" href="${secondaryHref}">${secondaryLabel}</a></div></div>`;
 }
 
 function voltarHome() { window.location.href = "home.html"; }
