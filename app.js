@@ -136,6 +136,22 @@ function assetPath(path) {
     .map((part) => encodeURIComponent(part))
     .join("/");
 }
+function extractYouTubeVideoId(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  if (/^[a-zA-Z0-9_-]{11}$/.test(raw)) return raw;
+  const shortMatch = raw.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/i);
+  if (shortMatch) return shortMatch[1];
+  const longMatch = raw.match(/[?&]v=([a-zA-Z0-9_-]{11})/i);
+  if (longMatch) return longMatch[1];
+  const embedMatch = raw.match(/embed\/([a-zA-Z0-9_-]{11})/i);
+  if (embedMatch) return embedMatch[1];
+  return raw;
+}
+function getYouTubeEmbedUrl(value) {
+  const videoId = extractYouTubeVideoId(value);
+  return videoId ? `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1` : "";
+}
 function getBrandThemeClass(marcaId) { return `theme-${marcaId || "default"}`; }
 function isQuizCompleted(marcaId, kbdId) { const data = getCompletedData(); return !!(data[marcaId] && data[marcaId][kbdId]); }
 function markQuizCompleted(marcaId, kbdId) { const data = getCompletedData(); if (!data[marcaId]) data[marcaId] = {}; data[marcaId][kbdId] = true; localStorage.setItem("QUIZZES_COMPLETED", JSON.stringify(data)); }
@@ -281,8 +297,22 @@ function renderKbd() {
   document.getElementById("kbdQuizButton").textContent = done ? "Refazer quiz" : "Responder o Quiz";
   const videoFrame = document.getElementById("videoFrame");
   const videoPlaceholder = document.getElementById("videoPlaceholder");
-  if (kbd.videoId) { videoFrame.src = `https://www.youtube.com/embed/${kbd.videoId}`; videoFrame.classList.remove("hidden"); videoPlaceholder.classList.add("hidden"); }
-  else { videoFrame.classList.add("hidden"); videoPlaceholder.classList.remove("hidden"); videoPlaceholder.innerHTML = `<div class="inline-icon">${renderIcon("video")} Vídeo em breve</div><div class="helper-text">O layout foi mantido para você poder receber o material assim que ele estiver disponível.</div>`; }
+  const embedUrl = getYouTubeEmbedUrl(kbd.videoId);
+  if (embedUrl) {
+    videoFrame.src = embedUrl;
+    videoFrame.title = `${marca.nome} - ${kbd.nome}`;
+    videoFrame.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+    videoFrame.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+    videoFrame.setAttribute("loading", "lazy");
+    videoFrame.classList.remove("hidden");
+    videoPlaceholder.classList.add("hidden");
+    videoPlaceholder.innerHTML = "";
+  } else {
+    videoFrame.src = "";
+    videoFrame.classList.add("hidden");
+    videoPlaceholder.classList.remove("hidden");
+    videoPlaceholder.innerHTML = `<div class="inline-icon">${renderIcon("video")} Vídeo em breve</div><div class="helper-text">O layout foi mantido para você poder receber o material assim que ele estiver disponível.</div>`;
+  }
   const imagesBox = document.getElementById("imagensKbd");
   imagesBox.innerHTML = "";
   if (kbd.imagens && kbd.imagens.length) {
@@ -393,7 +423,7 @@ function mostrarResultadoFinal() {
   if (nextInBrand) { primaryHref = `kbd.html?marca=${encodeURIComponent(nextInBrand.marcaId)}&kbd=${encodeURIComponent(nextInBrand.kbdId)}`; primaryLabel = "Abrir próximo KBD"; secondaryHref = `marca.html?marca=${encodeURIComponent(nextInBrand.marcaId)}`; secondaryLabel = "Voltar para a marca"; }
   else if (nextBrandId) { primaryHref = `marca.html?marca=${encodeURIComponent(nextBrandId)}`; primaryLabel = "Ir para próxima marca"; secondaryHref = "home.html"; secondaryLabel = "Ver todas as marcas"; }
   const finalBullet = pct < 100 ? normalizeBulletText(getFallbackBulletText()) : "";
-  area.innerHTML = `<div class="result-card"><div class="result-top"><div class="medal-emoji">${medal}</div><div class="result-copy"><h2 class="result-title">Quiz finalizado</h2><p class="result-subtitle">${escapeHtml(quizState.marcaAtual.nome)} • ${escapeHtml(quizState.kbdAtual.nome)}</p></div></div><div class="result-score">${pct}%</div><div class="helper-text">Você acertou ${quizState.acertos} de ${quizState.total} perguntas.</div>${pct < 100 ? `<div class="justification-box"><div class="bullet-highlight">Bullet importante da marca</div><p class="justification-text">${escapeHtml(finalBullet)}</p></div>` : ""}<div class="result-stats"><span class="summary-chip completed">Medalha ${medal}</span><span class="summary-chip ${pct === 100 ? "completed" : "pending"}">${pct === 100 ? "Aproveitamento máximo" : "Continue evoluindo"}</span>${!nextInBrand ? `<span class="summary-chip completed">Envio da marca disparado</span>` : ""}</div><div class="action-stack"><a class="primary-button" href="${primaryHref}">${primaryLabel}</a><a class="secondary-button" href="${secondaryHref}">${secondaryLabel}</a></div></div>`;
+  area.innerHTML = `<div class="result-card"><div class="result-top"><div class="medal-emoji">${medal}</div><div class="result-copy"><h2 class="result-title">Quiz finalizado</h2><p class="result-subtitle">${escapeHtml(quizState.marcaAtual.nome)} • ${escapeHtml(quizState.kbdAtual.nome)}</p></div></div><div class="result-score">${pct}%</div><div class="helper-text">Você acertou ${quizState.acertos} de ${quizState.total} perguntas.</div>${pct < 100 ? `<div class="justification-box"><div class="bullet-highlight">Bullet importante da marca</div><p class="justification-text">${escapeHtml(finalBullet)}</p></div>` : ""}<div class="result-stats"><span class="summary-chip completed">Medalha ${medal}</span><span class="summary-chip ${pct === 100 ? "completed" : "pending"}">${pct === 100 ? "Aproveitamento máximo" : "Continue evoluindo"}</span>${!nextInBrand ? `<span class="summary-chip completed">Envio da marca disparado</span>` : ""}</div><div class="action-stack"><a class="primary-button" href="${primaryHref}">${primaryLabel}</a><a class="secondary-button" href="${secondaryHref}">${secondaryLabel}</a><a class="secondary-button" href="home.html">Voltar para a home das marcas</a></div></div>`;
 }
 
 function voltarHome() { window.location.href = "home.html"; }
