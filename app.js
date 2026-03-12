@@ -3,43 +3,43 @@ const ALLOWED_SECTORS = ["SPI200", "RS234", "PR87", "SC01"];
 
 const CONTENT = {
   marcas: [
-    { id: "always", nome: "ALWAYS", logo: "logos/always.jpg", kbds: [{ id: "kbd1", nome: "KBD Absorventes – Always Suave", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/Always.jpg"] }] },
+    { id: "always", nome: "ALWAYS", logo: "logos/always.jpg", kbds: [{ id: "kbd1", nome: "KBD Absorventes – Always Suave", videoId: null, imagens: ["kbds/Always.jpg"] }] },
     { id: "downy", nome: "DOWNY", logo: "logos/downy.png", kbds: [
-      { id: "kbd1", nome: "KBD Ponto Extra – Brisa", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/ponto%20extra%20-%20downy.jpg"] },
-      { id: "kbd2", nome: "KBD Bloco Azul (50%)", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/bloco%20azul%20downy.jpg"] },
-      { id: "kbd3", nome: "KBD Bloco Colorido (40%)", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/bloco%20colorido%20downy.jpg"] },
+      { id: "kbd1", nome: "KBD Ponto Extra – Brisa", videoId: null, imagens: ["kbds/ponto extra - downy.jpg"] },
+      { id: "kbd2", nome: "KBD Bloco Azul (50%)", videoId: null, imagens: ["kbds/bloco azul downy.jpg"] },
+      { id: "kbd3", nome: "KBD Bloco Colorido (40%)", videoId: null, imagens: ["kbds/bloco colorido downy.jpg"] },
     ]},
     { id: "pantene", nome: "PANTENE", logo: "logos/pantene.png", kbds: [
-      { id: "kbd1", nome: "KBD Bond Repair (20%)", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/bond%20repair%20pantene.jpg"] },
-      { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/top%20vers%C3%B5es%20pantene%20.jpg"] },
-      { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/oleo%20pantene.jpg"] },
-      { id: "kbd4", nome: "KBD Rio/Cachoeira Dourada", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/rio%20cachoeira%20dourada%20pantene.jpg"] },
+      { id: "kbd1", nome: "KBD Bond Repair (20%)", videoId: null, imagens: ["kbds/bond repair pantene.jpg"] },
+      { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: null, imagens: ["kbds/top versões pantene .jpg"] },
+      { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: null, imagens: ["kbds/oleo pantene.jpg"] },
+      { id: "kbd4", nome: "KBD Rio/Cachoeira Dourada", videoId: null, imagens: ["kbds/rio cachoeira dourada pantene.jpg"] },
     ]},
     { id: "pampers", nome: "PAMPERS", logo: "logos/pampers.png", kbds: [
-      { id: "kbd1", nome: "KBD Ponto Extra – 50% Tamanhos Grandes", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/ponto%20extra%20pampers.jpg"] },
-      { id: "kbd2", nome: "KBD Pants", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/pants%20sp%20pampers.jpg"] },
-      { id: "kbd3", nome: "KBD Pants + Premium (Lojas Sul)", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/pants%20%2B%20premium%20sul%20pampers.jpg"] },
-      { id: "kbd4", nome: "KBD Vale Night – SOS Gôndola", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/vale%20night%20SOS%20pampers.jpg"] },
-      { id: "kbd5", nome: "KBD Vale Night – Ponto Extra Farma", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/vale%20night%20ponto%20extra%20pammpers%20.jpg"] },
+      { id: "kbd1", nome: "KBD Ponto Extra – 50% Tamanhos Grandes", videoId: null, imagens: ["kbds/ponto extra pampers.jpg"] },
+      { id: "kbd2", nome: "KBD Pants", videoId: null, imagens: ["kbds/pants sp pampers.jpg"] },
+      { id: "kbd3", nome: "KBD Pants + Premium (Lojas Sul)", videoId: null, imagens: ["kbds/pants + premium sul pampers.jpg"] },
+      { id: "kbd4", nome: "KBD Vale Night – SOS Gôndola", videoId: null, imagens: ["kbds/vale night SOS pampers.jpg"] },
+      { id: "kbd5", nome: "KBD Vale Night – Ponto Extra Farma", videoId: null, imagens: ["kbds/vale night ponto extra pammpers .jpg"] },
     ]},
     { id: "secret", nome: "SECRET", logo: "logos/secret.png", kbds: [
-      { id: "kbd1", nome: "KBD 2 Bandejas", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/2%20bandejas%20secret.jpg"] },
-      { id: "kbd2", nome: "KBD Bloco 15 Frentes ou 3 Bandejas", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/15%20frentes%20secret.jpg"] },
+      { id: "kbd1", nome: "KBD 2 Bandejas", videoId: null, imagens: ["kbds/2 bandejas secret.jpg"] },
+      { id: "kbd2", nome: "KBD Bloco 15 Frentes ou 3 Bandejas", videoId: null, imagens: ["kbds/15 frentes secret.jpg"] },
     ]},
     { id: "oral-b", nome: "ORAL-B", logo: "logos/oral-b.png", kbds: [
-      { id: "kbd1", nome: "KBD Branqueamento (60%)", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/branqueamento%20oral-b.jpg"] },
-      { id: "kbd2", nome: "KBD 2 Pontos de Contato – Escovas", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/2%20pontos%20de%20contato%20oral-b.jpg"] },
-      { id: "kbd3", nome: "KBD Layout BIPE – Escovas", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/layout%20bipe%20oral-b.jpg"] },
+      { id: "kbd1", nome: "KBD Branqueamento (60%)", videoId: null, imagens: ["kbds/branqueamento oral-b.jpg"] },
+      { id: "kbd2", nome: "KBD 2 Pontos de Contato – Escovas", videoId: null, imagens: ["kbds/2 pontos de contato oral-b.jpg"] },
+      { id: "kbd3", nome: "KBD Layout BIPE – Escovas", videoId: null, imagens: ["kbds/layout bipe oral-b.jpg"] },
     ]},
     { id: "gillette", nome: "GILLETTE", logo: "logos/gillette.png", kbds: [
-      { id: "kbd1", nome: "KBD Sistemas – % de Ganchos", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/ganchos%20c8%20gillette.jpg"] },
-      { id: "kbd2", nome: "KBD 2 Pontos de Contato – Mach3/Presto3", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/KBD%20GILLETTE%202%20PONTOS%20DE%20CONTATO%20.jpg"] },
-      { id: "kbd3", nome: "KBD Carga Mach3 c/8 – 2 Ganchos", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/KBD%20GILLETTE%20CARGA%20MACH3%20C8%20%282%20GANCHOS%29.jpg"] },
+      { id: "kbd1", nome: "KBD Sistemas – % de Ganchos", videoId: null, imagens: ["kbds/ganchos c8 gillette.jpg"] },
+      { id: "kbd2", nome: "KBD 2 Pontos de Contato – Mach3/Presto3", videoId: null, imagens: ["kbds/KBD GILLETTE 2 PONTOS DE CONTATO .jpg"] },
+      { id: "kbd3", nome: "KBD Carga Mach3 c/8 – 2 Ganchos", videoId: null, imagens: ["kbds/KBD GILLETTE CARGA MACH3 C8 (2 GANCHOS).jpg"] },
     ]},
     { id: "venus", nome: "VENUS", logo: "logos/venus.png", kbds: [
-      { id: "kbd1", nome: "KBD Sistemas – 20% de Ganchos", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/KBD%20VENUS%20SISTEMAS%20%2820_%20GANCHOS%29.jpg"] },
-      { id: "kbd2", nome: "KBD 2 Pontos de Contato", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/KBD%20VENUS%202%20PONTOS%20DE%20CONTATO%20.jpg"] },
-      { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: null, imagens: ["https://raw.githubusercontent.com/SPOTPROMO-PG/missao-kbd/main/kbds/KBD%20VENUS%20CHECKOUT%20%28PELE%20SENS%C3%8DVEL%29.jpg"] },
+      { id: "kbd1", nome: "KBD Sistemas – 20% de Ganchos", videoId: null, imagens: ["kbds/KBD VENUS SISTEMAS (20_ GANCHOS).jpg"] },
+      { id: "kbd2", nome: "KBD 2 Pontos de Contato", videoId: null, imagens: ["kbds/KBD VENUS 2 PONTOS DE CONTATO .jpg"] },
+      { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: null, imagens: ["kbds/KBD VENUS CHECKOUT (PELE SENSÍVEL).jpg"] },
     ]},
   ],
 };
@@ -87,6 +87,8 @@ function getAllKbdsDone() { const data = getCompletedData(); return CONTENT.marc
 function getOverallProgress() { const total = getAllKbdsTotal(); const done = getAllKbdsDone(); return { done, total, pct: total ? Math.round((done / total) * 100) : 0 }; }
 function escapeHtml(value) { return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;"); }
 function renderIcon(name) { return ICONS[name] || ""; }
+function assetPath(path) { return encodeURI(String(path || "")); }
+function getBrandThemeClass(marcaId) { return `theme-${marcaId || "default"}`; }
 function isQuizCompleted(marcaId, kbdId) { const data = getCompletedData(); return !!(data[marcaId] && data[marcaId][kbdId]); }
 function markQuizCompleted(marcaId, kbdId) { const data = getCompletedData(); if (!data[marcaId]) data[marcaId] = {}; data[marcaId][kbdId] = true; localStorage.setItem("QUIZZES_COMPLETED", JSON.stringify(data)); }
 function getBrandProgress(marcaId) { const marca = getMarcaById(marcaId); if (!marca) return { done: 0, total: 0, pct: 0 }; const total = marca.kbds.length; const done = marca.kbds.filter((kbd) => isQuizCompleted(marca.id, kbd.id)).length; return { done, total, pct: total ? Math.round((done / total) * 100) : 0 }; }
@@ -156,8 +158,8 @@ function renderHome() {
     const progress = getBrandProgress(marca.id);
     const card = document.createElement("button");
     card.type = "button";
-    card.className = `brand-card ${progress.pct === 100 ? "completed" : "pending"}`;
-    card.innerHTML = `<div class="brand-main"><img class="brand-logo" src="${marca.logo}" alt="${escapeHtml(marca.nome)}"><div class="brand-info"><div class="brand-name">${escapeHtml(marca.nome)}</div><div class="brand-meta">${progress.done} de ${progress.total} KBDs respondidos</div></div></div><div style="display:flex;align-items:center;gap:10px;"><span class="progress-pill ${progress.pct === 100 ? "completed" : "pending"}">${progress.pct}%</span><span class="card-arrow">${renderIcon("arrowRight")}</span></div>`;
+    card.className = `brand-card ${getBrandThemeClass(marca.id)} ${progress.pct === 100 ? "completed" : "pending"}`;
+    card.innerHTML = `<div class="brand-main"><div class="brand-logo-wrap"><img class="brand-logo" src="${marca.logo}" alt="${escapeHtml(marca.nome)}"></div><div class="brand-info"><div class="brand-name">${escapeHtml(marca.nome)}</div><div class="brand-meta">${progress.done} de ${progress.total} KBDs respondidos</div></div></div><div style="display:flex;align-items:center;gap:10px;"><span class="progress-pill ${progress.pct === 100 ? "completed" : "pending"}">${progress.pct}%</span><span class="card-arrow">${renderIcon("arrowRight")}</span></div>`;
     card.onclick = () => window.location.href = `marca.html?marca=${encodeURIComponent(marca.id)}`;
     list.appendChild(card);
   });
@@ -206,7 +208,7 @@ function renderKbd() {
   const badge = document.getElementById("kbdStatusBadge");
   badge.textContent = done ? "Quiz concluído" : "Quiz pendente";
   document.getElementById("kbdTitle").textContent = `${marca.nome} • ${kbd.nome}`;
-  document.getElementById("kbdSubtitle").textContent = `${getQuizQuestions(marca.id, kbd.id).length} perguntas disponíveis neste KBD`;
+  document.getElementById("kbdSubtitle").textContent = `${getQuizQuestions(marca.id, kbd.id).length} perguntas disponíveis neste KBD • imagens de apoio abaixo`;
   document.getElementById("kbdTrack").style.width = `${brandProgress.pct}%`;
   document.getElementById("kbdProgressCopy").textContent = `${brandProgress.done}/${brandProgress.total} KBDs da marca já respondidos`;
   document.getElementById("kbdQuizButton").textContent = done ? "Refazer quiz" : "Responder o Quiz";
@@ -217,7 +219,7 @@ function renderKbd() {
   const imagesBox = document.getElementById("imagensKbd");
   imagesBox.innerHTML = "";
   if (kbd.imagens && kbd.imagens.length) {
-    kbd.imagens.forEach((src) => { const img = document.createElement("img"); img.src = src; img.alt = `${marca.nome} - ${kbd.nome}`; imagesBox.appendChild(img); });
+    kbd.imagens.forEach((src, index) => { const frame = document.createElement("div"); frame.className = "kbd-visual-card"; const img = document.createElement("img"); img.src = assetPath(src); img.alt = `${marca.nome} - ${kbd.nome} - imagem ${index + 1}`; img.loading = "lazy"; img.onerror = () => { frame.innerHTML = `<div class="image-placeholder"><div class="inline-icon">${renderIcon("image")} Imagem não encontrada</div><div class="helper-text">Confirme se o arquivo existe na pasta kbds com este nome: ${escapeHtml(src)}</div></div>`; }; frame.appendChild(img); imagesBox.appendChild(frame); });
   } else {
     imagesBox.innerHTML = `<div class="image-placeholder"><div class="inline-icon">${renderIcon("image")} Referências visuais em breve</div><div class="helper-text">Este espaço está preparado para imagens de execução, fotos de referência e materiais do KBD.</div></div>`;
   }
@@ -260,7 +262,7 @@ function mostrarPergunta() {
   const progresso = Math.round(((quizState.perguntaIndex + 1) / quizState.total) * 100);
   quizState.selectedOption = null;
   quizState.answeredCurrent = false;
-  area.innerHTML = `<div class="quiz-shell"><div class="summary-card"><div class="quiz-progress-meta"><div><div class="summary-card-label">Pergunta ${quizState.perguntaIndex + 1} de ${quizState.total}</div><div class="helper-text">Selecione uma alternativa e confirme para receber o feedback.</div></div><span class="summary-chip pending">${progresso}%</span></div><div class="progress-track"><div class="progress-fill" style="width:${progresso}%"></div></div></div><div class="question-card"><div class="question-helper">${escapeHtml(quizState.marcaAtual.nome)} • ${escapeHtml(quizState.kbdAtual.nome)}</div><h2 class="question-title">${escapeHtml(perguntaAtual.pergunta)}</h2><div class="option-list">${perguntaAtual.alternativas.map((alternativa, index) => { const letra = String.fromCharCode(65 + index); const limpo = String(alternativa).replace(/^[A-D][\.|\)]\s*/, ""); return `<button class="option-button" id="option-${letra}" type="button" onclick="selecionarAlternativa('${letra}')"><span class="option-icon">${letra}</span><span class="option-copy"><span class="option-label">Alternativa ${letra}</span><span class="option-text">${escapeHtml(limpo)}</span></span></button>`; }).join("")}</div><div class="action-stack"><button id="confirmAnswerButton" class="primary-button" type="button" onclick="confirmarResposta()" disabled>Confirmar resposta</button><button class="secondary-button" type="button" onclick="voltarKbd()">Voltar para o KBD</button></div></div></div>`;
+  area.innerHTML = `<div class="quiz-shell"><div class="summary-card"><div class="quiz-progress-meta"><div><div class="summary-card-label">Pergunta ${quizState.perguntaIndex + 1} de ${quizState.total}</div><div class="helper-text">Selecione uma alternativa e confirme para receber o feedback.</div></div><span class="summary-chip pending">${progresso}%</span></div><div class="progress-track"><div class="progress-fill" style="width:${progresso}%"></div></div></div><div class="question-card"><div class="question-helper">${escapeHtml(quizState.marcaAtual.nome)} • ${escapeHtml(quizState.kbdAtual.nome)}</div><h2 class="question-title">${escapeHtml(perguntaAtual.pergunta)}</h2><div class="option-list">${perguntaAtual.alternativas.map((alternativa, index) => { const letra = String.fromCharCode(65 + index); const limpo = String(alternativa).replace(/^[A-D][\.|\)]\s*/, ""); return `<button class="option-button" id="option-${letra}" type="button" onclick="selecionarAlternativa('${letra}')"><span class="option-icon">${letra}</span><span class="option-copy"><span class="option-label">Alternativa ${letra}</span><span class="option-text">${escapeHtml(limpo)}</span></span></button>`; }).join("")}</div><div class="action-stack"><button id="confirmAnswerButton" class="primary-button" type="button" onclick="confirmarResposta()" disabled>Validar resposta</button><button class="secondary-button" type="button" onclick="voltarKbd()">Voltar para o KBD</button></div></div><div id="feedbackAnchor"></div></div>`;
 }
 
 function selecionarAlternativa(letra) {
@@ -284,9 +286,11 @@ function confirmarResposta() {
   const wrapper = document.querySelector(".quiz-shell");
   const feedback = document.createElement("div");
   feedback.className = "feedback-card feedback-card-slide";
-  feedback.innerHTML = `<div class="feedback-top"><div class="feedback-badge ${acertou ? "success" : "error"}">${renderIcon(acertou ? "check" : "x")}</div><div class="feedback-copy"><h3 class="feedback-title">${acertou ? "Resposta correta" : "Resposta incorreta"}</h3><p class="feedback-text">${acertou ? "Boa! Você pode avançar para a próxima pergunta." : "Confira a alternativa correta e a regra do material antes de seguir."}</p></div></div><div class="answer-box"><div class="option-icon">${pergunta.gabarito}</div><div><div class="answer-label">Resposta correta</div><div class="answer-value">${escapeHtml(respostaCerta)}</div></div></div>${pergunta.justificativa ? `<div class="justification-box">${escapeHtml(pergunta.justificativa)}</div>` : ""}<div class="action-stack"><button class="primary-button" type="button" onclick="proximaPergunta()">${quizState.perguntaIndex + 1 < quizState.total ? "Próxima pergunta" : "Ver resultado"}</button></div>`;
+  feedback.innerHTML = `<div class="feedback-top"><div class="feedback-badge ${acertou ? "success" : "error"}">${renderIcon(acertou ? "check" : "x")}</div><div class="feedback-copy"><h3 class="feedback-title">${acertou ? "Resposta correta" : "Resposta incorreta"}</h3><p class="feedback-text">${acertou ? "Boa! A tela desce para você validar o retorno e seguir para a próxima." : "Veja a alternativa correta e a regra destacada antes de avançar."}</p></div></div><div class="answer-box"><div class="option-icon">${pergunta.gabarito}</div><div><div class="answer-label">Resposta correta</div><div class="answer-value">${escapeHtml(respostaCerta)}</div></div></div>${pergunta.justificativa ? `<div class="justification-box"><div class="bullet-highlight">Bullet importante</div>${escapeHtml(pergunta.justificativa)}</div>` : ""}<div class="action-stack"><button class="primary-button" type="button" onclick="proximaPergunta()">${quizState.perguntaIndex + 1 < quizState.total ? "Próxima pergunta" : "Ver resultado"}</button></div>`;
   wrapper.appendChild(feedback);
-  setTimeout(() => feedback.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+  const anchor = document.getElementById("feedbackAnchor");
+  wrapper.classList.add("quiz-validating");
+  setTimeout(() => { (anchor || feedback).scrollIntoView({ behavior: "smooth", block: "start" }); }, 90);
 }
 
 function proximaPergunta() { quizState.perguntaIndex += 1; if (quizState.perguntaIndex < quizState.perguntas.length) mostrarPergunta(); else mostrarResultadoFinal(); }
