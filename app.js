@@ -105,6 +105,7 @@ function saveKbdResult(marcaId, kbdId, payload) { const data = getQuizResultsDat
 function getBrandResults(marcaId) { const data = getQuizResultsData(); return data[marcaId] || {}; }
 function isBrandSentToSheets(marcaId) { const sent = getSentBrandsData(); return !!sent[marcaId]; }
 function markBrandSentToSheets(marcaId) { const sent = getSentBrandsData(); sent[marcaId] = new Date().toISOString(); saveSentBrandsData(sent); }
+
 function fecharImagemExpandida() {
   const existing = document.getElementById("imageLightbox");
   if (existing) existing.remove();
@@ -140,7 +141,6 @@ function abrirImagemExpandida(src, alt) {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") fecharImagemExpandida();
 });
-
 function applyTopbar(config) {
   const topbar = document.querySelector(".topbar");
   const logo = document.getElementById("topbarLogo");

@@ -56,7 +56,7 @@ const QUIZZES = {
           "C) Always Cobertura Suave, Always Seca Noturno, protetor diário e Always Ultra",
           "D) Always Suave, protetor diário, Always Suave Noturno e Always Seca"
         ],
-        "gabarito": "C",
+        "gabarito": "A",
         "justificativa": "O objetivo é ter 70% da gôndola de Always com versões Suave, medição em centímetros, considerando apenas absorventes Always e sem contar protetores diários; também traz o que entra como “Suave” e o que não pode ser considerado."
       }
     ]
@@ -218,7 +218,7 @@ const QUIZZES = {
           "C) Contar versões fora do Bloco Colorido para completar o percentual",
           "D) Medir o espaço de Downy em centímetros"
         ],
-        "gabarito": "A",
+        "gabarito": "C",
         "justificativa": "garantir 40% do espaço de Downy com o Bloco Colorido, medir em centímetros pela fórmula cm Bloco Colorido / cm Total Downy, considerar como bloco as versões Alfazema, Lírios, Verão Tropical e Frescor da Primavera, não contar versões fora do bloco, sempre considerar as versões disponíveis na loja, e os canais elegíveis são C&C, NMR/GMR, CLUB, LASA e HFS. Em caso de ruptura, a substituição deve ser por versões do mesmo bloco."
       },
       {
