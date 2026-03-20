@@ -18,8 +18,7 @@ const CONTENT = {
     ] },
     { id: "pantene", nome: "PANTENE", logo: "logos/pantene.png", kbds: [
       { id: "kbd1", nome: "KBD Bond Repair (20%)", videoId: "Bbd5nfGj6to", imagens: ["kbds/bond repair pantene.jpg"] },
-      { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: "fvdNLD-KDOY", imagens: ["kbds/top vers#U00f5es pantene .jpg"] },
-      { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: "a9hnQFciQxo", imagens: ["kbds/oleo pantene.jpg"] },
+{ id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: "fvdNLD-KDOY", imagens: ["kbds/top versões pantene .jpg"] },      { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: "a9hnQFciQxo", imagens: ["kbds/oleo pantene.jpg"] },
       { id: "kbd4", nome: "KBD Rio/Cachoeira Dourada", videoId: "O523onnWAMc", imagens: ["kbds/rio cachoeira dourada pantene.jpg"] },
     ] },
     { id: "pampers", nome: "PAMPERS", logo: "logos/pampers.png", kbds: [
@@ -46,8 +45,7 @@ const CONTENT = {
     { id: "venus", nome: "VENUS", logo: "logos/venus.png", kbds: [
       { id: "kbd1", nome: "KBD Sistemas – 20% de Ganchos", videoId: "aTdxSIGDruw", imagens: ["kbds/KBD VENUS  SISTEMAS (20_ GANCHOS).jpg"] },
       { id: "kbd2", nome: "KBD 2 Pontos de Contato", videoId: "8S-HXL504Y8", imagens: ["kbds/KBD VENUS  2 PONTOS DE CONTATO .jpg"] },
-      { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: "01FBpmoOQKo", imagens: ["kbds/KBD VENUS  CHECKOUT (PELE SENS#U00cdVEL).jpg"] },
-    ] },
+{ id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: "01FBpmoOQKo", imagens: ["kbds/KBD VENUS  CHECKOUT (PELE SENSÍVEL).jpg"] },    ] },
   ],
 };
 
