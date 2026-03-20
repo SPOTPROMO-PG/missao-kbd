@@ -18,7 +18,8 @@ const CONTENT = {
     ] },
     { id: "pantene", nome: "PANTENE", logo: "logos/pantene.png", kbds: [
       { id: "kbd1", nome: "KBD Bond Repair (20%)", videoId: "Bbd5nfGj6to", imagens: ["kbds/bond repair pantene.jpg"] },
-{ id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: "fvdNLD-KDOY", imagens: ["kbds/top versões pantene .jpg"] },      { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: "a9hnQFciQxo", imagens: ["kbds/oleo pantene.jpg"] },
+      { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: "fvdNLD-KDOY", imagens: ["kbds/top versões pantene .jpg"] },
+      { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: "a9hnQFciQxo", imagens: ["kbds/oleo pantene.jpg"] },
       { id: "kbd4", nome: "KBD Rio/Cachoeira Dourada", videoId: "O523onnWAMc", imagens: ["kbds/rio cachoeira dourada pantene.jpg"] },
     ] },
     { id: "pampers", nome: "PAMPERS", logo: "logos/pampers.png", kbds: [
@@ -45,7 +46,8 @@ const CONTENT = {
     { id: "venus", nome: "VENUS", logo: "logos/venus.png", kbds: [
       { id: "kbd1", nome: "KBD Sistemas – 20% de Ganchos", videoId: "aTdxSIGDruw", imagens: ["kbds/KBD VENUS  SISTEMAS (20_ GANCHOS).jpg"] },
       { id: "kbd2", nome: "KBD 2 Pontos de Contato", videoId: "8S-HXL504Y8", imagens: ["kbds/KBD VENUS  2 PONTOS DE CONTATO .jpg"] },
-{ id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: "01FBpmoOQKo", imagens: ["kbds/KBD VENUS  CHECKOUT (PELE SENSÍVEL).jpg"] },    ] },
+      { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: "01FBpmoOQKo", imagens: ["kbds/KBD VENUS  CHECKOUT (PELE SENSÍVEL).jpg"] },
+    ] },
   ],
 };
 
@@ -83,7 +85,7 @@ function getOverallProgress() { const total = getAllKbdsTotal(); const done = ge
 function escapeHtml(value) { return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;"); }
 function renderIcon(name) { return ICONS[name] || ""; }
 
-const AVAILABLE_KBD_ASSETS = ["kbds/15 frentes secret.jpg","kbds/2 bandejas secret.jpg","kbds/2 pontos de contato oral-b.jpg","kbds/Always.jpg","kbds/bloco azul downy.jpg","kbds/bloco colorido downy.jpg","kbds/bond repair pantene.jpg","kbds/branqueamento oral-b.jpg","kbds/ganchos c8 gillette.jpg","kbds/KBD GILLETTE  2 PONTOS DE CONTATO .jpg","kbds/KBD GILLETTE  CARGA MACH3 C8 (2 GANCHOS).jpg","kbds/KBD VENUS  2 PONTOS DE CONTATO .jpg","kbds/KBD VENUS  CHECKOUT (PELE SENS#U00cdVEL).jpg","kbds/KBD VENUS  SISTEMAS (20_ GANCHOS).jpg","kbds/layout bipe oral-b.jpg","kbds/oleo pantene.jpg","kbds/pants + premium sul pampers.jpg","kbds/pants sp pampers.jpg","kbds/ponto extra - downy.jpg","kbds/ponto extra pampers.jpg","kbds/rio cachoeira dourada pantene.jpg","kbds/top vers#U00f5es pantene .jpg","kbds/vale night ponto extra pammpers .jpg","kbds/vale night SOS pampers.jpg"];
+const AVAILABLE_KBD_ASSETS = ["kbds/15 frentes secret.jpg","kbds/2 bandejas secret.jpg","kbds/2 pontos de contato oral-b.jpg","kbds/Always.jpg","kbds/bloco azul downy.jpg","kbds/bloco colorido downy.jpg","kbds/bond repair pantene.jpg","kbds/branqueamento oral-b.jpg","kbds/ganchos c8 gillette.jpg","kbds/KBD GILLETTE  2 PONTOS DE CONTATO .jpg","kbds/KBD GILLETTE  CARGA MACH3 C8 (2 GANCHOS).jpg","kbds/KBD VENUS  2 PONTOS DE CONTATO .jpg","kbds/KBD VENUS  CHECKOUT (PELE SENSÍVEL).jpg","kbds/KBD VENUS  SISTEMAS (20_ GANCHOS).jpg","kbds/layout bipe oral-b.jpg","kbds/oleo pantene.jpg","kbds/pants + premium sul pampers.jpg","kbds/pants sp pampers.jpg","kbds/ponto extra - downy.jpg","kbds/ponto extra pampers.jpg","kbds/rio cachoeira dourada pantene.jpg","kbds/top versões pantene .jpg","kbds/vale night ponto extra pammpers .jpg","kbds/vale night SOS pampers.jpg"];
 
 function normalizeAssetName(value) { return String(value || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/#U00f5/gi, "o").replace(/#U00cd/gi, "I").replace(/[^a-zA-Z0-9]+/g, "").toLowerCase(); }
 function resolveKbdAsset(path) { const raw = String(path || "").trim(); if (!raw) return raw; if (AVAILABLE_KBD_ASSETS.includes(raw)) return raw; const wanted = normalizeAssetName(raw); const match = AVAILABLE_KBD_ASSETS.find((item) => normalizeAssetName(item) === wanted); return match || raw; }
@@ -139,6 +141,7 @@ function abrirImagemExpandida(src, alt) {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") fecharImagemExpandida();
 });
+
 function applyTopbar(config) {
   const topbar = document.querySelector(".topbar");
   const logo = document.getElementById("topbarLogo");
@@ -467,6 +470,7 @@ function renderKbd() {
     `;
   }
 }
+
 function renderQuiz() {
   ensureSetor();
   const marcaId = qs().get("marca");
@@ -801,6 +805,7 @@ function confirmarResposta() {
     (anchor || feedback).scrollIntoView({ behavior: "smooth", block: "start" });
   }, 90);
 }
+
 function proximaPergunta() {
   quizState.perguntaIndex += 1;
   if (quizState.perguntaIndex < quizState.perguntas.length) {
