@@ -18,7 +18,7 @@ const CONTENT = {
     ] },
     { id: "pantene", nome: "PANTENE", logo: "logos/pantene.png", kbds: [
       { id: "kbd1", nome: "KBD Bond Repair (20%)", videoId: "Bbd5nfGj6to", imagens: ["kbds/bond repair pantene.jpg"] },
-      { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: "fvdNLD-KDOY", imagens: ["kbds/top versões pantene .jpg"] },
+      { id: "kbd2", nome: "KBD Top Versões – Bambu, Colágeno e Biotinamina B3 (40%)", videoId: "fvdNLD-KDOY", imagens: ["kbds/top vers#U00f5es pantene .jpg"] },
       { id: "kbd3", nome: "KBD Óleo – 2 Pontos de Contato", videoId: "a9hnQFciQxo", imagens: ["kbds/oleo pantene.jpg"] },
       { id: "kbd4", nome: "KBD Rio/Cachoeira Dourada", videoId: "O523onnWAMc", imagens: ["kbds/rio cachoeira dourada pantene.jpg"] },
     ] },
@@ -46,7 +46,7 @@ const CONTENT = {
     { id: "venus", nome: "VENUS", logo: "logos/venus.png", kbds: [
       { id: "kbd1", nome: "KBD Sistemas – 20% de Ganchos", videoId: "aTdxSIGDruw", imagens: ["kbds/KBD VENUS  SISTEMAS (20_ GANCHOS).jpg"] },
       { id: "kbd2", nome: "KBD 2 Pontos de Contato", videoId: "8S-HXL504Y8", imagens: ["kbds/KBD VENUS  2 PONTOS DE CONTATO .jpg"] },
-      { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: "01FBpmoOQKo", imagens: ["kbds/KBD VENUS  CHECKOUT (PELE SENSÍVEL).jpg"] },
+      { id: "kbd3", nome: "KBD Checkout – Venus Pele Sensível", videoId: "01FBpmoOQKo", imagens: ["kbds/KBD VENUS  CHECKOUT (PELE SENS#U00cdVEL).jpg"] },
     ] },
   ],
 };
@@ -85,9 +85,9 @@ function getOverallProgress() { const total = getAllKbdsTotal(); const done = ge
 function escapeHtml(value) { return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;").replace(/'/g, "&#39;"); }
 function renderIcon(name) { return ICONS[name] || ""; }
 
-const AVAILABLE_KBD_ASSETS = ["kbds/15 frentes secret.jpg","kbds/2 bandejas secret.jpg","kbds/2 pontos de contato oral-b.jpg","kbds/Always.jpg","kbds/bloco azul downy.jpg","kbds/bloco colorido downy.jpg","kbds/bond repair pantene.jpg","kbds/branqueamento oral-b.jpg","kbds/ganchos c8 gillette.jpg","kbds/KBD GILLETTE  2 PONTOS DE CONTATO .jpg","kbds/KBD GILLETTE  CARGA MACH3 C8 (2 GANCHOS).jpg","kbds/KBD VENUS  2 PONTOS DE CONTATO .jpg","kbds/KBD VENUS  CHECKOUT (PELE SENSÍVEL).jpg","kbds/KBD VENUS  SISTEMAS (20_ GANCHOS).jpg","kbds/layout bipe oral-b.jpg","kbds/oleo pantene.jpg","kbds/pants + premium sul pampers.jpg","kbds/pants sp pampers.jpg","kbds/ponto extra - downy.jpg","kbds/ponto extra pampers.jpg","kbds/rio cachoeira dourada pantene.jpg","kbds/top versões pantene .jpg","kbds/vale night ponto extra pammpers .jpg","kbds/vale night SOS pampers.jpg"];
+const AVAILABLE_KBD_ASSETS = ["kbds/15 frentes secret.jpg","kbds/2 bandejas secret.jpg","kbds/2 pontos de contato oral-b.jpg","kbds/Always.jpg","kbds/bloco azul downy.jpg","kbds/bloco colorido downy.jpg","kbds/bond repair pantene.jpg","kbds/branqueamento oral-b.jpg","kbds/ganchos c8 gillette.jpg","kbds/KBD GILLETTE  2 PONTOS DE CONTATO .jpg","kbds/KBD GILLETTE  CARGA MACH3 C8 (2 GANCHOS).jpg","kbds/KBD VENUS  2 PONTOS DE CONTATO .jpg","kbds/KBD VENUS  CHECKOUT (PELE SENS#U00cdVEL).jpg","kbds/KBD VENUS  SISTEMAS (20_ GANCHOS).jpg","kbds/layout bipe oral-b.jpg","kbds/oleo pantene.jpg","kbds/pants + premium sul pampers.jpg","kbds/pants sp pampers.jpg","kbds/ponto extra - downy.jpg","kbds/ponto extra pampers.jpg","kbds/rio cachoeira dourada pantene.jpg","kbds/top vers#U00f5es pantene .jpg","kbds/vale night ponto extra pammpers .jpg","kbds/vale night SOS pampers.jpg"];
 
-function normalizeAssetName(value) { return String(value || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/#U00f5/gi, "o").replace(/#U00cd/gi, "i").replace(/[^a-zA-Z0-9]+/g, "").toLowerCase(); }
+function normalizeAssetName(value) { return String(value || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/#U00f5/gi, "o").replace(/#U00cd/gi, "I").replace(/[^a-zA-Z0-9]+/g, "").toLowerCase(); }
 function resolveKbdAsset(path) { const raw = String(path || "").trim(); if (!raw) return raw; if (AVAILABLE_KBD_ASSETS.includes(raw)) return raw; const wanted = normalizeAssetName(raw); const match = AVAILABLE_KBD_ASSETS.find((item) => normalizeAssetName(item) === wanted); return match || raw; }
 function assetPath(path) { return String(path || "").split("/").map((part) => encodeURIComponent(part)).join("/"); }
 function extractYouTubeVideoId(value) { const raw = String(value || "").trim(); if (!raw) return ""; if (/^[a-zA-Z0-9_-]{11}$/.test(raw)) return raw; const shortMatch = raw.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/i); if (shortMatch) return shortMatch[1]; const longMatch = raw.match(/[?&]v=([a-zA-Z0-9_-]{11})/i); if (longMatch) return longMatch[1]; const embedMatch = raw.match(/embed\/([a-zA-Z0-9_-]{11})/i); if (embedMatch) return embedMatch[1]; return raw; }
@@ -100,68 +100,46 @@ function getFirstPendingQuiz() { for (const marca of CONTENT.marcas) { const pen
 function getNextPendingInBrand(marcaId) { const marca = getMarcaById(marcaId); if (!marca) return null; const pending = marca.kbds.find((kbd) => !isQuizCompleted(marca.id, kbd.id)); return pending ? { marcaId, kbdId: pending.id } : null; }
 function findNextBrandWithPending(afterMarcaId) { const idx = CONTENT.marcas.findIndex((m) => m.id === afterMarcaId); for (let i = idx + 1; i < CONTENT.marcas.length; i++) { if (getNextPendingInBrand(CONTENT.marcas[i].id)) return CONTENT.marcas[i].id; } for (let i = 0; i < CONTENT.marcas.length; i++) { if (getNextPendingInBrand(CONTENT.marcas[i].id)) return CONTENT.marcas[i].id; } return null; }
 function medalEmoji(pct) { if (pct === 100) return "🥇"; if (pct >= 80) return "🥈"; return "🥉"; }
-function getQuizQuestions(marcaId, kbdId) { const source = (typeof QUIZZES !== "undefined" && QUIZZES) || window.QUIZZES || {}; const byBrand = source[marcaId] || {}; return Array.isArray(byBrand[kbdId]) ? byBrand[kbdId] : []; }
+function getQuizQuestions(marcaId, kbdId) { const byBrand = (window.QUIZZES && window.QUIZZES[marcaId]) || {}; return Array.isArray(byBrand[kbdId]) ? byBrand[kbdId] : []; }
 function saveKbdResult(marcaId, kbdId, payload) { const data = getQuizResultsData(); if (!data[marcaId]) data[marcaId] = {}; data[marcaId][kbdId] = payload; saveQuizResultsData(data); }
 function getBrandResults(marcaId) { const data = getQuizResultsData(); return data[marcaId] || {}; }
 function isBrandSentToSheets(marcaId) { const sent = getSentBrandsData(); return !!sent[marcaId]; }
 function markBrandSentToSheets(marcaId) { const sent = getSentBrandsData(); sent[marcaId] = new Date().toISOString(); saveSentBrandsData(sent); }
+function fecharImagemExpandida() {
+  const existing = document.getElementById("imageLightbox");
+  if (existing) existing.remove();
+  document.body.style.overflow = "";
+}
 
-function ensureSharedChrome() {
-  const appShell = document.querySelector(".app-shell");
-  const topbar = document.querySelector(".topbar");
-  if (!topbar) return;
+function abrirImagemExpandida(src, alt) {
+  fecharImagemExpandida();
 
-  const existingBack = topbar.querySelector("#topbarBack");
-  const existingBadge = topbar.querySelector("#topbarSetor");
-
-  topbar.innerHTML = `
-    <div class="topbar-left">
-      <button id="topbarBack" class="icon-button hidden" type="button" aria-label="Voltar"></button>
-      <div class="topbar-brand">
-        <img id="topbarLogo" class="topbar-logo" src="logo-missao-kbd-v2.png" alt="Missão KBD">
-        <div class="topbar-meta">
-          <div id="topbarEyebrow" class="topbar-eyebrow">Missão KBD</div>
-          <div id="topbarTitle" class="topbar-title">Missão KBD</div>
-          <div id="topbarSubtitle" class="topbar-subtitle">Treinamento por marcas</div>
-        </div>
-      </div>
-    </div>
-    <div class="topbar-right">
-      <span id="topbarSetor" class="setor-badge">—</span>
-      <button id="topbarMenu" class="icon-button" type="button" aria-label="Trocar setor"></button>
-      <button id="topbarLogout" class="icon-button hidden" type="button" aria-label="Sair"></button>
+  const overlay = document.createElement("div");
+  overlay.id = "imageLightbox";
+  overlay.className = "image-lightbox";
+  overlay.innerHTML = `
+    <button class="image-lightbox-close" type="button" aria-label="Fechar imagem">
+      ${renderIcon("x")}
+    </button>
+    <div class="image-lightbox-stage">
+      <img src="${src}" alt="${escapeHtml(alt)}" class="image-lightbox-img">
     </div>
   `;
 
-  if (existingBack && !existingBack.classList.contains("hidden")) {
-    const back = document.getElementById("topbarBack");
-    back.classList.remove("hidden");
-    if (typeof existingBack.onclick === "function") back.onclick = existingBack.onclick;
-  }
+  const closeBtn = overlay.querySelector(".image-lightbox-close");
+  if (closeBtn) closeBtn.onclick = fecharImagemExpandida;
 
-  const badge = document.getElementById("topbarSetor");
-  if (existingBadge && existingBadge.textContent) badge.textContent = existingBadge.textContent;
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) fecharImagemExpandida();
+  });
 
-  if (appShell && !document.querySelector(".bottom-nav")) {
-    const nav = document.createElement("nav");
-    nav.className = "bottom-nav";
-    nav.innerHTML = `
-      <a class="bottom-nav-link" data-nav="home" href="home.html">
-        <span class="bottom-nav-icon">${renderIcon("home")}</span>
-        <span class="bottom-nav-label">Home</span>
-      </a>
-      <a class="bottom-nav-link" data-nav="brands" href="home.html#listaMarcas">
-        <span class="bottom-nav-icon">${renderIcon("grid")}</span>
-        <span class="bottom-nav-label">Marcas</span>
-      </a>
-      <a class="bottom-nav-link" data-nav="quiz" href="quiz.html">
-        <span class="bottom-nav-icon">${renderIcon("quiz")}</span>
-        <span class="bottom-nav-label">Quiz</span>
-      </a>
-    `;
-    appShell.appendChild(nav);
-  }
+  document.body.appendChild(overlay);
+  document.body.style.overflow = "hidden";
 }
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") fecharImagemExpandida();
+});
 
 function applyTopbar(config) {
   const topbar = document.querySelector(".topbar");
@@ -293,7 +271,6 @@ function entrar() {
 }
 
 function renderHome() {
-  ensureSharedChrome();
   ensureSetor();
   applyTopbar({ eyebrow: "", title: "", subtitle: "", showBack: false, minimal: true, hideMenu: true, hideLogout: true });
   setBottomNav("home", getPrimaryQuizHref());
@@ -335,7 +312,6 @@ function renderHome() {
 }
 
 function renderMarca() {
-  ensureSharedChrome();
   ensureSetor();
   const marcaId = qs().get("marca");
   const marca = getMarcaById(marcaId);
@@ -399,7 +375,6 @@ function renderMarca() {
 }
 
 function renderKbd() {
-  ensureSharedChrome();
   ensureSetor();
   const marcaId = qs().get("marca");
   const kbdId = qs().get("kbd");
@@ -471,6 +446,8 @@ function renderKbd() {
       img.src = assetPath(resolvedSrc);
       img.alt = `${marca.nome} - ${kbd.nome} - imagem ${index + 1}`;
       img.loading = "lazy";
+      img.style.cursor = "zoom-in";
+      img.onclick = () => abrirImagemExpandida(img.src, img.alt);
       img.onerror = () => {
         frame.innerHTML = `
           <div class="image-placeholder">
@@ -493,7 +470,6 @@ function renderKbd() {
   }
 }
 function renderQuiz() {
-  ensureSharedChrome();
   ensureSetor();
   const marcaId = qs().get("marca");
   const kbdId = qs().get("kbd");
@@ -557,7 +533,6 @@ function renderQuiz() {
 }
 
 function renderQuizHub() {
-  ensureSharedChrome();
   applyTopbar({
     logo: "logo-missao-kbd-v2.png",
     eyebrow: "Missão KBD",
@@ -960,6 +935,3 @@ async function enviarConclusaoMarcaParaSheets(marcaId) {
     console.error(error);
   }
 }
-
-
-ensureSharedChrome();

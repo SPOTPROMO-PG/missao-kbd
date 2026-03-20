@@ -56,7 +56,7 @@ const QUIZZES = {
           "C) Always Cobertura Suave, Always Seca Noturno, protetor diário e Always Ultra",
           "D) Always Suave, protetor diário, Always Suave Noturno e Always Seca"
         ],
-        "gabarito": "A",
+        "gabarito": "C",
         "justificativa": "O objetivo é ter 70% da gôndola de Always com versões Suave, medição em centímetros, considerando apenas absorventes Always e sem contar protetores diários; também traz o que entra como “Suave” e o que não pode ser considerado."
       }
     ]
@@ -224,7 +224,7 @@ const QUIZZES = {
       {
         "pergunta": "Em quais canais esse KBD é elegível?",
         "alternativas": [
-          "A) Todos os canais, exceto DPP e Perfumaria",
+          "A) Todos os Canais",
           "B) Apenas C&C e NMR/GMR",
           "C) C&C, NMR/GMR, CLUB e LASA",
           "D) Somente DPP, HFS e Perfumaria"
