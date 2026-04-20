@@ -1,1 +1,73 @@
-<!doctype html><html lang="pt-br"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Missão KBD • Aula</title><link rel="stylesheet" href="style.css"><script defer src="app.js"></script></head><body onload="renderKbd()"><div class="bg-grid"></div><div class="bg-glow"></div><div class="app-shell"><header class="topbar topbar-minimal"><div class="topbar-left"><button id="topbarBack" class="icon-button" type="button" aria-label="Voltar"></button></div><div class="topbar-right"><span id="topbarSetor" class="setor-badge">—</span></div></header><main class="main-content"><section class="summary-card"><div class="summary-card-top"><div><span id="kbdStatusBadge" class="status-badge">Quiz pendente</span><div id="kbdTitle" class="section-title" style="margin-top:8px;">—</div><p id="kbdSubtitle" class="section-subtitle">—</p></div><div class="summary-card-icon">🎬</div></div><div class="progress-track"><div id="kbdTrack" class="progress-fill" style="width:0%"></div></div><p id="kbdProgressCopy" class="helper-text">0/0 KBDs respondidos</p></section><section class="card content-stack"><div class="section-head"><h2 class="section-title">Vídeo</h2><p class="section-subtitle">Treinamento em formato de aula para apoiar a execução em campo.</p></div><div class="media-frame"><iframe id="videoFrame" class="hidden" allowfullscreen></iframe><div id="videoPlaceholder" class="placeholder"></div></div></section><section class="card content-stack"><div class="section-head"><h2 class="section-title">Referências visuais</h2><p class="section-subtitle">Espaço preparado para imagens de execução, fotos de layout e materiais do KBD.</p></div><div id="imagensKbd" class="image-gallery"></div></section><button id="kbdQuizButton" class="primary-button" onclick="irParaQuiz()">Responder o Quiz</button></main></div></body></html>
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Missão KBD • Aula</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="app.js"></script>
+</head>
+<body onload="renderKbd()">
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="app-shell">
+
+    <header class="topbar topbar-minimal">
+      <div class="topbar-left">
+        <button id="topbarBack" class="icon-button" type="button" aria-label="Voltar"></button>
+      </div>
+      <div class="topbar-right">
+        <span id="topbarSetor" class="setor-badge">—</span>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <section class="summary-card" style="margin:16px 16px 0;">
+        <div class="summary-card-top">
+          <div>
+            <span id="kbdStatusBadge" class="status-badge">Quiz pendente</span>
+            <div id="kbdTitle" class="section-title" style="margin-top:8px;font-size:17px;">—</div>
+            <p id="kbdSubtitle" class="helper-text" style="margin-top:2px;">—</p>
+          </div>
+          <div class="summary-card-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="m17 10 5-3v10l-5-3z"/></svg>
+          </div>
+        </div>
+        <div class="progress-track">
+          <div id="kbdTrack" class="progress-fill" style="width:0%"></div>
+        </div>
+        <p id="kbdProgressCopy" class="helper-text">0/0 KBDs respondidos</p>
+      </section>
+
+      <div style="height:16px;"></div>
+
+      <div class="card content-stack" style="gap:16px;">
+        <div class="section-head" style="padding:0;">
+          <h2 class="section-title" style="font-size:17px;">Vídeo</h2>
+          <p class="section-subtitle">Treinamento em formato de aula para apoiar a execução em campo.</p>
+        </div>
+        <div class="media-frame">
+          <iframe id="videoFrame" class="hidden" allowfullscreen></iframe>
+          <div id="videoPlaceholder" class="placeholder"></div>
+        </div>
+      </div>
+
+      <div style="height:12px;"></div>
+
+      <div class="card content-stack" style="gap:16px;">
+        <div class="section-head" style="padding:0;">
+          <h2 class="section-title" style="font-size:17px;">Referências visuais</h2>
+          <p class="section-subtitle">Imagens de execução, fotos de layout e materiais do KBD.</p>
+        </div>
+        <div id="imagensKbd" class="image-gallery"></div>
+      </div>
+
+      <button id="kbdQuizButton" class="primary-button" onclick="irParaQuiz()" style="margin:16px;width:calc(100% - 32px);">
+        Responder o Quiz
+      </button>
+
+    </main>
+  </div>
+</body>
+</html>
