@@ -1,5 +1,5 @@
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxUqGTdSRyV2CQ2tNgL3I-IADDhD95NLcJHSxPeLS7Ibif3odpx6x39LBtnELsVarrv/exec";
-const APP_VERSION = "2.4.2";
+const APP_VERSION = "2.4.3";
 const REQUIRED_VIDEO_PERCENTAGE_FOR_QUIZ = 100;
 const DEVICE_ID_KEY = "KBD_DEVICE_ID";
 const SESSION_ID_KEY = "KBD_SESSION_ID";
@@ -183,7 +183,7 @@ const CONTENT = {
         comoConta: ["Medição em centímetros", "Considerar apenas Pantene Bond Repair", "Excluir packs do cálculo"],
         erroComum: ["Contar packs para completar o percentual"],
         focoPromotor: "Garantir no mínimo 20% do espaço de Pantene para Bond Repair.",
-        videoId: "Bbd5nfGj6to", videoUrl: "", imagens: ["kbds/guia-campo-2026/pantene-bond-repair-20.jpg"] },
+        videoId: "XQFrrLrJX18", videoUrl: "", imagens: ["kbds/guia-campo-2026/pantene-bond-repair-20.jpg"] },
       { id: "finalizadores", nome: "Finalizadores com Espaço Garantido", status: "novo", canais: "DPP, C&C, NMR/GMR, CLUB, LASA, HFS e Perfumaria",
         resumo: "Óleo, Sérum e Leave-in agora precisam ter quantidade mínima de frentes na gôndola: 8 em DPP, 6 nos demais canais.",
         comoConta: ["Cada produto voltado para frente = 1 frente", "Contar apenas frentes visíveis na gôndola", "Não duplicar a mesma frente", "Meta DPP: pelo menos 8 frentes", "Meta demais canais elegíveis: pelo menos 6 frentes"],
@@ -378,6 +378,9 @@ function getSavedVideoProgress(marcaId, kbdId) {
 
 function isVideoCompleteForQuiz(marcaId, kbdId) {
   const saved = getSavedVideoProgress(marcaId, kbdId);
+  const kbd = getKbdById(marcaId, kbdId);
+  const currentVideoId = kbd ? String(kbd.videoId || "").trim() : "";
+  if (currentVideoId && saved.videoId && saved.videoId !== currentVideoId) return false;
   if (saved.videoUnavailable) return true;
   return Number(saved.percentage || 0) >= REQUIRED_VIDEO_PERCENTAGE_FOR_QUIZ;
 }
